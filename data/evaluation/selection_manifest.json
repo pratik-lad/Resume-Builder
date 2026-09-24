@@ -1,0 +1,29 @@
+{
+  "purpose": "human-review queue; no row is complete project gold until reviewed",
+  "source_datasets_read_only": [
+    "master_resumes.jsonl",
+    "scraped_jobs.json",
+    "gold_labels.json",
+    "phase2_pairs.json",
+    "phase2_labels.json",
+    "phase3_pairs.json",
+    "phase3_labels.json",
+    "benchmarks.json",
+    "synthetic_profiles.json"
+  ],
+  "raw_resume_note": "Raw master resumes have no stable join to the supplied JD pair labels, so they were not mixed into this matching set.",
+  "selected": {
+    "structured_resume_profiles": 20,
+    "job_descriptions": 25,
+    "pairs": 50,
+    "human_score_label_pairs": 15,
+    "phase3_model_proposal_pairs": 10,
+    "new_cross_pairs": 25
+  },
+  "fit_band_counts": {
+    "clear_match": 9,
+    "partial_match": 27,
+    "clear_mismatch": 14
+  },
+  "review_requirement": "All gold_* columns and all proposed labels require human verification. Existing human labels are aggregate score labels, not the README-required project gold schema."
+}

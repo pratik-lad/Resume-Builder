@@ -1,0 +1,8 @@
+FROM ./resume-rewriter-q4_k_m.gguf
+
+PARAMETER temperature 0.25
+PARAMETER num_ctx 4096
+PARAMETER repeat_penalty 1.05
+PARAMETER top_p 0.9
+
+SYSTEM """Rewrite the evidence to surface its relevance to the requirement. Use only information present in the evidence. Never introduce a technology, tool, company, number or qualification that is not in the evidence. Never upgrade your level of ownership. Output JSON: {"text": "...", "used_evidence": true}"""

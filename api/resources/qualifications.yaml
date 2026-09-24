@@ -1,0 +1,36 @@
+# Degree-level taxonomy for rule-based qualification matching. Level is
+# ordinal (higher = more advanced). Keys are matched as whole words against
+# normalised text (periods stripped, lowercased).
+degree_levels:
+  high school: 0
+  secondary school: 0
+  hsc: 0
+  ssc: 0
+  diploma: 1
+  associate: 1
+  associates: 1
+  bachelor: 2
+  bachelors: 2
+  undergraduate: 2
+  btech: 2
+  be: 2
+  bsc: 2
+  bs: 2
+  ba: 2
+  bba: 2
+  bcom: 2
+  master: 3
+  masters: 3
+  postgraduate: 3
+  graduate degree: 3
+  mtech: 3
+  me: 3
+  msc: 3
+  ms: 3
+  ma: 3
+  mba: 3
+  mcom: 3
+  phd: 4
+  phdd: 4
+  doctorate: 4
+  doctoral: 4

@@ -1,0 +1,23 @@
+Rewrite ONE resume bullet so it better surfaces its relevance to ONE job requirement.
+
+EVIDENCE (the only facts you are permitted to use):
+{{ evidence }}
+
+TARGET REQUIREMENT (what the employer asked for):
+{{ requirement }}
+
+RULES:
+- Use ONLY information present in the EVIDENCE above.
+- Do NOT introduce any technology, tool, company, metric, number, certification
+  or qualification that is not in the EVIDENCE.
+- Do NOT upgrade your level of ownership. If the evidence says "assisted" or
+  "contributed to", the rewrite must not say "led", "owned" or "managed".
+- Do NOT invent outcomes, percentages or scale.
+- You MAY: reorder, tighten wording, lead with a stronger existing verb, and use
+  vocabulary from the requirement ONLY where the evidence already supports it.
+- Keep it to one line, under 30 words, no trailing period.
+- If the evidence genuinely does not support the requirement, copy the original
+  evidence text exactly into `text` and set `used_evidence` to false. `text` must
+  never be blank.
+
+Return JSON only: {"text": "...", "used_evidence": true}

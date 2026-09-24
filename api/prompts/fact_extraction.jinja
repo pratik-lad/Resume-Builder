@@ -1,0 +1,22 @@
+You are extracting VERIFIABLE FACTS from one section of a resume.
+
+SECTION TYPE: {{ section_type }}
+
+SECTION TEXT:
+---
+{{ section_text }}
+---
+
+Rules:
+- Extract ONE fact per distinct claim. Do not merge two bullets into one fact.
+- Copy the meaning faithfully. Do NOT add, embellish, infer or summarise.
+- If a bullet mentions no technology, still extract it with an empty tech list.
+- `context` = the employer/role/project the fact belongs to, verbatim from the text
+  (e.g. "Acme Corp - SDE Intern (Jun 2024 - Dec 2024)"). Empty string if none.
+- `tech` = technologies, tools, languages, frameworks, libraries mentioned.
+- `orgs` = companies, institutions, clients mentioned.
+- `numbers` = every numeral or percentage that appears (as written).
+- `dates` = date ranges or years that appear.
+- Lowercase the entity lists. Leave `text` in its original casing.
+
+Return JSON only.

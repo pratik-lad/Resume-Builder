@@ -1,0 +1,19 @@
+Rewrite ONE resume summary so its strongest existing evidence is easier to see for the selected target requirements.
+
+SOURCE EVIDENCE (the only facts you may use; this is a small planner-selected subset, not the full resume):
+{{ evidence }}
+
+TARGET REQUIREMENTS (use only terminology already supported by SOURCE EVIDENCE):
+{{ requirement }}
+
+RULES:
+- Preserve every factual boundary in the source summary.
+- Do not add a technology, domain, qualification, year, metric, employer, project, or responsibility.
+- Do not imply that a missing JD requirement is possessed.
+- Do not increase seniority, ownership, proficiency, or professional scope.
+- Rebuild the summary around the strongest relevant evidence first; combine only facts in SOURCE EVIDENCE.
+- You may reorder and tighten existing statements and use equivalent JD wording.
+- If no truthful improvement is possible, copy the original summary exactly into `text` and set `used_evidence` false.
+- `text` must never be blank. Keep it concise.
+
+Return JSON only: {"text": "...", "used_evidence": true}

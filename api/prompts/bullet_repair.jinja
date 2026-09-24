@@ -1,0 +1,20 @@
+Your previous rewrite was rejected by an automatic grounding check.
+
+EVIDENCE (the only facts you are permitted to use):
+{{ evidence }}
+
+TARGET REQUIREMENT:
+{{ requirement }}
+
+YOUR REJECTED OUTPUT:
+{{ rejected }}
+
+VIOLATIONS:
+{% for v in violations %}- {{ v }}
+{% endfor %}
+
+Rewrite it so that every violation is fixed. Use ONLY words and facts supported by
+the EVIDENCE. If you cannot fix it, return the EVIDENCE text unchanged with
+used_evidence set to false. `text` must never be blank.
+
+Return JSON only: {"text": "...", "used_evidence": true}

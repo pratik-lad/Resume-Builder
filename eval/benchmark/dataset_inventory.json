@@ -1,0 +1,20 @@
+{
+  "raw": {
+    "resumes": 4817,
+    "job_records": 2500,
+    "unique_job_ids": 2471,
+    "identical_duplicate_job_records": 29,
+    "profiles": 640
+  },
+  "curated_regression_cases": 25,
+  "human_gold_labels_total": 108,
+  "human_gold_joined": 108,
+  "human_gold_unjoined_pair_ids": [],
+  "development_labels": {
+    "phase2_pairs": 5000,
+    "phase2_labels": 4945,
+    "phase3_pairs": 5000,
+    "phase3_labels": 22465,
+    "provenance": "model-generated skills labels plus deterministic dimensions"
+  }
+}

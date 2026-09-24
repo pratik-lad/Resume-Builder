@@ -1,0 +1,499 @@
+{
+  "status": "draft",
+  "updated_at": "2026-09-22T05:28:01.295630+00:00",
+  "draft": {
+    "fact_keys": [
+      "role:1",
+      "skills_primary:1",
+      "skills_primary:2",
+      "skills_primary:3",
+      "skills_secondary:1",
+      "skills_secondary:2",
+      "experience_years",
+      "seniority",
+      "domain:1",
+      "location:1"
+    ],
+    "requirements": [
+      {
+        "req_id": "R01",
+        "text": "Design, develop, and deploy scalable applications using Java and Spring Boot",
+        "type": "responsibility",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [
+          "java",
+          "spring"
+        ],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R02",
+        "text": "Build and maintain Microservices-based architecture",
+        "type": "responsibility",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [
+          "microservices"
+        ],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R03",
+        "text": "Develop and integrate event-driven systems using Spring Kafka",
+        "type": "responsibility",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [
+          "kafka",
+          "spring kafka"
+        ],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R04",
+        "text": "Design and optimize PostgreSQL database schemas and queries",
+        "type": "responsibility",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [
+          "postgresql"
+        ],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R05",
+        "text": "Collaborate with frontend, DevOps, and QA teams for end-to-end delivery",
+        "type": "responsibility",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R06",
+        "text": "Implement RESTful APIs and ensure high performance and responsiveness",
+        "type": "responsibility",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [
+          "rest api"
+        ],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R07",
+        "text": "Write clean, maintainable, and testable code following best practices",
+        "type": "responsibility",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R08",
+        "text": "Participate in code reviews, sprint planning, and technical discussions",
+        "type": "responsibility",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R09",
+        "text": "Troubleshoot, debug, and enhance existing applications",
+        "type": "responsibility",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R10",
+        "text": "Ensure application security, scalability, and reliability",
+        "type": "responsibility",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R11",
+        "text": "Strong experience in Java (Core + Advanced)",
+        "type": "hard_skill",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [
+          "java"
+        ],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R12",
+        "text": "Hands-on expertise in Spring Boot",
+        "type": "hard_skill",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [
+          "spring"
+        ],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R13",
+        "text": "Solid understanding of Microservices Architecture",
+        "type": "hard_skill",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [
+          "microservices architecture"
+        ],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R14",
+        "text": "Experience with Spring Kafka / Apache Kafka",
+        "type": "hard_skill",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [
+          "spring kafka",
+          "kafka"
+        ],
+        "logic": "any",
+        "source_text": ""
+      },
+      {
+        "req_id": "R15",
+        "text": "Proficiency in PostgreSQL",
+        "type": "hard_skill",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [
+          "postgresql"
+        ],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R16",
+        "text": "Experience in building and consuming REST APIs",
+        "type": "hard_skill",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [
+          "rest api"
+        ],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R17",
+        "text": "Design Patterns",
+        "type": "hard_skill",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [
+          "design patterns"
+        ],
+        "logic": "single",
+        "source_text": "Knowledge of Design Patterns and Data Structures"
+      },
+      {
+        "req_id": "R18",
+        "text": "Data Structures",
+        "type": "hard_skill",
+        "must_have": true,
+        "min_years": 0,
+        "canonical_skills": [
+          "dsa"
+        ],
+        "logic": "single",
+        "source_text": "Knowledge of Design Patterns and Data Structures"
+      },
+      {
+        "req_id": "R19",
+        "text": "Experience with React.js for frontend development",
+        "type": "hard_skill",
+        "must_have": false,
+        "min_years": 0,
+        "canonical_skills": [
+          "react"
+        ],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R20",
+        "text": "Docker",
+        "type": "hard_skill",
+        "must_have": false,
+        "min_years": 0,
+        "canonical_skills": [
+          "docker"
+        ],
+        "logic": "single",
+        "source_text": "Familiarity with Docker & Kubernetes"
+      },
+      {
+        "req_id": "R21",
+        "text": "Kubernetes",
+        "type": "hard_skill",
+        "must_have": false,
+        "min_years": 0,
+        "canonical_skills": [
+          "kubernetes"
+        ],
+        "logic": "single",
+        "source_text": "Familiarity with Docker & Kubernetes"
+      },
+      {
+        "req_id": "R22",
+        "text": "Knowledge of CI/CD pipelines (Jenkins, GitHub Actions, etc.)",
+        "type": "hard_skill",
+        "must_have": false,
+        "min_years": 0,
+        "canonical_skills": [
+          "github actions",
+          "jenkins"
+        ],
+        "logic": "single",
+        "source_text": ""
+      },
+      {
+        "req_id": "R23",
+        "text": "Exposure to Cloud platforms (AWS / Azure / GCP)",
+        "type": "hard_skill",
+        "must_have": false,
+        "min_years": 0,
+        "canonical_skills": [
+          "aws",
+          "azure",
+          "gcp"
+        ],
+        "logic": "any",
+        "source_text": ""
+      },
+      {
+        "req_id": "R24",
+        "text": "Understanding of Redis / Caching mechanisms",
+        "type": "hard_skill",
+        "must_have": false,
+        "min_years": 0,
+        "canonical_skills": [
+          "redis"
+        ],
+        "logic": "single",
+        "source_text": ""
+      }
+    ],
+    "matches": [
+      {
+        "req_id": "R01",
+        "score": 0.55,
+        "fact_keys": [
+          "role:1"
+        ],
+        "status": "partial",
+        "method": "semantic"
+      },
+      {
+        "req_id": "R02",
+        "score": 0.55,
+        "fact_keys": [
+          "role:1"
+        ],
+        "status": "partial",
+        "method": "semantic"
+      },
+      {
+        "req_id": "R03",
+        "score": 0.0,
+        "fact_keys": [],
+        "status": "missing",
+        "method": "none"
+      },
+      {
+        "req_id": "R04",
+        "score": 1.0,
+        "fact_keys": [
+          "skills_primary:3"
+        ],
+        "status": "covered",
+        "method": "lexical"
+      },
+      {
+        "req_id": "R05",
+        "score": 0.55,
+        "fact_keys": [
+          "role:1"
+        ],
+        "status": "partial",
+        "method": "semantic"
+      },
+      {
+        "req_id": "R06",
+        "score": 0.55,
+        "fact_keys": [
+          "role:1"
+        ],
+        "status": "partial",
+        "method": "semantic"
+      },
+      {
+        "req_id": "R07",
+        "score": 0.0,
+        "fact_keys": [],
+        "status": "missing",
+        "method": "none"
+      },
+      {
+        "req_id": "R08",
+        "score": 0.55,
+        "fact_keys": [
+          "role:1"
+        ],
+        "status": "partial",
+        "method": "semantic"
+      },
+      {
+        "req_id": "R09",
+        "score": 0.55,
+        "fact_keys": [
+          "skills_secondary:1"
+        ],
+        "status": "partial",
+        "method": "semantic"
+      },
+      {
+        "req_id": "R10",
+        "score": 0.55,
+        "fact_keys": [
+          "skills_secondary:1"
+        ],
+        "status": "partial",
+        "method": "semantic"
+      },
+      {
+        "req_id": "R11",
+        "score": 0.0,
+        "fact_keys": [],
+        "status": "missing",
+        "method": "none"
+      },
+      {
+        "req_id": "R12",
+        "score": 0.0,
+        "fact_keys": [],
+        "status": "missing",
+        "method": "none"
+      },
+      {
+        "req_id": "R13",
+        "score": 0.0,
+        "fact_keys": [],
+        "status": "missing",
+        "method": "none"
+      },
+      {
+        "req_id": "R14",
+        "score": 0.0,
+        "fact_keys": [],
+        "status": "missing",
+        "method": "none"
+      },
+      {
+        "req_id": "R15",
+        "score": 1.0,
+        "fact_keys": [
+          "skills_primary:3"
+        ],
+        "status": "covered",
+        "method": "lexical"
+      },
+      {
+        "req_id": "R16",
+        "score": 0.0,
+        "fact_keys": [],
+        "status": "missing",
+        "method": "none"
+      },
+      {
+        "req_id": "R17",
+        "score": 0.0,
+        "fact_keys": [],
+        "status": "missing",
+        "method": "none"
+      },
+      {
+        "req_id": "R18",
+        "score": 0.0,
+        "fact_keys": [],
+        "status": "missing",
+        "method": "none"
+      },
+      {
+        "req_id": "R19",
+        "score": 0.0,
+        "fact_keys": [],
+        "status": "missing",
+        "method": "none"
+      },
+      {
+        "req_id": "R20",
+        "score": 1.0,
+        "fact_keys": [
+          "skills_secondary:1"
+        ],
+        "status": "covered",
+        "method": "lexical"
+      },
+      {
+        "req_id": "R21",
+        "score": 0.0,
+        "fact_keys": [],
+        "status": "missing",
+        "method": "none"
+      },
+      {
+        "req_id": "R22",
+        "score": 0.0,
+        "fact_keys": [],
+        "status": "missing",
+        "method": "none"
+      },
+      {
+        "req_id": "R23",
+        "score": 0.0,
+        "fact_keys": [],
+        "status": "missing",
+        "method": "none"
+      },
+      {
+        "req_id": "R24",
+        "score": 1.0,
+        "fact_keys": [
+          "skills_secondary:2"
+        ],
+        "status": "covered",
+        "method": "lexical"
+      }
+    ],
+    "decision": "partial",
+    "confidence": "medium",
+    "notes": ""
+  }
+}

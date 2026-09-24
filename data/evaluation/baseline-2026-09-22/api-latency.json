@@ -1,0 +1,172 @@
+{
+  "scope": "Fresh real-PDF API uploads, same resume/JD repeated. Timing only; no gold truth, no n8n execution.",
+  "resume": "C:\\Users\\prati\\OneDrive\\Documents\\PratikBugade__2026.pdf",
+  "resume_sha256": "c1c61b1157875e60bbff8c4aac26b914e328fb5e7b81814fe5ae12f5f72c5b0d",
+  "jd_id": "linkedin_4402929948",
+  "jd_title": "DEVOPS ENGINEER - CLOUD &amp; CI/CD - VOIS",
+  "runs": [
+    {
+      "iteration": 1,
+      "stages": {
+        "ingest": {
+          "seconds": 54.549866100016516,
+          "http_status": 200
+        },
+        "jd_extraction": {
+          "seconds": 27.377636099990923,
+          "http_status": 200
+        },
+        "match": {
+          "seconds": 8.822925599990413,
+          "http_status": 200
+        },
+        "rewrite": {
+          "seconds": 3.9624093999736942,
+          "http_status": 200
+        },
+        "render": {
+          "seconds": 0.4720981999998912,
+          "http_status": 200
+        }
+      },
+      "outcome": "rendered",
+      "run_id": "872fc6c49e99",
+      "fact_count": 30,
+      "sections": {
+        "header": 8,
+        "projects": 20,
+        "skills": 10,
+        "education": 12,
+        "achievements": 10
+      },
+      "score": 69.1,
+      "ucr": 0.0,
+      "rewrite_counts": {
+        "accepted": 1,
+        "unchanged": 0,
+        "reverted": 2
+      },
+      "download_url": "/v1/download/872fc6c49e99",
+      "total_seconds": 95.1889366999967
+    },
+    {
+      "iteration": 2,
+      "stages": {
+        "ingest": {
+          "seconds": 47.42007599998033,
+          "http_status": 200
+        },
+        "jd_extraction": {
+          "seconds": 25.71702500001993,
+          "http_status": 200
+        },
+        "match": {
+          "seconds": 0.4286831000354141,
+          "http_status": 200
+        },
+        "rewrite": {
+          "seconds": 4.05435429996578,
+          "http_status": 200
+        },
+        "render": {
+          "seconds": 0.48119179997593164,
+          "http_status": 200
+        }
+      },
+      "outcome": "rendered",
+      "run_id": "6e75b954bb85",
+      "fact_count": 30,
+      "sections": {
+        "header": 8,
+        "projects": 20,
+        "skills": 10,
+        "education": 12,
+        "achievements": 10
+      },
+      "score": 69.1,
+      "ucr": 0.0,
+      "rewrite_counts": {
+        "accepted": 1,
+        "unchanged": 0,
+        "reverted": 2
+      },
+      "download_url": "/v1/download/6e75b954bb85",
+      "total_seconds": 78.10760310001206
+    },
+    {
+      "iteration": 3,
+      "stages": {
+        "ingest": {
+          "seconds": 53.95331820001593,
+          "http_status": 200
+        },
+        "jd_extraction": {
+          "seconds": 31.67093639995437,
+          "http_status": 200
+        },
+        "match": {
+          "seconds": 0.358508899982553,
+          "http_status": 200
+        },
+        "rewrite": {
+          "seconds": 3.7801959000062197,
+          "http_status": 200
+        },
+        "render": {
+          "seconds": 0.45622089999960735,
+          "http_status": 200
+        }
+      },
+      "outcome": "rendered",
+      "run_id": "04a59a493d15",
+      "fact_count": 30,
+      "sections": {
+        "header": 8,
+        "projects": 20,
+        "skills": 10,
+        "education": 12,
+        "achievements": 10
+      },
+      "score": 69.1,
+      "ucr": 0.0,
+      "rewrite_counts": {
+        "accepted": 1,
+        "unchanged": 0,
+        "reverted": 2
+      },
+      "download_url": "/v1/download/04a59a493d15",
+      "total_seconds": 90.22451460000593
+    }
+  ],
+  "health": {
+    "status": "ok",
+    "ollama": "up",
+    "models": [
+      "qwen3.5:4b",
+      "llama3.2:3b",
+      "llama3.1:8b"
+    ],
+    "configured": {
+      "extract": "qwen3.5:4b",
+      "rewrite": "qwen3.5:4b",
+      "num_ctx": 8192,
+      "embeddings": "BAAI/bge-small-en-v1.5"
+    }
+  },
+  "successful_upload_to_render_seconds": {
+    "n": 3,
+    "p50": 90.22451460000593,
+    "p95": 94.69249448999763
+  },
+  "all_attempts_seconds": {
+    "n": 3,
+    "p50": 90.22451460000593,
+    "p95": 94.69249448999763
+  },
+  "rewrite_seconds": {
+    "n": 3,
+    "p50": 3.9624093999736942,
+    "p95": 4.045159809966572
+  },
+  "resume_unchanged": true
+}

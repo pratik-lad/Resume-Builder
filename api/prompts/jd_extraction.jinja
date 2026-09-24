@@ -1,0 +1,31 @@
+You are extracting REQUIREMENTS from a job description.
+
+JOB DESCRIPTION:
+---
+{{ jd_text }}
+---
+
+Rules:
+- One requirement per distinct expectation. Split compound sentences.
+- `text` must be an exact, contiguous phrase copied from the job description.
+  Do not paraphrase it. This lets a human reviewer trace every requirement.
+- Ignore company marketing, benefits, culture blurbs, and EEO statements.
+- `type`:
+    hard_skill    - a technical ability (Python, machine learning, SQL)
+    tool          - a named product or platform (Docker, Tableau, AWS)
+    responsibility- something the person will DO (build data pipelines, mentor juniors)
+    qualification - degree, years of experience, certification
+    soft_skill    - communication, teamwork, ownership
+- `must_have`: true if listed under required/must-have/essential or phrased as a
+  hard requirement. false if under preferred/nice-to-have/bonus/plus.
+- `min_years`: the number of years demanded, or 0 if unstated.
+- `skills`: lowercase canonical skill names mentioned in this requirement.
+- Extract ALL required and preferred expectations; there is no requirement-count limit.
+  Include every skill, tool, responsibility, qualification, experience duration, domain,
+  certification, and soft skill, including expectations near the end of the JD.
+  Do not invent requirements not in the text.
+- Before returning JSON, silently compare the extracted requirements against every sentence and
+  bullet in this JD chunk. Add any omitted job expectation, including items expressed in prose.
+- Preserve exact source phrases so the downstream resume builder can verify complete JD coverage.
+
+Return JSON only.

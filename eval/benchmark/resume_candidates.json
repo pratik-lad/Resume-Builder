@@ -1,0 +1,327 @@
+{
+  "status": "candidate_records_only_not_gold",
+  "source": "master_resumes.jsonl",
+  "count": 20,
+  "records": [
+    {
+      "record_id": "resume-line-100-2287f6ef41c6",
+      "source_line": 100,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 5
+    },
+    {
+      "record_id": "resume-line-1000-ec6e5d761d36",
+      "source_line": 1000,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 9
+    },
+    {
+      "record_id": "resume-line-1001-3193e42a3450",
+      "source_line": 1001,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 5
+    },
+    {
+      "record_id": "resume-line-1002-7b749f889b0f",
+      "source_line": 1002,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 6
+    },
+    {
+      "record_id": "resume-line-1003-c0c8e0484909",
+      "source_line": 1003,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 9
+    },
+    {
+      "record_id": "resume-line-1004-503845217b0a",
+      "source_line": 1004,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 8
+    },
+    {
+      "record_id": "resume-line-1005-9f2991c43b00",
+      "source_line": 1005,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 6
+    },
+    {
+      "record_id": "resume-line-1006-ff9d1c81ad36",
+      "source_line": 1006,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 5
+    },
+    {
+      "record_id": "resume-line-1007-676faa43d84b",
+      "source_line": 1007,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 6
+    },
+    {
+      "record_id": "resume-line-1008-5d2b1d52a823",
+      "source_line": 1008,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 6
+    },
+    {
+      "record_id": "resume-line-1009-e2003aba7c00",
+      "source_line": 1009,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 7
+    },
+    {
+      "record_id": "resume-line-101-9b85111f5571",
+      "source_line": 101,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 6
+    },
+    {
+      "record_id": "resume-line-1010-bdbdba320007",
+      "source_line": 1010,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 6
+    },
+    {
+      "record_id": "resume-line-1011-f8bbf48b3cbd",
+      "source_line": 1011,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 4
+    },
+    {
+      "record_id": "resume-line-1012-2a708bdb2d4f",
+      "source_line": 1012,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 8
+    },
+    {
+      "record_id": "resume-line-1013-8341f499aeb2",
+      "source_line": 1013,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 9
+    },
+    {
+      "record_id": "resume-line-1014-167a59c6192d",
+      "source_line": 1014,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 8
+    },
+    {
+      "record_id": "resume-line-1015-b9334d842652",
+      "source_line": 1015,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 5
+    },
+    {
+      "record_id": "resume-line-1016-eca8f8040674",
+      "source_line": 1016,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 9
+    },
+    {
+      "record_id": "resume-line-1017-5fa39d3e65b9",
+      "source_line": 1017,
+      "source_kind": "raw_structured_resume",
+      "review_status": "unreviewed_candidate",
+      "present": {
+        "summary": true,
+        "experience": true,
+        "education": true,
+        "skills": true,
+        "projects": true,
+        "certifications": false
+      },
+      "score": 5,
+      "skill_count": 7
+    }
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "id": "K8mQ2vR7xN4pT9wZ",
+  "name": "resume-optimize",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "JD-Driven Resume Builder",
+        "formDescription": "Generate an ideal resume covering the complete job description. Upload a resume as background.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Resume",
+              "fieldType": "file",
+              "acceptFileTypes": ".pdf,.docx",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Job Description",
+              "fieldType": "textarea",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Target Role",
+              "fieldType": "text",
+              "requiredField": false
+            }
+          ]
+        },
+        "options": {
+          "path": "resume-optimize-v2"
+        }
+      },
+      "id": "form-trigger",
+      "webhookId": "b8f2c0f7-80d3-4a2f-97c4-2a9e6a2c3d47",
+      "name": "Form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -320,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://api:8000/v1/ingest",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "Resume"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 180000,
+          "response": {
+            "response": {
+              "neverError": false
+            }
+          }
+        }
+      },
+      "id": "ingest",
+      "name": "1 ingest",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -100,
+        300
+      ],
+      "retryOnFail": true,
+      "maxTries": 2,
+      "notes": "Parse -> segment -> Fact Ledger. The ONLY node that touches the binary. Everything after this carries just run_id."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://api:8000/v1/jd/extract",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ run_id: $json.run_id, jd_text: $('Form').item.json['Job Description'] }) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "jd",
+      "name": "2 jd/extract",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        120,
+        300
+      ],
+      "retryOnFail": true,
+      "maxTries": 2
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://api:8000/v1/optimize",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ run_id: $('1 ingest').item.json.run_id }) }}",
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "id": "optimize",
+      "name": "4 optimize",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        800,
+        420
+      ],
+      "retryOnFail": true,
+      "maxTries": 2,
+      "notes": "Generate the complete ideal resume from the full JD without source-claim validation."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://api:8000/v1/render",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ run_id: $('1 ingest').item.json.run_id }) }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "render",
+      "name": "5 render",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1260,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Your JD-driven resume is ready",
+        "completionMessage": "=Your ideal resume is ready.\n\nDownload: http://localhost:8000{{ $json.download_url }}\nFull JD extraction and resume: http://localhost:8000{{ $json.report_url }}",
+        "options": {}
+      },
+      "id": "done",
+      "webhookId": "813083ac-3e98-4972-841a-b87274d17c88",
+      "name": "Done",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 1,
+      "position": [
+        1480,
+        540
+      ]
+    }
+  ],
+  "connections": {
+    "Form": {
+      "main": [
+        [
+          {
+            "node": "1 ingest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1 ingest": {
+      "main": [
+        [
+          {
+            "node": "2 jd/extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2 jd/extract": {
+      "main": [
+        [
+          {
+            "node": "4 optimize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4 optimize": {
+      "main": [
+        [
+          {
+            "node": "5 render",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5 render": {
+      "main": [
+        [
+          {
+            "node": "Done",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "name": "resume-optimizer"
+    }
+  ]
+}

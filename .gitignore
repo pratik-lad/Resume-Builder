@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+data/runs/*
+!data/runs/.gitkeep
+data/cache/*
+!data/cache/.gitkeep
+data/datasets/*
+!data/datasets/.gitkeep
+data/eval/*
+!data/eval/.gitkeep
+eval/results/
+eval/datasets.local.json
+eval/cache/
+*.gguf

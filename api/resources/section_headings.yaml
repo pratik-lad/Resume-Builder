@@ -1,0 +1,33 @@
+# Canonical section -> heading variants seen in real resumes (lowercased, punctuation stripped)
+summary:
+  [summary, professional summary, profile summary, profile, about, about me, objective,
+   career objective, professional profile, personal statement]
+experience:
+  [experience, work experience, professional experience, employment,
+   employment history, work history, career history, internships,
+   internship experience, relevant experience]
+education:
+  [education, academic background, academics, qualifications,
+   educational qualification, educational qualifications, academic qualifications]
+skills:
+  [skills, technical skills, core skills, skill set, technologies,
+   tech stack, competencies, core competencies, tools and technologies,
+   technical proficiencies, areas of expertise, soft skills, languages,
+   language proficiency, language skills]
+projects:
+  [projects, personal projects, academic projects, key projects,
+   selected projects, project experience, relevant project experience,
+   professional project experience]
+certifications:
+  [certifications, achievements & certifications, certificates, licenses, licenses and certifications,
+   courses, coursework, relevant coursework, training]
+achievements:
+  [achievements, awards, honors, honours, accomplishments,
+   awards and achievements, extracurricular, activities, positions of responsibility,
+   hobbies, interests, hobbies and interests, personal interests]
+publications:
+  [publications, research, papers, research experience]
+contact:
+  [contact, contact information, personal details, personal information]
+boilerplate:
+  [declaration, declaration by candidate, self declaration]

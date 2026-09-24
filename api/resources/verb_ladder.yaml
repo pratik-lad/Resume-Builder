@@ -1,0 +1,12 @@
+# Ownership ladder. Rule: rank(output_verb) <= rank(source_verb).
+# Upgrading "contributed to" into "spearheaded" is the most credibility-destroying
+# hallucination and the hardest to catch lexically -- the words are ordinary English.
+1: [assisted, supported, contributed, participated, helped, aided, shadowed, volunteered]
+2: [built, developed, implemented, created, wrote, maintained, coded, tested,
+    documented, configured, deployed, integrated, automated, analyzed, analysed,
+    researched, performed, conducted, executed, delivered, improved, optimized,
+    optimised, refactored, migrated, debugged, trained, evaluated]
+3: [designed, architected, owned, drove, established, initiated, launched,
+    pioneered, streamlined, overhauled, revamped]
+4: [led, managed, headed, directed, spearheaded, founded, supervised,
+    oversaw, mentored, coordinated, orchestrated]

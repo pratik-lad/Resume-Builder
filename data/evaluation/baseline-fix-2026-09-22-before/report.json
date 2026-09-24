@@ -1,0 +1,394 @@
+{
+  "started_at": "2026-09-22T05:36:17.794884+00:00",
+  "ground_truth": "accepted gold_* CSV fields only",
+  "gold_csv_sha256": "55b93f13424e7591b9f065f9f654cfb28791b294725b924e2a3a80ce192ad55a",
+  "source_sha256": {
+    "synthetic_profiles.json": "85d0ca829024a8c30d4c0b768ce30f352cccfcc4cab02eb139b72ffa484b0734",
+    "scraped_jobs.json": "78d32995b4a770f4bf19f8052e984cee617a5935f15820045fc6b16785384bef",
+    "benchmarks.json": "4356c45d805e68fe17333c494711d0bdc6f8ef5cd3e46ab9c4f69c69c578a9a4"
+  },
+  "validation": {
+    "total": 50,
+    "statuses": {
+      "reviewed_partial": 24,
+      "reviewed_match": 1,
+      "reviewed_mismatch": 25
+    },
+    "valid_accepted": 50,
+    "all_50_complete": true,
+    "records": [
+      {
+        "pair_number": 1,
+        "resume_id": "1",
+        "jd_id": "linkedin_4394756749",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 2,
+        "resume_id": "174",
+        "jd_id": "linkedin_4407826462",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 3,
+        "resume_id": "101",
+        "jd_id": "linkedin_4399214810",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 4,
+        "resume_id": "171",
+        "jd_id": "linkedin_4360652943",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 5,
+        "resume_id": "83",
+        "jd_id": "linkedin_4396583838",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 6,
+        "resume_id": "131",
+        "jd_id": "linkedin_4402929948",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 7,
+        "resume_id": "181",
+        "jd_id": "linkedin_4373091275",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 8,
+        "resume_id": "130",
+        "jd_id": "linkedin_4393928942",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 9,
+        "resume_id": "38",
+        "jd_id": "linkedin_4352604064",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 10,
+        "resume_id": "188",
+        "jd_id": "linkedin_4392846158",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 11,
+        "resume_id": "62",
+        "jd_id": "linkedin_4392811970",
+        "review_status": "reviewed_match",
+        "errors": []
+      },
+      {
+        "pair_number": 12,
+        "resume_id": "15",
+        "jd_id": "linkedin_4374661990",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 13,
+        "resume_id": "70",
+        "jd_id": "linkedin_4248972605",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 14,
+        "resume_id": "92",
+        "jd_id": "linkedin_4387283659",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 15,
+        "resume_id": "96",
+        "jd_id": "linkedin_4401460038",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 16,
+        "resume_id": "2",
+        "jd_id": "linkedin_4089480089",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 17,
+        "resume_id": "2",
+        "jd_id": "linkedin_4404085186",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 18,
+        "resume_id": "182",
+        "jd_id": "linkedin_4398503479",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 19,
+        "resume_id": "182",
+        "jd_id": "linkedin_4401668320",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 20,
+        "resume_id": "85",
+        "jd_id": "linkedin_4396875073",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 21,
+        "resume_id": "85",
+        "jd_id": "linkedin_4402976861",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 22,
+        "resume_id": "20",
+        "jd_id": "linkedin_4405913392",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 23,
+        "resume_id": "20",
+        "jd_id": "linkedin_4399141297",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 24,
+        "resume_id": "248",
+        "jd_id": "linkedin_4375585139",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 25,
+        "resume_id": "248",
+        "jd_id": "linkedin_4363766414",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 26,
+        "resume_id": "1",
+        "jd_id": "linkedin_4374661990",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 27,
+        "resume_id": "15",
+        "jd_id": "linkedin_4392811970",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 28,
+        "resume_id": "38",
+        "jd_id": "linkedin_4393928942",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 29,
+        "resume_id": "62",
+        "jd_id": "linkedin_4398503479",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 30,
+        "resume_id": "70",
+        "jd_id": "linkedin_4352604064",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 31,
+        "resume_id": "83",
+        "jd_id": "linkedin_4375585139",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 32,
+        "resume_id": "92",
+        "jd_id": "linkedin_4375585139",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 33,
+        "resume_id": "96",
+        "jd_id": "linkedin_4375585139",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 34,
+        "resume_id": "101",
+        "jd_id": "linkedin_4375585139",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 35,
+        "resume_id": "1",
+        "jd_id": "linkedin_4248972605",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 36,
+        "resume_id": "2",
+        "jd_id": "linkedin_4248972605",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 37,
+        "resume_id": "15",
+        "jd_id": "linkedin_4248972605",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 38,
+        "resume_id": "20",
+        "jd_id": "linkedin_4375585139",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 39,
+        "resume_id": "38",
+        "jd_id": "linkedin_4248972605",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 40,
+        "resume_id": "70",
+        "jd_id": "linkedin_4374661990",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 41,
+        "resume_id": "83",
+        "jd_id": "linkedin_4402929948",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 42,
+        "resume_id": "130",
+        "jd_id": "linkedin_4089480089",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 43,
+        "resume_id": "131",
+        "jd_id": "linkedin_4089480089",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 44,
+        "resume_id": "171",
+        "jd_id": "linkedin_4248972605",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 45,
+        "resume_id": "174",
+        "jd_id": "linkedin_4089480089",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 46,
+        "resume_id": "181",
+        "jd_id": "linkedin_4089480089",
+        "review_status": "reviewed_partial",
+        "errors": []
+      },
+      {
+        "pair_number": 47,
+        "resume_id": "188",
+        "jd_id": "linkedin_4089480089",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 48,
+        "resume_id": "62",
+        "jd_id": "linkedin_4089480089",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 49,
+        "resume_id": "85",
+        "jd_id": "linkedin_4089480089",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      },
+      {
+        "pair_number": 50,
+        "resume_id": "92",
+        "jd_id": "linkedin_4089480089",
+        "review_status": "reviewed_mismatch",
+        "errors": []
+      }
+    ]
+  },
+  "scope": "Provisional component baseline on accepted structured profiles. No original resume PDF/DOCX is linked. Gold facts and requirements supplied as inputs isolate matching; fresh JD extraction measured separately.",
+  "config": {
+    "model_extract": "qwen3.5:4b",
+    "model_rewrite": "qwen3.5:4b",
+    "temp_extract": 0.0,
+    "temp_rewrite": 0.25,
+    "seed": 42,
+    "embed_model": "BAAI/bge-small-en-v1.5",
+    "embed_enabled": true,
+    "sem_cal_min": 0.45,
+    "sem_cal_max": 0.85,
+    "covered_threshold": 0.75,
+    "partial_threshold": 0.4,
+    "fuzzy_threshold": 0.92,
+    "max_repair_attempts": 2,
+    "max_bullets": 14,
+    "low_fit_score": 25.0
+  },
+  "cases": [],
+  "jd_predictions": {},
+  "metrics": {},
+  "stage": "validated"
+}
