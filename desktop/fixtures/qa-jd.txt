@@ -1,0 +1,12 @@
+Job Title: Senior QA Automation Engineer
+Experience: 7+ years of experience in quality assurance
+Mandatory Skills
+Design Playwright and Selenium UI automation with maintainable fixtures and test data isolation.
+Implement REST API contract tests, negative test cases and regression suites.
+Investigate flaky tests, correlate logs with defects and document reproducible failures.
+Create test plans, risk-based coverage and release quality gates in GitHub Actions.
+Collaborate with developers and product owners to define acceptance criteria.
+Required Certifications
+ISTQB Certified Tester Foundation Level (CTFL).
+Preferred Certifications
+ISTQB Certified Tester Advanced Level Test Automation Engineering (CTAL-TAE).

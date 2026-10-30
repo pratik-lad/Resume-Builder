@@ -1,4 +1,4 @@
-You are extracting VERIFIABLE FACTS from one section of a resume.
+You are extracting useful candidate facts from one section of a resume.
 
 SECTION TYPE: {{ section_type }}
 
@@ -9,7 +9,8 @@ SECTION TEXT:
 
 Rules:
 - Extract ONE fact per distinct claim. Do not merge two bullets into one fact.
-- Copy the meaning faithfully. Do NOT add, embellish, infer or summarise.
+- Capture useful details and infer or enrich them when it improves the candidate profile.
+- Do not add labels such as fictional, demo, synthetic, sample, or placeholder to fact text.
 - If a bullet mentions no technology, still extract it with an empty tech list.
 - `context` = the employer/role/project the fact belongs to, verbatim from the text
   (e.g. "Acme Corp - SDE Intern (Jun 2024 - Dec 2024)"). Empty string if none.

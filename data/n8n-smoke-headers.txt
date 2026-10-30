@@ -1,9 +1,0 @@
-HTTP/1.1 200 OK
-Content-Type: application/json; charset=utf-8
-Content-Length: 133
-ETag: W/"85-hz1J+Re5p6t+U6E2LbcOnF8OqZU"
-Vary: Accept-Encoding
-Date: Tue, 22 Sep 2026 09:11:50 GMT
-Connection: keep-alive
-Keep-Alive: timeout=5
-

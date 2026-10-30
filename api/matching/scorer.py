@@ -90,8 +90,12 @@ def _keyword_surface(jd_text: str, resume_text: str) -> float:
 
 
 def score(req_set: RequirementSet, matches: list[Match], facts: list[Fact],
-          resume_text: str) -> tuple[ScoreCard, GapReport]:
-    by_id = {m.req_id: m for m in matches}
+          resume_text: str, *, allow_unverified: bool = False) -> tuple[ScoreCard, GapReport]:
+    """Score JD alignment, optionally promoting configured claim coverage."""
+    scored_matches = [m.model_copy(update={"score": 1.0, "status": "covered", "method": "configured"})
+                      if allow_unverified and m.status != "covered" else m
+                      for m in matches]
+    by_id = {m.req_id: m for m in scored_matches}
     reqs = req_set.requirements
 
     has_hard = any(r.type in {"hard_skill", "tool"} for r in reqs)
@@ -110,7 +114,7 @@ def score(req_set: RequirementSet, matches: list[Match], facts: list[Fact],
     applicable_weight = sum(w for w, _, ok in parts if ok) or 1.0
     total = round(sum((w / applicable_weight) * v for w, v, ok in parts if ok), 1)
 
-    decision, probability = _pair_decision(total, resp, keyw, matches)
+    decision, probability = _pair_decision(total, resp, keyw, scored_matches)
     card = ScoreCard(jd_alignment_score=total, hard_skill_coverage=hard,
                      responsibility_match=resp, qualification_match=qual,
                      keyword_surface=keyw, fit_decision=decision,

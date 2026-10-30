@@ -12,4 +12,9 @@ numpy==2.2.1
 Jinja2==3.1.5
 # embeddings (CPU-only wheels; see Dockerfile for the CPU index-url)
 sentence-transformers==3.3.1
+
+# Preserve the versions used by the validated image during size-only rebuilds.
+charset-normalizer==3.5.1
+regex==2026.9.10
+watchfiles==1.2.0
 pytest==8.3.4

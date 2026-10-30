@@ -70,7 +70,7 @@ def test_experience_gap_is_reported_without_changing_candidate_years():
     assert plan.project_bridged_projected_alignment <= 100
 
 
-def test_project_bridge_has_build_testing_deployment_and_remains_proposed():
+def test_project_bridge_has_build_testing_deployment_and_is_proposed():
     facts = [fact("K1", "skill", "Python")]
     reqs = [requirement("R1", "PyTorch", "pytorch"), requirement("R2", "RAG", "rag")]
     req_set, _, plan = plan_for(facts, reqs)

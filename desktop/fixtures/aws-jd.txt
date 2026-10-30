@@ -1,0 +1,54 @@
+Job title: AWS Cloud Engineer
+Experience: 10 years
+Location: Pune, Maharashtra
+Payroll: NTT Data
+Notice: Looking for immediate joiner (max-30days)
+
+Candidate must have:
+- AWS Cloud Platform: Good
+- Landing Zone, Multi-Account setup: Good
+- IAM, SCP, Security: Good
+- Terraform: Very Good
+- GitHub Actions, CI/CD Tools: Good
+- EKS, Containerization and Orchestration: Good
+- Monitoring and Logging - Datadog, Prometheus, Grafana: Average
+- Agile - Kanban, SaFe
+- Communication, networking, cultural fit.
+
+Job Overview
+We are looking for a highly skilled AWS Cloud Engineer to join our team and play a key role in designing, implementing, and maintaining the AWS infrastructure. The ideal candidate will have deep expertise in AWS services, GitHub - Workflows, Actions, Build Automation, Kubernetes (EKS), Terraform, CI/CD practices, and monitoring tools, enabling them to optimize and scale cloud-based solutions effectively.
+
+Key Responsibilities
+- Development & Build: Build and maintain a robust, scalable AWS infrastructure.
+- AWS Services: Strong knowledge of AWS services.
+- Observability & Performance Monitoring: Continuous monitoring, alerting and troubleshooting using tools like CloudWatch Prometheus, Grafana, Datadog to ensure optimal functionality.
+- Collaboration: Work closely with cross-functional teams and support existing implementations.
+- Version Control: Manage code using GitHub, ensuring best practices in version control are followed.
+- Infrastructure as Code (IaC): Apply expertise in Terraform for efficient infrastructure management.
+- CI/CD Practices: Implement robust CI/CD pipelines using GitHub Actions to automate deployment workflows.
+
+Req.No: ODA-F- 571
+
+Mandatory Skillsets
+- Strong proficiency in AWS services, including IAM Roles, Access Control RBAC, S3, Containerized Lambda Functions, VPC, Security Groups, RDS, NACL, CloudWatch, Route53, DNS, Load Balancers, Directory Services and Identity Federation, AWS Tagging Configuration, Certificate Management, etc.
+- Hands-on experience in Kubernetes (EKS), with expertise in Imperative and Declarative approaches for managing resources/services like Pods, Deployments, Secrets, ConfigMaps, DaemonSets, Services, IRSA, Helm Charts, and deployment tools like ArgoCD.
+- Expertise in Datadog, including integration, monitoring key metrics and logs, and creating meaningful dashboards and alerts.
+- Strong understanding of Docker, including containerisation and image creation.
+- Programming skills in Python, Java and Go, capable of writing efficient scripts.
+- Familiarity with Git concepts for version control.
+- Deep knowledge of Infrastructure as Code principles, particularly Terraform.
+- Experience with CI/CD tools, specifically GitHub Actions & Workflows.
+- Understanding of security best practices, including knowledge of Snyk, Sonar Cloud, Code Scene, etc.
+
+Nice-to-Have Skillsets
+- Prior experience with Automated Change Management, particularly GitHub workflows with Service Now - Integration
+- Knowledge of Multi-Region setups, Landing Zones & DR.
+- Knowledge of Automated DR & Resilience testing.
+- Experience with advanced AWS security services.
+- Knowledge of Cyber Security, WIZ & IDP concepts.
+- Familiarity with Agile & Software Development Life Cycle (SDLC) principles.
+- Basic Knowledge of Azure cloud
+
+Preferred Qualifications
+- Relevant Certifications (e.g., AWS Certified DevOps Engineer, AWS Solutions Architect, HashiCorp Terraform Associate, Certified Kubernetes Administrator, etc.)
+- Experience working in Agile development environments.

@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-ENV PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
+ENV PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 PYTHONDONTWRITEBYTECODE=1
 
 WORKDIR /app
 
@@ -10,8 +10,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY requirements.txt .
 # CPU-only torch: the CUDA wheel is ~2.5GB and this container never touches the GPU.
-RUN pip install --index-url https://download.pytorch.org/whl/cpu torch==2.5.1 \
-    && pip install -r requirements.txt
+RUN pip install --no-compile --index-url https://download.pytorch.org/whl/cpu torch==2.5.1 \
+    && pip install --no-compile -r requirements.txt
 
 COPY . .
 

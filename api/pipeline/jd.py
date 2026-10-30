@@ -1,5 +1,6 @@
 """Stage 2: JD text -> typed, weighted requirements."""
 import re
+from difflib import SequenceMatcher
 from config import settings
 from llm import structured
 from matching import normalizer
@@ -12,6 +13,8 @@ _EXPECTATION_HEADINGS = {
     "responsibilities", "responsibility", "requirements", "requirements and skills",
     "skills", "skills required", "required skills", "qualifications", "who can apply",
     "minimum qualifications", "preferred qualifications", "nice to have", "preferred skills",
+    "education", "scope and required competencies", "skills & competencies",
+    "skills and competencies", "scope", "required competencies",
 }
 _OPTIONAL_HEADINGS = {"preferred qualifications", "nice to have", "preferred skills"}
 
@@ -25,7 +28,7 @@ def _source_expectations(text: str) -> list[tuple[str, bool]]:
         line = re.sub(r"^\s*(?:[-*•]|\d+[.)])\s*", "", raw_line).strip()
         if not line:
             continue
-        heading = line.rstrip(":").casefold()
+        heading = re.sub(r"^\s*#+\s*", "", line).rstrip(":").strip().casefold()
         if heading in _EXPECTATION_HEADINGS:
             active = True
             required = heading not in _OPTIONAL_HEADINGS
@@ -63,9 +66,11 @@ def _numeric_experience_requirements(jd_text: str) -> list[dict]:
     """Keep explicit numeric experience requirements even if the extractor omits them."""
     requirements = []
     pattern = re.compile(r"\b(\d+)\s*(?:\+|plus)?\s*(?:years?|yrs?)\b", re.I)
+    range_pattern = re.compile(r"\b(\d+)\s*(?:to|[-–—−�]|â€“)\s*(\d+)\s*(?:years?|yrs?)\b", re.I)
     for raw_line in jd_text.splitlines():
         line = re.sub(r"^\s*(?:[-*â€¢]|\d+[.)])\s*", "", raw_line).strip()
-        match = pattern.search(line)
+        span = range_pattern.search(line)
+        match = span or pattern.search(line)
         if not match:
             continue
         requirements.append({
@@ -78,14 +83,74 @@ def _numeric_experience_requirements(jd_text: str) -> list[dict]:
     return requirements
 
 
+def _curate_requirements(items: list[dict], jd_text: str) -> list[dict]:
+    """Remove recruiting logistics and duplicate qualifications; retain JD alternatives."""
+    admin = re.compile(r"\b(?:UAN|provident fund|PF deduction|payroll|budget|margin|"
+                       r"commercial|onsite|remote|work mode|location)\b", re.I)
+    alternatives = []
+    certification_section = re.search(
+        r"(?ims)^\s*Certifications\s*:\s*\n(.*?)(?=^\s*(?:Important Pointers|Benefits|Location)\s*:?\s*$|\Z)",
+        jd_text)
+    if certification_section:
+        for line in certification_section.group(1).splitlines():
+            line = line.strip(" -*\t")
+            if re.search(r"(?i)\b(?:and/or|or)\b", line) and re.search(r"(?i)architect|specialist", line):
+                names = [part.strip() for part in re.split(r"(?i)\s+and/or\s+|\s+or\s+", re.split(
+                    r"\s+[–—-]\s+", line)[0]) if part.strip()]
+                if len(names) >= 2:
+                    alternatives.append((line, names))
+    result, seen_years = [], set()
+    prior_year_texts: list[tuple[int, str]] = []
+    range_pattern = re.compile(r"\b(\d+)\s*(?:to|[-–—−�]|â€“)\s*(\d+)\s*(?:years?|yrs?)\b", re.I)
+    for item in items:
+        text = item["text"].strip()
+        if admin.search(text):
+            continue
+        if re.fullmatch(r"(?i)experience\s*:\s*\d+\s*[–—-]\s*\d+\s+years?", text):
+            continue
+        if any(any(re.search(re.escape(name), text, re.I) for name in names)
+               for _, names in alternatives) and re.search(r"(?i)certif|architect|specialist", text):
+            continue
+        span = range_pattern.search(text)
+        if span:
+            item = {**item, "min_years": int(span.group(1))}
+        years = item.get("min_years", 0)
+        if years:
+            subject = ("salesforce" if re.search(r"(?i)salesforce", text) else
+                       "architect" if re.search(r"(?i)architect", text) else
+                       re.sub(r"\W+", " ", text).casefold())
+            key = (years, subject)
+            if key in seen_years:
+                continue
+            normalized_text = re.sub(r"\W+", " ", text.casefold()).strip()
+            if any(years == previous_years and SequenceMatcher(None, normalized_text, previous_text).ratio() >= 0.78
+                   for previous_years, previous_text in prior_year_texts):
+                continue
+            seen_years.add(key)
+            prior_year_texts.append((years, normalized_text))
+        result.append(item)
+    for line, _ in alternatives:
+        result.append({"text": line, "type": "qualification",
+                       "must_have": not bool(re.search(r"(?i)preferred|optional", line)),
+                       "min_years": 0, "canonical_skills": [], "logic": "any"})
+    return result
+
+
 def _title_from_jd(text: str) -> str:
     match = re.search(r"\b(?:as|for)\s+(?:an?\s+)?([A-Z][A-Za-z .+/-]{2,50}?(?:Developer|Engineer|Scientist|Analyst|Manager|Designer))\b",
                       text, re.I)
-    return match.group(1).strip() if match else ""
+    if match:
+        return match.group(1).strip()
+    if (re.search(r"(?i)artificial intelligence|\bAI\b", text)
+            and re.search(r"(?i)design, develop, test, deploy|AI engineer|machine learning", text)):
+        return "AI Engineer"
+    if re.search(r"(?i)machine learning", text) and re.search(r"(?i)design|develop|deploy", text):
+        return "Machine Learning Engineer"
+    return ""
 
 
-def _chunks(text: str, size: int = 6000) -> list[str]:
-    """Process the entire JD in bounded chunks, including its final section."""
+def _chunks(text: str, size: int = 3600) -> list[str]:
+    """Process the entire JD in bounded chunks that leave room for JSON."""
     chunks = []
     remaining = text.strip()
     while len(remaining) > size:
@@ -108,6 +173,7 @@ def extract(jd_text: str) -> RequirementSet:
         extracted = structured.generate(
             prompt, ExtractedRequirements,
             model=settings.model_extract, temperature=settings.temp_extract,
+            retries=0, num_predict=settings.max_jd_extract_tokens,
         )
         out.requirements.extend(extracted.requirements)
         if not out.role_title:
@@ -140,7 +206,7 @@ def extract(jd_text: str) -> RequirementSet:
             existing.add(key)
 
     requirements: list[Requirement] = []
-    for i, item in enumerate(normalized, start=1):
+    for i, item in enumerate(_curate_requirements(normalized, jd_text), start=1):
         requirements.append(Requirement(
             req_id=f"R{i:02d}", weight=(settings.weight_must_have if item["must_have"]
                                         else settings.weight_nice_to_have), **item))

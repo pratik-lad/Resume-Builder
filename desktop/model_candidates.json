@@ -1,0 +1,56 @@
+{
+  "qwen3": {
+    "repository": "unsloth/Qwen3-4B-Instruct-2507-GGUF",
+    "revision": "a06e946bb6b655725eafa393f4a9745d460374c9",
+    "filename": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+    "size": 2497281120,
+    "sha256": "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597",
+    "disable_repacking": true,
+    "license_url": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/LICENSE",
+    "sampling": {
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20,
+      "min_p": 0.0,
+      "presence_penalty": 1.0,
+      "repeat_penalty": 1.1
+    },
+    "layers": 36,
+    "chat_template": "Embedded in the checksum-pinned GGUF; enable_thinking=false"
+  },
+  "qwen35": {
+    "repository": "unsloth/Qwen3.5-4B-GGUF",
+    "revision": "e87f176479d0855a907a41277aca2f8ee7a09523",
+    "filename": "Qwen3.5-4B-Q4_K_M.gguf",
+    "size": 2740937888,
+    "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+    "disable_repacking": true,
+    "layers": 32,
+    "license_url": "https://huggingface.co/Qwen/Qwen3.5-4B/resolve/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a/LICENSE",
+    "sampling": {
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20,
+      "min_p": 0.0,
+      "presence_penalty": 1.0,
+      "repeat_penalty": 1.1
+    },
+    "chat_template": "Embedded in the checksum-pinned GGUF; enable_thinking=false"
+  },
+  "phi": {
+    "repository": "unsloth/Phi-4-mini-instruct-GGUF",
+    "revision": "78eb92a46fc37e6b524df991ed9aca9bc6aa7b80",
+    "filename": "Phi-4-mini-instruct-Q4_K_M.gguf",
+    "size": 2491874272,
+    "sha256": "88c00229914083cd112853aab84ed51b87bdf6b9ce42f532d8c85c7c63b1730a",
+    "layers": 32,
+    "disable_repacking": true,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.9,
+      "repeat_penalty": 1.1
+    },
+    "license_url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/LICENSE",
+    "chat_template": "Embedded in the checksum-pinned GGUF; enable_thinking=false"
+  }
+}

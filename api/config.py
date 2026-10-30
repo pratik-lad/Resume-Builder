@@ -3,21 +3,44 @@ from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+def _local_data_path(*parts: str) -> Path:
+    root = Path(__file__).resolve().parents[1]
+    return root.joinpath("data", *parts)
+
+
+def _normalize_data_path(value: Path | str) -> Path:
+    text = str(value).replace("\\", "/")
+    if text.startswith("/data/") or text.startswith("data/") or text.startswith("//data/"):
+        suffix = text.split("/data/", 1)[1] if "/data/" in text else text.split("data/", 1)[1]
+        return _local_data_path(*[part for part in suffix.split("/") if part])
+    if text == "/data" or text == "data":
+        return _local_data_path()
+    return Path(value)
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
-    # --- Ollama ---
-    ollama_host: str = "http://host.docker.internal:11434"
-    model_extract: str = "dolphin-llama3"
-    model_rewrite: str = "dolphin-llama3"
-    num_ctx: int = 6144           # Enough for a normal JD + resume, with lower local inference latency.
-    max_resume_tokens: int = 1800 # A concise, two-page resume; prevents runaway generation.
+    # --- Native GGUF server on the Windows host ---
+    llm_host: str = "http://host.docker.internal:18081"
+    llm_api_key: str = ""
+    llm_revision: str = "unsloth-qwen3.5-4b-q4_k_m-e87f1764"
+    model_extract: str = "qwen3.5:4b"
+    model_rewrite: str = "qwen3.5:4b"
+    catalog_enabled: bool = True  # Local, bounded JD terminology lookup; no model change.
+    num_ctx: int = 8192           # Keep the current project setting across the runtime change.
+    max_resume_tokens: int = 3500 # Room for distinct jobs, projects, and a complete education section.
     temp_extract: float = 0.0
+    max_extract_tokens: int = 1200
+    max_jd_extract_tokens: int = 900
     temp_rewrite: float = 0.15
     top_p: float = 0.9
+    top_k: int = 20
+    presence_penalty: float = 1.5
+    repeat_penalty: float = 1.05
     stop_sequences: str = "User:,Assistant:,Note:,Warning:"
     seed: int = 42
-    llm_timeout: float = 180.0
+    llm_timeout: float = 600.0
     think: bool = False   # disable chain-of-thought on hybrid-reasoning models; see llm/client.py
 
     # --- embeddings ---
@@ -53,15 +76,15 @@ class Settings(BaseSettings):
     ocr_min_chars: int = 200
     ocr_alnum_ratio: float = 0.5
     extraction_workers: int = 2
-    cache_version: str = "jd-builder-v2"
+    cache_version: str = "jd-builder-v4"
     column_gap_ratio: float = 0.15
 
     # --- paths ---
-    runs_dir: Path = Path("/data/runs")
-    datasets_dir: Path = Path("/data/datasets")
-    evaluation_dir: Path = Path("/data/evaluation")
+    runs_dir: Path = _local_data_path("runs")
+    datasets_dir: Path = _local_data_path("datasets")
+    evaluation_dir: Path = _local_data_path("evaluation")
     evaluation_source_dir: Path = Path("/external/jds")
-    cache_dir: Path = Path("/data/cache")
+    cache_dir: Path = _local_data_path("cache")
 
     @property
     def resources(self) -> Path:
@@ -73,6 +96,9 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
-settings.runs_dir.mkdir(parents=True, exist_ok=True)
-settings.datasets_dir.mkdir(parents=True, exist_ok=True)
-settings.cache_dir.mkdir(parents=True, exist_ok=True)
+for attr in ("runs_dir", "datasets_dir", "cache_dir", "evaluation_dir"):
+    value = getattr(settings, attr)
+    normalized = _normalize_data_path(value)
+    if normalized != value:
+        setattr(settings, attr, normalized)
+    normalized.mkdir(parents=True, exist_ok=True)

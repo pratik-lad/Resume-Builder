@@ -31,6 +31,7 @@ def generate(
     system: Optional[str] = None,
     temperature: float = 0.0,
     retries: int = 1,
+    num_predict: Optional[int] = None,
 ) -> T:
     """Generate and parse into `schema`. One retry on a parse failure."""
     last_err: Exception | None = None
@@ -41,6 +42,7 @@ def generate(
             system=system,
             fmt=schema.model_json_schema(),
             temperature=temperature,
+            num_predict=num_predict,
         )
         try:
             return schema.model_validate_json(_strip_fences(raw))
@@ -59,8 +61,9 @@ def generate_with_trace(
     system: Optional[str] = None,
     temperature: float = 0.0,
     retries: int = 1,
+    num_predict: Optional[int] = None,
 ) -> tuple[T, list[dict]]:
-    """`generate()` semantics plus per-Ollama-call diagnostics.
+    """`generate()` semantics plus per-model-call diagnostics.
 
     This deliberately duplicates the existing parse/retry control flow rather
     than changing it.  The trace is observational: no prompt, retry count,
@@ -76,10 +79,11 @@ def generate_with_trace(
             system=system,
             fmt=schema.model_json_schema(),
             temperature=temperature,
+            num_predict=num_predict,
         )
         latency_ms = round((time.perf_counter() - started) * 1000, 2)
         record = {
-            "ollama_call": attempt + 1,
+            "model_call": attempt + 1,
             "latency_ms": latency_ms,
             "raw_model_output": raw,
             "parsed_output": None,

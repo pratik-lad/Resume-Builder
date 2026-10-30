@@ -1,0 +1,32 @@
+Databricks Engineer (Knowledge / Context Layer – Agentic AI)
+Engagement: Knowledge / Context Layer Program — Life Sciences Commercial Analytics (Brand Insights) • Positions – 1
+About the Role
+We are seeking a Databricks Engineer to own the Databricks-side build for a Knowledge (Context) Layer engagement supporting a Brand Insights / commercial analytics use case for a global life sciences (pharmaceutical) client. This engagement is explicitly Databricks-centric: the ontology, knowledge graph, and semantic layer being built on AWS must integrate with the client's existing Databricks Unity Catalog, Databricks Genie, and Collibra environment rather than operate as a disconnected AWS-only island. This role owns that integration end to end, from initial architecture alignment through production hardening.
+Key Responsibilities
+-	Partner with the client's Databricks platform team during onboarding and discovery to align the Knowledge Layer implementation architecture with the client's existing Databricks-centric data estate (Unity Catalog, Collibra, and a medallion Bronze/Silver/Gold lakehouse).
+-	Integrate Databricks Unity Catalog metadata — catalogs, schemas, tables, and lineage — with the ontology/taxonomy and knowledge-graph accelerators supporting the Knowledge Layer build-out.
+-	Configure Databricks Genie (metric views, certified tables, and grounding logic) so brand/commercial insights business users can query the Knowledge Layer in natural language and receive accurate, cited, reproducible answers.
+-	Design and build the bi-directional metadata synchronization between Collibra and Databricks Unity Catalog, supporting governed metadata capture across both systems.
+-	Extend the Knowledge Layer to the full use-case dataset (additional source tables and entities across brand, customer, activity, market, and performance domains), working within the client's existing medallion lakehouse structure rather than rebuilding it.
+-	Support deployment of the stateful context-serving agent and serving layer so it is accessible via Databricks and governed API interfaces, coordinating with Databricks Vector Search / AI Search where the context store spans both Databricks and AWS (S3 Tables, Amazon Neptune, Amazon Bedrock Knowledge Bases).
+-	Apply Unity Catalog access controls (row/column-level security, masking) consistent with the client's data governance and stewardship model.
+-	Collaborate with the GenAI Engineering and Data/Knowledge Engineering tracks to keep the Databricks-side catalog and serving layer consistent with the AWS-side ontology, knowledge graph, and semantic store.
+-	Produce technical documentation for the Unity Catalog/Collibra integration and Genie configuration, and package reusable Databricks-side assets so future use cases can onboard without rebuilding context from scratch.
+-	Participate in discovery activities with client stakeholders (onsite, if assigned the onsite seat) and deliver the remainder of the engagement from Apexon's offshore delivery center in Pune, India.
+Required Skills & Qualifications
+-	Bachelor's degree in Computer Science, Data Engineering, or a related field.
+-	5–8 years of data engineering experience, including at least 2 years hands-on with Databricks in an enterprise or governed environment.
+-	Strong, hands-on Databricks Unity Catalog experience: catalog/schema/table administration, external locations and storage credentials, lineage APIs, and access control (row- and column-level security).
+-	Hands-on experience configuring Databricks Genie — metric views, certified tables, and grounding query responses in approved definitions, business rules, and source lineage.
+-	Proficiency in PySpark, Spark SQL, and Delta Lake at production scale (partitioning, Z-ordering, schema evolution).
+-	Experience integrating Databricks with AWS services (S3, IAM roles/instance profiles); exposure to Amazon Neptune and/or Amazon Bedrock Knowledge Bases is a strong plus.
+-	Demonstrated experience building or maintaining a metadata synchronization between Databricks Unity Catalog and an enterprise data catalog such as Collibra.
+-	Working knowledge of the Databricks REST API/SDK (Python) and Databricks Asset Bundles or Terraform for repeatable environment and workflow automation.
+-	Strong Python programming skills for data pipeline and API automation.
+-	Familiarity with data governance concepts — business glossary, KPI/metric definitions, stewardship workflows — in a regulated or enterprise setting.
+Preferred / Nice to Have
+-	Prior experience in life sciences or pharma commercial data environments.
+-	Exposure to graph databases (Amazon Neptune or Neo4j) and/or vector search (Databricks Vector Search, OpenSearch, or Amazon Bedrock Knowledge Bases).
+-	Familiarity with ontology/taxonomy concepts (RDF, OWL, SKOS) sufficient to collaborate closely with the knowledge-graph/ontology engineering track.
+-	Databricks Certified Data Engineer Professional certification, or equivalent demonstrable experience.
+-	MLflow experience, if embeddings or entity-resolution models end up hosted on Databricks.

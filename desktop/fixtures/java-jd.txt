@@ -1,0 +1,14 @@
+Job Title: Senior Java Full Stack Engineer
+Experience: 8+ years in software development
+Mandatory Skills
+Develop Spring Boot services using Java, Angular and TypeScript for an order fulfillment application.
+Implement REST APIs, PostgreSQL transactions and Kafka event processing with idempotent consumers.
+Create Angular reactive forms, routing, state management and accessible validation feedback.
+Write JUnit and Mockito service tests and Jasmine component tests with representative fixtures.
+Implement OAuth 2.0, role-based authorization, API validation and secure credential handling.
+Own GitHub Actions CI/CD, Docker delivery, rollback, monitoring and incident diagnosis.
+Preferred Skills
+AWS deployments and Kubernetes application operations.
+Preferred Certifications
+Oracle Certified Professional: Java SE 21 Developer.
+Certified Kubernetes Application Developer (CKAD).

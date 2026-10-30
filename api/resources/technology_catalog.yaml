@@ -1,0 +1,135 @@
+version: 2026-09-28
+review_interval_days: 180
+entries:
+  - name: Databricks Unity Catalog
+    aliases: [Unity Catalog]
+    category: Data Engineering & Warehousing
+    description: Governance layer for Databricks data and AI assets, including catalogs, schemas, access control, and lineage.
+    source: https://docs.databricks.com/aws/en/data-governance/unity-catalog/
+    reviewed: 2026-09-28
+  - name: Databricks Genie
+    aliases: [AI/BI Genie, Genie]
+    category: Analytics & BI
+    description: Databricks natural-language data exploration and AI-assisted business intelligence experience.
+    source: https://docs.databricks.com/aws/en/genie
+    reviewed: 2026-09-28
+  - name: Collibra Platform
+    aliases: [Collibra, Collibra Data Intelligence Platform]
+    category: Quality & Governance
+    description: Enterprise platform for data cataloging, governance, and lineage.
+    source: https://www.collibra.com/products/collibra-platform
+    reviewed: 2026-09-28
+  - name: Delta Lake
+    aliases: [Delta tables]
+    category: Data Engineering & Warehousing
+    description: Open-source lakehouse table format with ACID transactions and batch and streaming support.
+    source: https://docs.delta.io/
+    reviewed: 2026-09-28
+  - name: PySpark
+    aliases: [Apache Spark Python API]
+    category: Data Engineering & Warehousing
+    description: Python API for Apache Spark distributed data processing.
+    source: https://spark.apache.org/docs/latest/api/python/
+    reviewed: 2026-09-28
+  - name: Apache Iceberg
+    aliases: [Iceberg tables]
+    category: Data Engineering & Warehousing
+    description: Open table format for large analytic datasets.
+    source: https://iceberg.apache.org/docs/latest/
+    reviewed: 2026-09-28
+  - name: Microsoft Fabric
+    aliases: [Fabric OneLake]
+    category: Data Engineering & Warehousing
+    description: Microsoft platform combining data engineering, analytics, and business intelligence.
+    source: https://learn.microsoft.com/en-us/fabric/fundamentals/
+    reviewed: 2026-09-28
+  - name: Snowflake Cortex
+    aliases: [Cortex AI]
+    category: ML & AI
+    description: Snowflake AI and machine-learning capabilities for data applications.
+    source: https://docs.snowflake.com/en/user-guide/snowflake-cortex/overview
+    reviewed: 2026-09-28
+  - name: Salesforce B2B Commerce
+    aliases: [B2B Commerce Cloud]
+    category: Business Platforms & Architecture
+    description: Salesforce commerce platform for business storefronts and buying workflows.
+    source: https://developer.salesforce.com/docs/commerce/salesforce-commerce/guide/b2b-b2c-comm-custom-component.html
+    reviewed: 2026-09-28
+  - name: Salesforce CPQ
+    aliases: [CPQ managed package]
+    category: Business Platforms & Architecture
+    description: Salesforce managed package for configuring, pricing, and quoting products.
+    source: https://help.salesforce.com/s/articleView?id=sf.cpq_master.htm&type=5
+    reviewed: 2026-09-28
+  - name: Salesforce Revenue Management
+    aliases: [Salesforce Revenue Cloud, Revenue Cloud Advanced]
+    category: Business Platforms & Architecture
+    description: Salesforce revenue platform for product catalog, pricing, configuration, and quote-to-cash workflows.
+    source: https://help.salesforce.com/s/articleView?id=ind.rev_which_product.htm&type=5
+    reviewed: 2026-09-28
+  - name: Apex
+    aliases: [Salesforce Apex]
+    category: Business Platforms & Architecture
+    description: Salesforce server-side programming language used for platform business logic.
+    source: https://developer.salesforce.com/docs/platform/lwc/guide/apex
+    reviewed: 2026-09-28
+  - name: Lightning Web Components
+    aliases: [LWC]
+    category: Business Platforms & Architecture
+    description: Salesforce component framework for web user interfaces and commerce storefronts.
+    source: https://developer.salesforce.com/docs/commerce/salesforce-commerce/guide/b2b-b2c-comm-custom-component.html
+    reviewed: 2026-09-28
+  - name: Microsoft Foundry
+    aliases: [Azure AI Foundry]
+    category: ML & AI
+    description: Microsoft platform for building, evaluating, and governing AI applications and agents.
+    source: https://learn.microsoft.com/en-us/azure/foundry/
+    reviewed: 2026-09-28
+  - name: Amazon Bedrock
+    aliases: [AWS Bedrock]
+    category: ML & AI
+    description: AWS managed platform for building generative AI applications with foundation models.
+    source: https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html
+    reviewed: 2026-09-28
+  - name: GitHub Actions
+    aliases: [GH Actions]
+    category: Cloud & Infrastructure
+    description: GitHub workflow automation for CI/CD and other software delivery tasks.
+    source: https://docs.github.com/en/actions/reference
+    reviewed: 2026-09-28
+  - name: Kubernetes
+    aliases: [K8s]
+    category: Cloud & Infrastructure
+    description: Container orchestration platform for deploying and operating workloads.
+    source: https://kubernetes.io/docs/concepts/overview/
+    reviewed: 2026-09-28
+  - name: React
+    aliases: [React.js]
+    category: Web & Applications
+    description: JavaScript library for building component-based user interfaces.
+    source: https://react.dev/learn
+    reviewed: 2026-09-28
+  - name: FastAPI
+    aliases: [Fast API]
+    category: Programming & APIs
+    description: Python framework for building APIs with type hints.
+    source: https://fastapi.tiangolo.com/
+    reviewed: 2026-09-28
+  - name: Rust
+    aliases: [Rust language]
+    category: Programming & APIs
+    description: Systems programming language focused on performance and memory safety.
+    source: https://www.rust-lang.org/learn
+    reviewed: 2026-09-28
+  - name: Playwright
+    aliases: [Playwright Test]
+    category: Quality & Governance
+    description: Browser automation and end-to-end testing framework.
+    source: https://playwright.dev/docs/intro
+    reviewed: 2026-09-28
+  - name: OWASP Top 10
+    aliases: [OWASP Top Ten]
+    category: Quality & Governance
+    description: OWASP awareness document for major web application security risks.
+    source: https://owasp.org/www-project-top-ten/
+    reviewed: 2026-09-28

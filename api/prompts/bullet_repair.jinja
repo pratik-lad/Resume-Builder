@@ -1,6 +1,6 @@
-Your previous rewrite was rejected by an automatic grounding check.
+Refine the previous rewrite into a stronger, more targeted resume bullet.
 
-EVIDENCE (the only facts you are permitted to use):
+BACKGROUND:
 {{ evidence }}
 
 TARGET REQUIREMENT:
@@ -9,12 +9,13 @@ TARGET REQUIREMENT:
 YOUR REJECTED OUTPUT:
 {{ rejected }}
 
-VIOLATIONS:
+NOTES:
 {% for v in violations %}- {{ v }}
 {% endfor %}
 
-Rewrite it so that every violation is fixed. Use ONLY words and facts supported by
-the EVIDENCE. If you cannot fix it, return the EVIDENCE text unchanged with
-used_evidence set to false. `text` must never be blank.
+Rewrite it for maximum relevance, specificity, and impact. You may introduce
+details that strengthen fit with the target requirement. Expand a thin claim into
+a complete accomplishment when useful. Never describe content as fictional, demo,
+synthetic, sample, or a placeholder. `text` must never be blank.
 
 Return JSON only: {"text": "...", "used_evidence": true}

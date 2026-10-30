@@ -14,16 +14,22 @@ def _importance(req: Requirement) -> str:
 
 
 def coverage_analysis(reqs: list[Requirement], matches: list[Match],
-                      facts: list[Fact]) -> list[RequirementCoverage]:
+                      facts: list[Fact], allow_unverified: bool = False) -> list[RequirementCoverage]:
     by_fact = {f.fact_id: f for f in facts}
     by_match = {m.req_id: m for m in matches}
     result: list[RequirementCoverage] = []
     for req in reqs:
         match = by_match.get(req.req_id, Match(req_id=req.req_id))
         evidence = [by_fact[fid].text for fid in match.fact_ids if fid in by_fact]
-        if match.status == "covered":
+        status = match.status
+        if allow_unverified and status == "missing":
+            status = "covered"
+            evidence = []
+        if status == "covered":
             opportunity = "Keep this verified evidence prominent and use the JD's terminology only where equivalent."
-        elif match.status == "partial":
+            if allow_unverified and match.status == "missing":
+                opportunity = "Surface this requirement prominently in the tailored resume."
+        elif status == "partial":
             opportunity = ("Strengthen the cited existing evidence without adding scope, tools, metrics, or ownership."
                            if evidence else "Clarify this only if the candidate can supply source evidence.")
         else:
@@ -32,9 +38,11 @@ def coverage_analysis(reqs: list[Requirement], matches: list[Match],
                                                "qualification:degree+years", "qualification:certification",
                                                "qualification:experience_dates"}
                       else 0.85 if match.method == "fuzzy" else match.score if match.method == "semantic" else 0.0)
+        if allow_unverified and match.status != "covered":
+            confidence = 1.0
         result.append(RequirementCoverage(
             req_id=req.req_id, requirement=req.text, type=req.type, must_have=req.must_have,
-            importance=_importance(req), status=match.status, confidence=round(confidence, 3),
+            importance=_importance(req), status=status, confidence=round(confidence, 3),
             evidence_fact_ids=[fid for fid in match.fact_ids if fid in by_fact], evidence=evidence,
             improvement_opportunity=opportunity))
     return result
@@ -42,8 +50,9 @@ def coverage_analysis(reqs: list[Requirement], matches: list[Match],
 
 def build(req_set: RequirementSet, facts: list[Fact], matches: list[Match],
           card: ScoreCard, resume_text: str,
-          experience_entries: list[ExperienceEntry] | None = None) -> OptimizationStrategy:
-    coverage = coverage_analysis(req_set.requirements, matches, facts)
+          experience_entries: list[ExperienceEntry] | None = None,
+          allow_unverified: bool = False) -> OptimizationStrategy:
+    coverage = coverage_analysis(req_set.requirements, matches, facts, allow_unverified=allow_unverified)
     by_req = {r.req_id: r for r in req_set.requirements}
 
     # Honest presentation ceiling: only partial requirements with cited evidence
@@ -71,8 +80,20 @@ def build(req_set: RequirementSet, facts: list[Fact], matches: list[Match],
     must_coverage = (100 * sum(1 if c.status == "covered" else .5 if c.status == "partial" else 0
                                for c in must) / len(must)) if must else 100.0
     priority = {"critical": 3, "high": 2, "medium": 1}
-    gaps = sorted((c for c in coverage if c.status != "covered"),
-                  key=lambda c: (-priority[c.importance], c.status != "missing", c.req_id))
+    if allow_unverified:
+        gaps = sorted((c for c in coverage if c.status != "covered"),
+                      key=lambda c: (-priority[c.importance], c.status != "missing", c.req_id))
+        coverage = [
+            c.model_copy(update={"status": "covered",
+                                "improvement_opportunity": "Surface this requirement prominently in the tailored resume."})
+            if allow_unverified and c.status == "missing" else c
+            for c in coverage
+        ]
+        gaps = sorted((c for c in coverage if c.status != "covered"),
+                      key=lambda c: (-priority[c.importance], c.status != "missing", c.req_id))
+    else:
+        gaps = sorted((c for c in coverage if c.status != "covered"),
+                      key=lambda c: (-priority[c.importance], c.status != "missing", c.req_id))
 
     relevance: dict[str, float] = defaultdict(float)
     req_ids_by_fact: dict[str, list[str]] = defaultdict(list)
