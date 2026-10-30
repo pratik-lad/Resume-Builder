@@ -1,0 +1,2318 @@
+[
+  {
+    "skill": "Python",
+    "aliases": [],
+    "category": "Programming Language",
+    "first_seen": 1991,
+    "status": "active",
+    "description": "a high-level, general-purpose language known for readable syntax, widely used in data science, AI, automation and backend work",
+    "related": [
+      "pandas",
+      "NumPy",
+      "Django",
+      "Flask"
+    ]
+  },
+  {
+    "skill": "JavaScript",
+    "aliases": [
+      "JS",
+      "ECMAScript"
+    ],
+    "category": "Programming Language",
+    "first_seen": 1995,
+    "status": "active",
+    "description": "the core language of the web, running in browsers and on servers through Node.js",
+    "related": [
+      "TypeScript",
+      "React",
+      "Node.js"
+    ]
+  },
+  {
+    "skill": "TypeScript",
+    "aliases": [
+      "TS"
+    ],
+    "category": "Programming Language",
+    "first_seen": 2012,
+    "status": "active",
+    "description": "a typed superset of JavaScript from Microsoft that compiles to plain JavaScript",
+    "related": [
+      "JavaScript",
+      "Angular",
+      "React"
+    ]
+  },
+  {
+    "skill": "Java",
+    "aliases": [],
+    "category": "Programming Language",
+    "first_seen": 1995,
+    "status": "active",
+    "description": "a statically typed, object-oriented language that runs on the JVM, common in enterprise backends and Android",
+    "related": [
+      "Spring Boot",
+      "Kotlin"
+    ]
+  },
+  {
+    "skill": "C",
+    "aliases": [],
+    "category": "Programming Language",
+    "first_seen": 1972,
+    "status": "active",
+    "description": "a low-level procedural language used for operating systems, drivers and embedded systems",
+    "related": [
+      "C++",
+      "Linux",
+      "Arduino"
+    ]
+  },
+  {
+    "skill": "C++",
+    "aliases": [
+      "CPP"
+    ],
+    "category": "Programming Language",
+    "first_seen": 1985,
+    "status": "active",
+    "description": "a compiled language with low-level control used in systems, games and performance-critical software",
+    "related": [
+      "C",
+      "CUDA"
+    ]
+  },
+  {
+    "skill": "C#",
+    "aliases": [
+      "C Sharp"
+    ],
+    "category": "Programming Language",
+    "first_seen": 2000,
+    "status": "active",
+    "description": "a Microsoft object-oriented language for .NET applications, enterprise software and Unity games",
+    "related": [
+      "ASP.NET Core",
+      "Microsoft Azure"
+    ]
+  },
+  {
+    "skill": "Go",
+    "aliases": [
+      "Golang"
+    ],
+    "category": "Programming Language",
+    "first_seen": 2009,
+    "status": "active",
+    "description": "a compiled language from Google designed for simple, concurrent backend and cloud tooling",
+    "related": [
+      "Docker",
+      "Kubernetes"
+    ]
+  },
+  {
+    "skill": "Rust",
+    "aliases": [],
+    "category": "Programming Language",
+    "first_seen": 2010,
+    "status": "active",
+    "description": "a systems language focused on memory safety without a garbage collector",
+    "related": [
+      "C++",
+      "WebAssembly"
+    ]
+  },
+  {
+    "skill": "SQL",
+    "aliases": [
+      "Structured Query Language"
+    ],
+    "category": "Programming Language",
+    "first_seen": 1974,
+    "status": "active",
+    "description": "the standard language for querying and managing relational databases",
+    "related": [
+      "PostgreSQL",
+      "MySQL",
+      "pandas"
+    ]
+  },
+  {
+    "skill": "R",
+    "aliases": [
+      "R language"
+    ],
+    "category": "Programming Language",
+    "first_seen": 1993,
+    "status": "active",
+    "description": "a language for statistical computing and data visualization",
+    "related": [
+      "Python",
+      "SQL"
+    ]
+  },
+  {
+    "skill": "Kotlin",
+    "aliases": [],
+    "category": "Programming Language",
+    "first_seen": 2011,
+    "status": "active",
+    "description": "a JVM language from JetBrains and the preferred language for modern Android development",
+    "related": [
+      "Java",
+      "Android",
+      "Jetpack Compose"
+    ]
+  },
+  {
+    "skill": "Swift",
+    "aliases": [],
+    "category": "Programming Language",
+    "first_seen": 2014,
+    "status": "active",
+    "description": "Apple's language for building iOS, macOS and other Apple platform apps",
+    "related": [
+      "SwiftUI"
+    ]
+  },
+  {
+    "skill": "Dart",
+    "aliases": [],
+    "category": "Programming Language",
+    "first_seen": 2011,
+    "status": "active",
+    "description": "a Google language optimized for UI development and the language behind Flutter",
+    "related": [
+      "Flutter"
+    ]
+  },
+  {
+    "skill": "PHP",
+    "aliases": [],
+    "category": "Programming Language",
+    "first_seen": 1995,
+    "status": "active",
+    "description": "a server-side scripting language that powers many websites including WordPress",
+    "related": [
+      "Laravel",
+      "MySQL"
+    ]
+  },
+  {
+    "skill": "Ruby",
+    "aliases": [],
+    "category": "Programming Language",
+    "first_seen": 1995,
+    "status": "active",
+    "description": "a dynamic, object-oriented language known for developer-friendly syntax",
+    "related": [
+      "Ruby on Rails"
+    ]
+  },
+  {
+    "skill": "Scala",
+    "aliases": [],
+    "category": "Programming Language",
+    "first_seen": 2004,
+    "status": "active",
+    "description": "a JVM language mixing object-oriented and functional programming, often used with Apache Spark",
+    "related": [
+      "Apache Spark",
+      "Java"
+    ]
+  },
+  {
+    "skill": "MATLAB",
+    "aliases": [],
+    "category": "Programming Language",
+    "first_seen": 1984,
+    "status": "active",
+    "description": "a numerical computing environment used in engineering, signal processing and simulation",
+    "related": [
+      "Python",
+      "SciPy"
+    ]
+  },
+  {
+    "skill": "Bash",
+    "aliases": [
+      "Shell scripting"
+    ],
+    "category": "Programming Language",
+    "first_seen": 1989,
+    "status": "active",
+    "description": "the common Unix shell and scripting language for automating command-line tasks",
+    "related": [
+      "Linux",
+      "Git"
+    ]
+  },
+  {
+    "skill": "Perl",
+    "aliases": [],
+    "category": "Programming Language",
+    "first_seen": 1987,
+    "status": "legacy",
+    "description": "a text-processing scripting language once dominant for sysadmin and CGI web work",
+    "related": [
+      "Python",
+      "PHP"
+    ]
+  },
+  {
+    "skill": "HTML",
+    "aliases": [
+      "HTML5"
+    ],
+    "category": "Web Frontend",
+    "first_seen": 1993,
+    "status": "active",
+    "description": "the markup language that structures the content of web pages",
+    "related": [
+      "CSS",
+      "JavaScript"
+    ]
+  },
+  {
+    "skill": "CSS",
+    "aliases": [
+      "CSS3",
+      "Cascading Style Sheets"
+    ],
+    "category": "Web Frontend",
+    "first_seen": 1996,
+    "status": "active",
+    "description": "the style language that controls layout, color and typography of web pages",
+    "related": [
+      "HTML",
+      "Tailwind CSS",
+      "Bootstrap"
+    ]
+  },
+  {
+    "skill": "React",
+    "aliases": [
+      "React.js",
+      "ReactJS"
+    ],
+    "category": "Web Frontend",
+    "first_seen": 2013,
+    "status": "active",
+    "description": "a JavaScript library from Meta for building component-based user interfaces",
+    "related": [
+      "Next.js",
+      "TypeScript",
+      "React Native"
+    ]
+  },
+  {
+    "skill": "Angular",
+    "aliases": [
+      "Angular 2+"
+    ],
+    "category": "Web Frontend",
+    "first_seen": 2016,
+    "status": "active",
+    "description": "a TypeScript-based front-end framework from Google for large single-page applications",
+    "related": [
+      "TypeScript"
+    ]
+  },
+  {
+    "skill": "Vue.js",
+    "aliases": [
+      "Vue",
+      "VueJS"
+    ],
+    "category": "Web Frontend",
+    "first_seen": 2014,
+    "status": "active",
+    "description": "a progressive JavaScript framework for building user interfaces, created by Evan You",
+    "related": [
+      "JavaScript"
+    ]
+  },
+  {
+    "skill": "Svelte",
+    "aliases": [],
+    "category": "Web Frontend",
+    "first_seen": 2016,
+    "status": "active",
+    "description": "a compiler-based front-end framework that turns components into small plain JavaScript",
+    "related": [
+      "JavaScript"
+    ]
+  },
+  {
+    "skill": "Next.js",
+    "aliases": [
+      "NextJS"
+    ],
+    "category": "Web Frontend",
+    "first_seen": 2016,
+    "status": "active",
+    "description": "a React framework from Vercel that adds server-side rendering, routing and full-stack features",
+    "related": [
+      "React",
+      "Node.js",
+      "TypeScript"
+    ]
+  },
+  {
+    "skill": "Tailwind CSS",
+    "aliases": [
+      "Tailwind"
+    ],
+    "category": "Web Frontend",
+    "first_seen": 2017,
+    "status": "active",
+    "description": "a utility-first CSS framework for styling directly in markup",
+    "related": [
+      "CSS",
+      "Bootstrap",
+      "React"
+    ]
+  },
+  {
+    "skill": "Bootstrap",
+    "aliases": [],
+    "category": "Web Frontend",
+    "first_seen": 2011,
+    "status": "active",
+    "description": "a CSS framework of prebuilt responsive components, originally created at Twitter",
+    "related": [
+      "CSS",
+      "jQuery"
+    ]
+  },
+  {
+    "skill": "WebAssembly",
+    "aliases": [
+      "Wasm"
+    ],
+    "category": "Web Frontend",
+    "first_seen": 2017,
+    "status": "active",
+    "description": "a binary instruction format that lets languages like Rust and C++ run at near-native speed in browsers",
+    "related": [
+      "Rust",
+      "C++",
+      "JavaScript"
+    ]
+  },
+  {
+    "skill": "Streamlit",
+    "aliases": [],
+    "category": "Web Frontend",
+    "first_seen": 2019,
+    "status": "active",
+    "description": "a Python library that turns data scripts into shareable web apps",
+    "related": [
+      "Python",
+      "Gradio",
+      "pandas"
+    ]
+  },
+  {
+    "skill": "Gradio",
+    "aliases": [],
+    "category": "Web Frontend",
+    "first_seen": 2019,
+    "status": "active",
+    "description": "a Python library for building quick web demos of machine learning models",
+    "related": [
+      "Python",
+      "Streamlit",
+      "Hugging Face Transformers"
+    ]
+  },
+  {
+    "skill": "jQuery",
+    "aliases": [],
+    "category": "Web Frontend",
+    "first_seen": 2006,
+    "status": "legacy",
+    "description": "a JavaScript library that simplified DOM manipulation, now largely replaced by modern frameworks",
+    "related": [
+      "JavaScript",
+      "Bootstrap"
+    ]
+  },
+  {
+    "skill": "AngularJS",
+    "aliases": [
+      "Angular 1.x"
+    ],
+    "category": "Web Frontend",
+    "first_seen": 2010,
+    "status": "deprecated",
+    "description": "Google's original JavaScript framework, distinct from modern Angular, which reached end of life in 2021",
+    "related": [
+      "Angular",
+      "JavaScript"
+    ]
+  },
+  {
+    "skill": "Node.js",
+    "aliases": [
+      "Node",
+      "NodeJS"
+    ],
+    "category": "Web Backend",
+    "first_seen": 2009,
+    "status": "active",
+    "description": "a JavaScript runtime built on V8 for running JavaScript on the server",
+    "related": [
+      "Express.js",
+      "JavaScript",
+      "Next.js"
+    ]
+  },
+  {
+    "skill": "npm",
+    "aliases": [
+      "Node Package Manager"
+    ],
+    "category": "Web Backend",
+    "first_seen": 2010,
+    "status": "active",
+    "description": "the default package manager and registry for the Node.js ecosystem",
+    "related": [
+      "Node.js",
+      "JavaScript"
+    ]
+  },
+  {
+    "skill": "Express.js",
+    "aliases": [
+      "Express"
+    ],
+    "category": "Web Backend",
+    "first_seen": 2010,
+    "status": "active",
+    "description": "a minimal web framework for Node.js",
+    "related": [
+      "Node.js",
+      "MongoDB"
+    ]
+  },
+  {
+    "skill": "Django",
+    "aliases": [],
+    "category": "Web Backend",
+    "first_seen": 2005,
+    "status": "active",
+    "description": "a batteries-included Python web framework",
+    "related": [
+      "Python",
+      "PostgreSQL",
+      "Flask"
+    ]
+  },
+  {
+    "skill": "Flask",
+    "aliases": [],
+    "category": "Web Backend",
+    "first_seen": 2010,
+    "status": "active",
+    "description": "a lightweight Python micro web framework",
+    "related": [
+      "Python",
+      "Django",
+      "FastAPI"
+    ]
+  },
+  {
+    "skill": "FastAPI",
+    "aliases": [],
+    "category": "Web Backend",
+    "first_seen": 2018,
+    "status": "active",
+    "description": "a modern Python framework for building APIs using type hints with automatic documentation",
+    "related": [
+      "Python",
+      "Flask"
+    ]
+  },
+  {
+    "skill": "Spring Boot",
+    "aliases": [
+      "Spring"
+    ],
+    "category": "Web Backend",
+    "first_seen": 2014,
+    "status": "active",
+    "description": "a Java framework for building production-ready applications and microservices",
+    "related": [
+      "Java",
+      "Kotlin",
+      "PostgreSQL"
+    ]
+  },
+  {
+    "skill": "ASP.NET Core",
+    "aliases": [
+      ".NET Core"
+    ],
+    "category": "Web Backend",
+    "first_seen": 2016,
+    "status": "active",
+    "description": "Microsoft's cross-platform framework for building web apps and APIs",
+    "related": [
+      "C#",
+      "Microsoft Azure",
+      "Microsoft SQL Server"
+    ]
+  },
+  {
+    "skill": "Laravel",
+    "aliases": [],
+    "category": "Web Backend",
+    "first_seen": 2011,
+    "status": "active",
+    "description": "a PHP web framework with expressive syntax and a rich ecosystem",
+    "related": [
+      "PHP",
+      "MySQL"
+    ]
+  },
+  {
+    "skill": "Ruby on Rails",
+    "aliases": [
+      "Rails",
+      "RoR"
+    ],
+    "category": "Web Backend",
+    "first_seen": 2004,
+    "status": "active",
+    "description": "a Ruby web framework that popularized convention over configuration",
+    "related": [
+      "Ruby",
+      "PostgreSQL"
+    ]
+  },
+  {
+    "skill": "GraphQL",
+    "aliases": [],
+    "category": "Web Backend",
+    "first_seen": 2015,
+    "status": "active",
+    "description": "a query language for APIs, created by Facebook, that lets clients request exactly the data they need",
+    "related": [
+      "REST API",
+      "Node.js"
+    ]
+  },
+  {
+    "skill": "REST API",
+    "aliases": [
+      "REST",
+      "RESTful API"
+    ],
+    "category": "Web Backend",
+    "first_seen": 2000,
+    "status": "active",
+    "description": "an architectural style for web APIs that uses HTTP methods and resource URLs",
+    "related": [
+      "GraphQL",
+      "Postman"
+    ]
+  },
+  {
+    "skill": "pandas",
+    "aliases": [],
+    "category": "Data & Analytics",
+    "first_seen": 2008,
+    "status": "active",
+    "description": "a Python library for tabular data manipulation and analysis using DataFrames",
+    "related": [
+      "Python",
+      "NumPy",
+      "Jupyter Notebook"
+    ]
+  },
+  {
+    "skill": "NumPy",
+    "aliases": [],
+    "category": "Data & Analytics",
+    "first_seen": 2006,
+    "status": "active",
+    "description": "a Python library for fast numerical arrays and math",
+    "related": [
+      "Python",
+      "pandas",
+      "SciPy"
+    ]
+  },
+  {
+    "skill": "SciPy",
+    "aliases": [],
+    "category": "Data & Analytics",
+    "first_seen": 2001,
+    "status": "active",
+    "description": "a Python library for scientific computing such as optimization, statistics and signal processing",
+    "related": [
+      "NumPy",
+      "Python"
+    ]
+  },
+  {
+    "skill": "Matplotlib",
+    "aliases": [],
+    "category": "Data & Analytics",
+    "first_seen": 2003,
+    "status": "active",
+    "description": "a foundational Python plotting library",
+    "related": [
+      "Python",
+      "Seaborn",
+      "pandas"
+    ]
+  },
+  {
+    "skill": "Seaborn",
+    "aliases": [],
+    "category": "Data & Analytics",
+    "first_seen": 2012,
+    "status": "active",
+    "description": "a statistical visualization library built on top of Matplotlib",
+    "related": [
+      "Matplotlib",
+      "pandas"
+    ]
+  },
+  {
+    "skill": "Polars",
+    "aliases": [],
+    "category": "Data & Analytics",
+    "first_seen": 2020,
+    "status": "active",
+    "description": "a fast DataFrame library written in Rust with Python bindings",
+    "related": [
+      "pandas",
+      "Rust"
+    ]
+  },
+  {
+    "skill": "Apache Spark",
+    "aliases": [
+      "Spark",
+      "PySpark"
+    ],
+    "category": "Data & Analytics",
+    "first_seen": 2010,
+    "status": "active",
+    "description": "a distributed engine for large-scale data processing and analytics",
+    "related": [
+      "Databricks",
+      "Scala",
+      "Apache Kafka"
+    ]
+  },
+  {
+    "skill": "Apache Kafka",
+    "aliases": [
+      "Kafka"
+    ],
+    "category": "Data & Analytics",
+    "first_seen": 2011,
+    "status": "active",
+    "description": "a distributed event streaming platform for real-time data pipelines",
+    "related": [
+      "Apache Spark",
+      "Apache Airflow"
+    ]
+  },
+  {
+    "skill": "Apache Airflow",
+    "aliases": [
+      "Airflow"
+    ],
+    "category": "Data & Analytics",
+    "first_seen": 2015,
+    "status": "active",
+    "description": "a workflow orchestration platform where pipelines are defined as Python DAGs",
+    "related": [
+      "Python",
+      "dbt"
+    ]
+  },
+  {
+    "skill": "dbt",
+    "aliases": [
+      "data build tool"
+    ],
+    "category": "Data & Analytics",
+    "first_seen": 2016,
+    "status": "active",
+    "description": "a tool for transforming data inside warehouses using SQL with version control and testing",
+    "related": [
+      "SQL",
+      "Snowflake",
+      "Apache Airflow"
+    ]
+  },
+  {
+    "skill": "Snowflake",
+    "aliases": [],
+    "category": "Data & Analytics",
+    "first_seen": 2015,
+    "status": "active",
+    "description": "a cloud data warehouse platform",
+    "related": [
+      "SQL",
+      "dbt"
+    ]
+  },
+  {
+    "skill": "Databricks",
+    "aliases": [],
+    "category": "Data & Analytics",
+    "first_seen": 2013,
+    "status": "active",
+    "description": "a cloud data and AI platform built around Apache Spark",
+    "related": [
+      "Apache Spark",
+      "MLflow"
+    ]
+  },
+  {
+    "skill": "Tableau",
+    "aliases": [],
+    "category": "Data & Analytics",
+    "first_seen": 2003,
+    "status": "active",
+    "description": "a business intelligence and data visualization tool",
+    "related": [
+      "Power BI",
+      "SQL"
+    ]
+  },
+  {
+    "skill": "Power BI",
+    "aliases": [],
+    "category": "Data & Analytics",
+    "first_seen": 2015,
+    "status": "active",
+    "description": "Microsoft's business analytics and dashboard tool",
+    "related": [
+      "Tableau",
+      "SQL",
+      "Excel"
+    ]
+  },
+  {
+    "skill": "Excel",
+    "aliases": [
+      "Microsoft Excel"
+    ],
+    "category": "Data & Analytics",
+    "first_seen": 1985,
+    "status": "active",
+    "description": "Microsoft's spreadsheet tool for analysis, reporting and lightweight modeling",
+    "related": [
+      "Power BI",
+      "SQL"
+    ]
+  },
+  {
+    "skill": "Jupyter Notebook",
+    "aliases": [
+      "Jupyter",
+      "IPython Notebook"
+    ],
+    "category": "Data & Analytics",
+    "first_seen": 2014,
+    "status": "active",
+    "description": "an interactive notebook environment that mixes code, output and text",
+    "related": [
+      "Python",
+      "pandas"
+    ]
+  },
+  {
+    "skill": "Hadoop",
+    "aliases": [
+      "Apache Hadoop"
+    ],
+    "category": "Data & Analytics",
+    "first_seen": 2006,
+    "status": "legacy",
+    "description": "an early open-source framework for distributed storage (HDFS) and MapReduce processing, largely superseded by Spark and cloud warehouses",
+    "related": [
+      "Apache Spark",
+      "Apache Kafka"
+    ]
+  },
+  {
+    "skill": "scikit-learn",
+    "aliases": [
+      "sklearn"
+    ],
+    "category": "Machine Learning & AI",
+    "first_seen": 2010,
+    "status": "active",
+    "description": "a Python library of classical machine learning algorithms",
+    "related": [
+      "Python",
+      "pandas",
+      "XGBoost"
+    ]
+  },
+  {
+    "skill": "TensorFlow",
+    "aliases": [
+      "TF"
+    ],
+    "category": "Machine Learning & AI",
+    "first_seen": 2015,
+    "status": "active",
+    "description": "Google's deep learning framework",
+    "related": [
+      "Keras",
+      "PyTorch"
+    ]
+  },
+  {
+    "skill": "Keras",
+    "aliases": [],
+    "category": "Machine Learning & AI",
+    "first_seen": 2015,
+    "status": "active",
+    "description": "a high-level deep learning API that runs on TensorFlow",
+    "related": [
+      "TensorFlow",
+      "Python"
+    ]
+  },
+  {
+    "skill": "PyTorch",
+    "aliases": [
+      "Torch"
+    ],
+    "category": "Machine Learning & AI",
+    "first_seen": 2016,
+    "status": "active",
+    "description": "a deep learning framework from Meta with dynamic computation graphs",
+    "related": [
+      "TensorFlow",
+      "Hugging Face Transformers",
+      "CUDA"
+    ]
+  },
+  {
+    "skill": "XGBoost",
+    "aliases": [],
+    "category": "Machine Learning & AI",
+    "first_seen": 2014,
+    "status": "active",
+    "description": "a fast and popular gradient boosting library for tabular data",
+    "related": [
+      "scikit-learn",
+      "LightGBM"
+    ]
+  },
+  {
+    "skill": "LightGBM",
+    "aliases": [],
+    "category": "Machine Learning & AI",
+    "first_seen": 2016,
+    "status": "active",
+    "description": "Microsoft's efficient gradient boosting framework",
+    "related": [
+      "XGBoost",
+      "scikit-learn"
+    ]
+  },
+  {
+    "skill": "OpenCV",
+    "aliases": [],
+    "category": "Machine Learning & AI",
+    "first_seen": 2000,
+    "status": "active",
+    "description": "a computer vision library for image and video processing",
+    "related": [
+      "Python",
+      "C++",
+      "PyTorch"
+    ]
+  },
+  {
+    "skill": "spaCy",
+    "aliases": [],
+    "category": "Machine Learning & AI",
+    "first_seen": 2015,
+    "status": "active",
+    "description": "an industrial-strength Python library for natural language processing",
+    "related": [
+      "Python",
+      "NLTK"
+    ]
+  },
+  {
+    "skill": "NLTK",
+    "aliases": [],
+    "category": "Machine Learning & AI",
+    "first_seen": 2001,
+    "status": "active",
+    "description": "a Python toolkit for teaching and prototyping natural language processing",
+    "related": [
+      "Python",
+      "spaCy"
+    ]
+  },
+  {
+    "skill": "Transformer architecture",
+    "aliases": [
+      "Transformers",
+      "Attention Is All You Need"
+    ],
+    "category": "Machine Learning & AI",
+    "first_seen": 2017,
+    "status": "active",
+    "description": "the neural network design based on self-attention that underlies modern large language models",
+    "related": [
+      "BERT",
+      "PyTorch"
+    ]
+  },
+  {
+    "skill": "BERT",
+    "aliases": [],
+    "category": "Machine Learning & AI",
+    "first_seen": 2018,
+    "status": "active",
+    "description": "Google's bidirectional Transformer encoder model for language understanding",
+    "related": [
+      "Transformer architecture",
+      "Hugging Face Transformers"
+    ]
+  },
+  {
+    "skill": "Hugging Face Transformers",
+    "aliases": [
+      "Transformers library",
+      "HF Transformers"
+    ],
+    "category": "Machine Learning & AI",
+    "first_seen": 2018,
+    "status": "active",
+    "description": "a library providing pretrained Transformer models and tools for training and inference",
+    "related": [
+      "PyTorch",
+      "PEFT",
+      "TRL"
+    ]
+  },
+  {
+    "skill": "CUDA",
+    "aliases": [],
+    "category": "Machine Learning & AI",
+    "first_seen": 2007,
+    "status": "active",
+    "description": "NVIDIA's platform and programming model for GPU computing",
+    "related": [
+      "PyTorch",
+      "C++"
+    ]
+  },
+  {
+    "skill": "MLflow",
+    "aliases": [],
+    "category": "Machine Learning & AI",
+    "first_seen": 2018,
+    "status": "active",
+    "description": "an open-source platform for tracking experiments and managing machine learning models",
+    "related": [
+      "Databricks",
+      "Python"
+    ]
+  },
+  {
+    "skill": "Weights & Biases",
+    "aliases": [
+      "W&B",
+      "wandb"
+    ],
+    "category": "Machine Learning & AI",
+    "first_seen": 2017,
+    "status": "active",
+    "description": "an experiment tracking and model monitoring platform",
+    "related": [
+      "MLflow",
+      "PyTorch"
+    ]
+  },
+  {
+    "skill": "ONNX",
+    "aliases": [],
+    "category": "Machine Learning & AI",
+    "first_seen": 2017,
+    "status": "active",
+    "description": "an open format for exchanging machine learning models between frameworks",
+    "related": [
+      "PyTorch",
+      "TensorFlow"
+    ]
+  },
+  {
+    "skill": "LangChain",
+    "aliases": [],
+    "category": "LLM & GenAI",
+    "first_seen": 2022,
+    "status": "active",
+    "description": "a framework for building LLM applications with chains, tools and retrieval",
+    "related": [
+      "LangGraph",
+      "RAG",
+      "LlamaIndex"
+    ]
+  },
+  {
+    "skill": "LlamaIndex",
+    "aliases": [
+      "GPT Index"
+    ],
+    "category": "LLM & GenAI",
+    "first_seen": 2022,
+    "status": "active",
+    "description": "a framework for connecting LLMs to your data through indexing and retrieval",
+    "related": [
+      "RAG",
+      "LangChain"
+    ]
+  },
+  {
+    "skill": "LangGraph",
+    "aliases": [],
+    "category": "LLM & GenAI",
+    "first_seen": 2024,
+    "status": "emerging",
+    "description": "a library from the LangChain ecosystem for building stateful, multi-step agents as graphs",
+    "related": [
+      "LangChain",
+      "RAG"
+    ]
+  },
+  {
+    "skill": "RAG",
+    "aliases": [
+      "Retrieval-Augmented Generation"
+    ],
+    "category": "LLM & GenAI",
+    "first_seen": 2020,
+    "status": "active",
+    "description": "a technique that retrieves relevant documents and gives them to an LLM to ground its answers",
+    "related": [
+      "FAISS",
+      "ChromaDB",
+      "LangChain"
+    ]
+  },
+  {
+    "skill": "LoRA",
+    "aliases": [
+      "Low-Rank Adaptation"
+    ],
+    "category": "LLM & GenAI",
+    "first_seen": 2021,
+    "status": "active",
+    "description": "a fine-tuning method that trains small low-rank adapter matrices instead of all model weights",
+    "related": [
+      "QLoRA",
+      "PEFT"
+    ]
+  },
+  {
+    "skill": "QLoRA",
+    "aliases": [
+      "Quantized LoRA"
+    ],
+    "category": "LLM & GenAI",
+    "first_seen": 2023,
+    "status": "emerging",
+    "description": "LoRA applied on top of a 4-bit quantized base model so large models can be fine-tuned on modest GPUs",
+    "related": [
+      "LoRA",
+      "PEFT",
+      "Unsloth"
+    ]
+  },
+  {
+    "skill": "PEFT",
+    "aliases": [
+      "Parameter-Efficient Fine-Tuning"
+    ],
+    "category": "LLM & GenAI",
+    "first_seen": 2022,
+    "status": "active",
+    "description": "a Hugging Face library and concept for fine-tuning models with few trainable parameters",
+    "related": [
+      "LoRA",
+      "Hugging Face Transformers",
+      "TRL"
+    ]
+  },
+  {
+    "skill": "TRL",
+    "aliases": [
+      "Transformer Reinforcement Learning"
+    ],
+    "category": "LLM & GenAI",
+    "first_seen": 2020,
+    "status": "active",
+    "description": "a Hugging Face library for training language models with SFT, DPO and RLHF-style methods",
+    "related": [
+      "PEFT",
+      "Hugging Face Transformers"
+    ]
+  },
+  {
+    "skill": "Unsloth",
+    "aliases": [],
+    "category": "LLM & GenAI",
+    "first_seen": 2023,
+    "status": "emerging",
+    "description": "a library for faster, lower-memory fine-tuning of LLMs",
+    "related": [
+      "QLoRA",
+      "TRL"
+    ]
+  },
+  {
+    "skill": "Ollama",
+    "aliases": [],
+    "category": "LLM & GenAI",
+    "first_seen": 2023,
+    "status": "emerging",
+    "description": "a tool for running LLMs locally with a simple CLI and API",
+    "related": [
+      "llama.cpp",
+      "Hugging Face Transformers"
+    ]
+  },
+  {
+    "skill": "llama.cpp",
+    "aliases": [],
+    "category": "LLM & GenAI",
+    "first_seen": 2023,
+    "status": "emerging",
+    "description": "a C/C++ inference engine for running quantized LLMs in GGUF format on CPUs and GPUs",
+    "related": [
+      "Ollama"
+    ]
+  },
+  {
+    "skill": "vLLM",
+    "aliases": [],
+    "category": "LLM & GenAI",
+    "first_seen": 2023,
+    "status": "emerging",
+    "description": "a high-throughput LLM serving engine built around PagedAttention",
+    "related": [
+      "PyTorch",
+      "CUDA"
+    ]
+  },
+  {
+    "skill": "FAISS",
+    "aliases": [],
+    "category": "LLM & GenAI",
+    "first_seen": 2017,
+    "status": "active",
+    "description": "Meta's library for efficient vector similarity search",
+    "related": [
+      "RAG",
+      "ChromaDB"
+    ]
+  },
+  {
+    "skill": "ChromaDB",
+    "aliases": [
+      "Chroma"
+    ],
+    "category": "LLM & GenAI",
+    "first_seen": 2022,
+    "status": "active",
+    "description": "an open-source vector database for storing embeddings",
+    "related": [
+      "RAG",
+      "FAISS",
+      "LangChain"
+    ]
+  },
+  {
+    "skill": "Pinecone",
+    "aliases": [],
+    "category": "LLM & GenAI",
+    "first_seen": 2021,
+    "status": "active",
+    "description": "a managed vector database service",
+    "related": [
+      "RAG",
+      "FAISS"
+    ]
+  },
+  {
+    "skill": "Qdrant",
+    "aliases": [],
+    "category": "LLM & GenAI",
+    "first_seen": 2021,
+    "status": "active",
+    "description": "an open-source vector database written in Rust",
+    "related": [
+      "RAG",
+      "ChromaDB"
+    ]
+  },
+  {
+    "skill": "Milvus",
+    "aliases": [],
+    "category": "LLM & GenAI",
+    "first_seen": 2019,
+    "status": "active",
+    "description": "an open-source vector database for large-scale similarity search",
+    "related": [
+      "FAISS",
+      "Qdrant"
+    ]
+  },
+  {
+    "skill": "Sentence Transformers",
+    "aliases": [
+      "SBERT"
+    ],
+    "category": "LLM & GenAI",
+    "first_seen": 2019,
+    "status": "active",
+    "description": "a library for computing sentence and text embeddings",
+    "related": [
+      "RAG",
+      "FAISS",
+      "Hugging Face Transformers"
+    ]
+  },
+  {
+    "skill": "Model Context Protocol",
+    "aliases": [
+      "MCP"
+    ],
+    "category": "LLM & GenAI",
+    "first_seen": 2024,
+    "status": "emerging",
+    "description": "an open protocol introduced by Anthropic for connecting AI models to external tools and data sources",
+    "related": [
+      "LangGraph",
+      "RAG"
+    ]
+  },
+  {
+    "skill": "Prompt engineering",
+    "aliases": [],
+    "category": "LLM & GenAI",
+    "first_seen": 2020,
+    "status": "active",
+    "description": "the practice of designing and refining prompts to get reliable outputs from LLMs",
+    "related": [
+      "RAG",
+      "LangChain"
+    ]
+  },
+  {
+    "skill": "Docker",
+    "aliases": [],
+    "category": "Cloud & DevOps",
+    "first_seen": 2013,
+    "status": "active",
+    "description": "a platform for packaging applications into containers",
+    "related": [
+      "Kubernetes",
+      "Docker Compose"
+    ]
+  },
+  {
+    "skill": "Docker Compose",
+    "aliases": [],
+    "category": "Cloud & DevOps",
+    "first_seen": 2014,
+    "status": "active",
+    "description": "a tool for defining and running multi-container applications with a YAML file",
+    "related": [
+      "Docker"
+    ]
+  },
+  {
+    "skill": "Kubernetes",
+    "aliases": [
+      "K8s"
+    ],
+    "category": "Cloud & DevOps",
+    "first_seen": 2014,
+    "status": "active",
+    "description": "a container orchestration system that originated at Google",
+    "related": [
+      "Docker",
+      "Helm",
+      "Terraform"
+    ]
+  },
+  {
+    "skill": "Helm",
+    "aliases": [],
+    "category": "Cloud & DevOps",
+    "first_seen": 2016,
+    "status": "active",
+    "description": "the package manager for Kubernetes",
+    "related": [
+      "Kubernetes"
+    ]
+  },
+  {
+    "skill": "Terraform",
+    "aliases": [],
+    "category": "Cloud & DevOps",
+    "first_seen": 2014,
+    "status": "active",
+    "description": "HashiCorp's infrastructure-as-code tool",
+    "related": [
+      "Amazon Web Services",
+      "Microsoft Azure",
+      "Ansible"
+    ]
+  },
+  {
+    "skill": "Ansible",
+    "aliases": [],
+    "category": "Cloud & DevOps",
+    "first_seen": 2012,
+    "status": "active",
+    "description": "an agentless automation and configuration management tool",
+    "related": [
+      "Terraform",
+      "Linux"
+    ]
+  },
+  {
+    "skill": "Jenkins",
+    "aliases": [],
+    "category": "Cloud & DevOps",
+    "first_seen": 2011,
+    "status": "active",
+    "description": "an open-source CI/CD automation server",
+    "related": [
+      "Git",
+      "GitHub Actions"
+    ]
+  },
+  {
+    "skill": "GitHub Actions",
+    "aliases": [],
+    "category": "Cloud & DevOps",
+    "first_seen": 2018,
+    "status": "active",
+    "description": "GitHub's built-in CI/CD and workflow automation",
+    "related": [
+      "Git",
+      "Docker"
+    ]
+  },
+  {
+    "skill": "Git",
+    "aliases": [],
+    "category": "Cloud & DevOps",
+    "first_seen": 2005,
+    "status": "active",
+    "description": "a distributed version control system created by Linus Torvalds",
+    "related": [
+      "GitHub Actions",
+      "Linux"
+    ]
+  },
+  {
+    "skill": "Linux",
+    "aliases": [],
+    "category": "Cloud & DevOps",
+    "first_seen": 1991,
+    "status": "active",
+    "description": "an open-source Unix-like operating system kernel that runs most servers and cloud infrastructure",
+    "related": [
+      "Bash",
+      "Docker"
+    ]
+  },
+  {
+    "skill": "Amazon Web Services",
+    "aliases": [
+      "AWS"
+    ],
+    "category": "Cloud & DevOps",
+    "first_seen": 2006,
+    "status": "active",
+    "description": "Amazon's cloud computing platform",
+    "related": [
+      "AWS Lambda",
+      "Terraform",
+      "Amazon S3"
+    ]
+  },
+  {
+    "skill": "AWS Lambda",
+    "aliases": [
+      "Lambda"
+    ],
+    "category": "Cloud & DevOps",
+    "first_seen": 2014,
+    "status": "active",
+    "description": "AWS's serverless compute service that runs code in response to events",
+    "related": [
+      "Amazon Web Services",
+      "Amazon S3"
+    ]
+  },
+  {
+    "skill": "Amazon S3",
+    "aliases": [
+      "S3"
+    ],
+    "category": "Cloud & DevOps",
+    "first_seen": 2006,
+    "status": "active",
+    "description": "AWS's scalable object storage service",
+    "related": [
+      "Amazon Web Services",
+      "AWS Lambda"
+    ]
+  },
+  {
+    "skill": "Amazon EFS",
+    "aliases": [
+      "EFS"
+    ],
+    "category": "Cloud & DevOps",
+    "first_seen": 2016,
+    "status": "active",
+    "description": "AWS's managed elastic network file system that can be mounted by Lambda and EC2",
+    "related": [
+      "Amazon Web Services",
+      "AWS Lambda"
+    ]
+  },
+  {
+    "skill": "Microsoft Azure",
+    "aliases": [
+      "Azure"
+    ],
+    "category": "Cloud & DevOps",
+    "first_seen": 2010,
+    "status": "active",
+    "description": "Microsoft's cloud computing platform",
+    "related": [
+      "ASP.NET Core",
+      "Terraform"
+    ]
+  },
+  {
+    "skill": "Google Cloud Platform",
+    "aliases": [
+      "GCP"
+    ],
+    "category": "Cloud & DevOps",
+    "first_seen": 2008,
+    "status": "active",
+    "description": "Google's cloud computing platform",
+    "related": [
+      "Kubernetes",
+      "Apache Spark"
+    ]
+  },
+  {
+    "skill": "Nginx",
+    "aliases": [],
+    "category": "Cloud & DevOps",
+    "first_seen": 2004,
+    "status": "active",
+    "description": "a web server and reverse proxy",
+    "related": [
+      "Linux",
+      "Docker"
+    ]
+  },
+  {
+    "skill": "Prometheus",
+    "aliases": [],
+    "category": "Cloud & DevOps",
+    "first_seen": 2012,
+    "status": "active",
+    "description": "a monitoring system and time-series database",
+    "related": [
+      "Grafana",
+      "Kubernetes"
+    ]
+  },
+  {
+    "skill": "Grafana",
+    "aliases": [],
+    "category": "Cloud & DevOps",
+    "first_seen": 2014,
+    "status": "active",
+    "description": "a dashboard and observability platform",
+    "related": [
+      "Prometheus"
+    ]
+  },
+  {
+    "skill": "ArgoCD",
+    "aliases": [
+      "Argo CD"
+    ],
+    "category": "Cloud & DevOps",
+    "first_seen": 2018,
+    "status": "active",
+    "description": "a GitOps continuous delivery tool for Kubernetes",
+    "related": [
+      "Kubernetes",
+      "Helm"
+    ]
+  },
+  {
+    "skill": "n8n",
+    "aliases": [],
+    "category": "Cloud & DevOps",
+    "first_seen": 2019,
+    "status": "active",
+    "description": "a source-available workflow automation tool with a visual editor",
+    "related": [
+      "Docker",
+      "REST API"
+    ]
+  },
+  {
+    "skill": "PostgreSQL",
+    "aliases": [
+      "Postgres"
+    ],
+    "category": "Database",
+    "first_seen": 1996,
+    "status": "active",
+    "description": "an advanced open-source relational database",
+    "related": [
+      "SQL",
+      "Django"
+    ]
+  },
+  {
+    "skill": "MySQL",
+    "aliases": [],
+    "category": "Database",
+    "first_seen": 1995,
+    "status": "active",
+    "description": "a popular open-source relational database",
+    "related": [
+      "SQL",
+      "PHP"
+    ]
+  },
+  {
+    "skill": "SQLite",
+    "aliases": [],
+    "category": "Database",
+    "first_seen": 2000,
+    "status": "active",
+    "description": "a serverless, embedded SQL database stored in a single file",
+    "related": [
+      "SQL",
+      "Python"
+    ]
+  },
+  {
+    "skill": "MongoDB",
+    "aliases": [
+      "Mongo"
+    ],
+    "category": "Database",
+    "first_seen": 2009,
+    "status": "active",
+    "description": "a document-oriented NoSQL database",
+    "related": [
+      "Node.js",
+      "Express.js"
+    ]
+  },
+  {
+    "skill": "Redis",
+    "aliases": [],
+    "category": "Database",
+    "first_seen": 2009,
+    "status": "active",
+    "description": "an in-memory key-value store commonly used for caching",
+    "related": [
+      "Node.js",
+      "Docker"
+    ]
+  },
+  {
+    "skill": "Elasticsearch",
+    "aliases": [],
+    "category": "Database",
+    "first_seen": 2010,
+    "status": "active",
+    "description": "a distributed search and analytics engine",
+    "related": [
+      "Apache Kafka"
+    ]
+  },
+  {
+    "skill": "Apache Cassandra",
+    "aliases": [
+      "Cassandra"
+    ],
+    "category": "Database",
+    "first_seen": 2008,
+    "status": "active",
+    "description": "a distributed wide-column NoSQL database built for high availability",
+    "related": [
+      "Apache Kafka"
+    ]
+  },
+  {
+    "skill": "Neo4j",
+    "aliases": [],
+    "category": "Database",
+    "first_seen": 2007,
+    "status": "active",
+    "description": "a graph database that stores data as nodes and relationships",
+    "related": [
+      "PostgreSQL",
+      "MongoDB"
+    ]
+  },
+  {
+    "skill": "Oracle Database",
+    "aliases": [
+      "Oracle DB"
+    ],
+    "category": "Database",
+    "first_seen": 1979,
+    "status": "active",
+    "description": "a long-established commercial relational database used widely in enterprises",
+    "related": [
+      "SQL",
+      "Microsoft SQL Server"
+    ]
+  },
+  {
+    "skill": "Microsoft SQL Server",
+    "aliases": [
+      "SQL Server",
+      "MSSQL"
+    ],
+    "category": "Database",
+    "first_seen": 1989,
+    "status": "active",
+    "description": "Microsoft's relational database management system",
+    "related": [
+      "SQL",
+      "C#"
+    ]
+  },
+  {
+    "skill": "Firebase",
+    "aliases": [],
+    "category": "Database",
+    "first_seen": 2011,
+    "status": "active",
+    "description": "Google's app development platform with a realtime database, auth and hosting",
+    "related": [
+      "React Native",
+      "Flutter"
+    ]
+  },
+  {
+    "skill": "Supabase",
+    "aliases": [],
+    "category": "Database",
+    "first_seen": 2020,
+    "status": "active",
+    "description": "an open-source Firebase alternative built on PostgreSQL",
+    "related": [
+      "PostgreSQL",
+      "Firebase"
+    ]
+  },
+  {
+    "skill": "Amazon DynamoDB",
+    "aliases": [
+      "DynamoDB"
+    ],
+    "category": "Database",
+    "first_seen": 2012,
+    "status": "active",
+    "description": "AWS's managed NoSQL key-value and document database",
+    "related": [
+      "Amazon Web Services",
+      "AWS Lambda"
+    ]
+  },
+  {
+    "skill": "OWASP Top 10",
+    "aliases": [
+      "OWASP"
+    ],
+    "category": "Security",
+    "first_seen": 2003,
+    "status": "active",
+    "description": "a regularly updated list of the most critical web application security risks",
+    "related": [
+      "Burp Suite"
+    ]
+  },
+  {
+    "skill": "Burp Suite",
+    "aliases": [],
+    "category": "Security",
+    "first_seen": 2003,
+    "status": "active",
+    "description": "a toolkit for web application security testing",
+    "related": [
+      "OWASP Top 10"
+    ]
+  },
+  {
+    "skill": "Metasploit",
+    "aliases": [],
+    "category": "Security",
+    "first_seen": 2003,
+    "status": "active",
+    "description": "a penetration testing framework",
+    "related": [
+      "Nmap"
+    ]
+  },
+  {
+    "skill": "Nmap",
+    "aliases": [],
+    "category": "Security",
+    "first_seen": 1997,
+    "status": "active",
+    "description": "a network scanning and discovery tool",
+    "related": [
+      "Wireshark",
+      "Metasploit"
+    ]
+  },
+  {
+    "skill": "Wireshark",
+    "aliases": [],
+    "category": "Security",
+    "first_seen": 1998,
+    "status": "active",
+    "description": "a network protocol analyzer",
+    "related": [
+      "Nmap"
+    ]
+  },
+  {
+    "skill": "OAuth 2.0",
+    "aliases": [
+      "OAuth"
+    ],
+    "category": "Security",
+    "first_seen": 2012,
+    "status": "active",
+    "description": "an authorization framework that lets apps access resources on a user's behalf",
+    "related": [
+      "JWT"
+    ]
+  },
+  {
+    "skill": "JWT",
+    "aliases": [
+      "JSON Web Token"
+    ],
+    "category": "Security",
+    "first_seen": 2015,
+    "status": "active",
+    "description": "a compact signed token format used for authentication and information exchange",
+    "related": [
+      "OAuth 2.0",
+      "REST API"
+    ]
+  },
+  {
+    "skill": "Flutter",
+    "aliases": [],
+    "category": "Mobile",
+    "first_seen": 2017,
+    "status": "active",
+    "description": "Google's UI toolkit for building cross-platform apps using Dart",
+    "related": [
+      "Dart",
+      "Firebase"
+    ]
+  },
+  {
+    "skill": "React Native",
+    "aliases": [],
+    "category": "Mobile",
+    "first_seen": 2015,
+    "status": "active",
+    "description": "Meta's framework for building native mobile apps with React",
+    "related": [
+      "React",
+      "JavaScript"
+    ]
+  },
+  {
+    "skill": "Android",
+    "aliases": [
+      "Android development"
+    ],
+    "category": "Mobile",
+    "first_seen": 2008,
+    "status": "active",
+    "description": "Google's mobile operating system and app platform",
+    "related": [
+      "Kotlin",
+      "Java",
+      "Jetpack Compose"
+    ]
+  },
+  {
+    "skill": "Jetpack Compose",
+    "aliases": [],
+    "category": "Mobile",
+    "first_seen": 2021,
+    "status": "active",
+    "description": "Android's declarative UI toolkit",
+    "related": [
+      "Kotlin",
+      "Android"
+    ]
+  },
+  {
+    "skill": "SwiftUI",
+    "aliases": [],
+    "category": "Mobile",
+    "first_seen": 2019,
+    "status": "active",
+    "description": "Apple's declarative UI framework for its platforms",
+    "related": [
+      "Swift"
+    ]
+  },
+  {
+    "skill": "Selenium",
+    "aliases": [],
+    "category": "Testing & QA",
+    "first_seen": 2004,
+    "status": "active",
+    "description": "a browser automation tool widely used for web testing",
+    "related": [
+      "Playwright",
+      "Cypress"
+    ]
+  },
+  {
+    "skill": "Cypress",
+    "aliases": [],
+    "category": "Testing & QA",
+    "first_seen": 2017,
+    "status": "active",
+    "description": "a JavaScript end-to-end testing framework that runs in the browser",
+    "related": [
+      "Playwright",
+      "Selenium"
+    ]
+  },
+  {
+    "skill": "Playwright",
+    "aliases": [],
+    "category": "Testing & QA",
+    "first_seen": 2020,
+    "status": "active",
+    "description": "Microsoft's cross-browser automation and testing framework",
+    "related": [
+      "Selenium",
+      "Cypress"
+    ]
+  },
+  {
+    "skill": "pytest",
+    "aliases": [],
+    "category": "Testing & QA",
+    "first_seen": 2004,
+    "status": "active",
+    "description": "a Python testing framework",
+    "related": [
+      "Python"
+    ]
+  },
+  {
+    "skill": "JUnit",
+    "aliases": [],
+    "category": "Testing & QA",
+    "first_seen": 1997,
+    "status": "active",
+    "description": "the standard unit testing framework for Java",
+    "related": [
+      "Java"
+    ]
+  },
+  {
+    "skill": "Postman",
+    "aliases": [],
+    "category": "Testing & QA",
+    "first_seen": 2012,
+    "status": "active",
+    "description": "an API development and testing platform",
+    "related": [
+      "REST API"
+    ]
+  },
+  {
+    "skill": "Jira",
+    "aliases": [],
+    "category": "Testing & QA",
+    "first_seen": 2002,
+    "status": "active",
+    "description": "Atlassian's issue tracking and agile project management tool",
+    "related": [
+      "Agile",
+      "Scrum"
+    ]
+  },
+  {
+    "skill": "Arduino",
+    "aliases": [],
+    "category": "Embedded & Hardware",
+    "first_seen": 2005,
+    "status": "active",
+    "description": "an open-source electronics platform based on easy-to-use microcontroller boards",
+    "related": [
+      "C++",
+      "Raspberry Pi"
+    ]
+  },
+  {
+    "skill": "Raspberry Pi",
+    "aliases": [],
+    "category": "Embedded & Hardware",
+    "first_seen": 2012,
+    "status": "active",
+    "description": "a low-cost single-board computer",
+    "related": [
+      "Python",
+      "Linux"
+    ]
+  },
+  {
+    "skill": "MQTT",
+    "aliases": [],
+    "category": "Embedded & Hardware",
+    "first_seen": 1999,
+    "status": "active",
+    "description": "a lightweight publish/subscribe messaging protocol widely used in IoT",
+    "related": [
+      "Raspberry Pi",
+      "Arduino"
+    ]
+  },
+  {
+    "skill": "FreeRTOS",
+    "aliases": [],
+    "category": "Embedded & Hardware",
+    "first_seen": 2003,
+    "status": "active",
+    "description": "a real-time operating system for microcontrollers",
+    "related": [
+      "C",
+      "Arduino"
+    ]
+  },
+  {
+    "skill": "Verilog",
+    "aliases": [],
+    "category": "Embedded & Hardware",
+    "first_seen": 1984,
+    "status": "active",
+    "description": "a hardware description language for designing digital circuits",
+    "related": [
+      "VHDL"
+    ]
+  },
+  {
+    "skill": "VHDL",
+    "aliases": [],
+    "category": "Embedded & Hardware",
+    "first_seen": 1983,
+    "status": "active",
+    "description": "a hardware description language for digital circuit design and FPGAs",
+    "related": [
+      "Verilog"
+    ]
+  },
+  {
+    "skill": "AutoCAD",
+    "aliases": [],
+    "category": "Embedded & Hardware",
+    "first_seen": 1982,
+    "status": "active",
+    "description": "Autodesk's CAD software for 2D and 3D drafting",
+    "related": [
+      "SolidWorks"
+    ]
+  },
+  {
+    "skill": "SolidWorks",
+    "aliases": [],
+    "category": "Embedded & Hardware",
+    "first_seen": 1995,
+    "status": "active",
+    "description": "a 3D CAD tool for mechanical design",
+    "related": [
+      "AutoCAD"
+    ]
+  },
+  {
+    "skill": "Figma",
+    "aliases": [],
+    "category": "Design & Product",
+    "first_seen": 2016,
+    "status": "active",
+    "description": "a collaborative, browser-based UI design tool",
+    "related": [
+      "Adobe Photoshop"
+    ]
+  },
+  {
+    "skill": "Adobe Photoshop",
+    "aliases": [
+      "Photoshop"
+    ],
+    "category": "Design & Product",
+    "first_seen": 1990,
+    "status": "active",
+    "description": "raster image editing software from Adobe",
+    "related": [
+      "Figma"
+    ]
+  },
+  {
+    "skill": "Agile",
+    "aliases": [
+      "Agile methodology"
+    ],
+    "category": "Design & Product",
+    "first_seen": 2001,
+    "status": "active",
+    "description": "a software development approach from the Agile Manifesto that emphasizes iterative delivery",
+    "related": [
+      "Scrum",
+      "Jira"
+    ]
+  },
+  {
+    "skill": "Scrum",
+    "aliases": [],
+    "category": "Design & Product",
+    "first_seen": 1995,
+    "status": "active",
+    "description": "an Agile framework built around sprints, defined roles and regular ceremonies",
+    "related": [
+      "Agile",
+      "Jira"
+    ]
+  },
+  {
+    "skill": "Google Analytics",
+    "aliases": [
+      "GA4"
+    ],
+    "category": "Business Software",
+    "first_seen": 2005,
+    "status": "active",
+    "description": "Google's web and app analytics platform",
+    "related": [
+      "SEO",
+      "Google Ads"
+    ]
+  },
+  {
+    "skill": "SEO",
+    "aliases": [
+      "Search Engine Optimization"
+    ],
+    "category": "Business Software",
+    "first_seen": 1997,
+    "status": "active",
+    "description": "the practice of improving a site's visibility in organic search results",
+    "related": [
+      "Google Analytics",
+      "Google Ads"
+    ]
+  },
+  {
+    "skill": "Google Ads",
+    "aliases": [],
+    "category": "Business Software",
+    "first_seen": 2000,
+    "status": "active",
+    "description": "Google's online advertising platform",
+    "related": [
+      "SEO",
+      "Google Analytics"
+    ]
+  },
+  {
+    "skill": "Salesforce",
+    "aliases": [],
+    "category": "Business Software",
+    "first_seen": 1999,
+    "status": "active",
+    "description": "a cloud CRM platform",
+    "related": [
+      "HubSpot",
+      "SAP"
+    ]
+  },
+  {
+    "skill": "HubSpot",
+    "aliases": [],
+    "category": "Business Software",
+    "first_seen": 2006,
+    "status": "active",
+    "description": "a marketing, sales and CRM platform",
+    "related": [
+      "Salesforce",
+      "Google Analytics"
+    ]
+  },
+  {
+    "skill": "SAP",
+    "aliases": [
+      "SAP ERP"
+    ],
+    "category": "Business Software",
+    "first_seen": 1972,
+    "status": "active",
+    "description": "enterprise resource planning software used by large organizations",
+    "related": [
+      "Salesforce",
+      "Oracle Database"
+    ]
+  },
+  {
+    "skill": "Tally",
+    "aliases": [
+      "Tally Prime",
+      "TallyERP"
+    ],
+    "category": "Business Software",
+    "first_seen": 1986,
+    "status": "active",
+    "description": "accounting software widely used by Indian small businesses for bookkeeping and GST",
+    "related": [
+      "QuickBooks",
+      "Excel"
+    ]
+  },
+  {
+    "skill": "QuickBooks",
+    "aliases": [],
+    "category": "Business Software",
+    "first_seen": 1983,
+    "status": "active",
+    "description": "accounting software for small businesses",
+    "related": [
+      "Tally",
+      "Excel"
+    ]
+  },
+  {
+    "skill": "Adobe Flash",
+    "aliases": [
+      "Flash"
+    ],
+    "category": "Legacy Tech",
+    "first_seen": 1996,
+    "status": "deprecated",
+    "description": "a multimedia browser plugin that reached end of life in December 2020",
+    "related": [
+      "HTML"
+    ]
+  },
+  {
+    "skill": "Silverlight",
+    "aliases": [
+      "Microsoft Silverlight"
+    ],
+    "category": "Legacy Tech",
+    "first_seen": 2007,
+    "status": "deprecated",
+    "description": "Microsoft's discontinued browser plugin for rich internet applications",
+    "related": [
+      "C#"
+    ]
+  },
+  {
+    "skill": "Apache Struts",
+    "aliases": [
+      "Struts"
+    ],
+    "category": "Legacy Tech",
+    "first_seen": 2000,
+    "status": "legacy",
+    "description": "an older Java web framework that has largely been replaced by Spring",
+    "related": [
+      "Spring Boot",
+      "Java"
+    ]
+  },
+  {
+    "skill": "SOAP",
+    "aliases": [],
+    "category": "Legacy Tech",
+    "first_seen": 1998,
+    "status": "legacy",
+    "description": "an XML-based web service protocol largely replaced by REST in new projects",
+    "related": [
+      "REST API"
+    ]
+  },
+  {
+    "skill": "CoffeeScript",
+    "aliases": [],
+    "category": "Legacy Tech",
+    "first_seen": 2009,
+    "status": "legacy",
+    "description": "a language that compiled to JavaScript, made mostly obsolete by modern JavaScript",
+    "related": [
+      "JavaScript"
+    ]
+  },
+  {
+    "skill": "Grunt",
+    "aliases": [],
+    "category": "Legacy Tech",
+    "first_seen": 2012,
+    "status": "legacy",
+    "description": "a JavaScript task runner that has been mostly replaced by newer build tools",
+    "related": [
+      "JavaScript",
+      "npm"
+    ]
+  },
+  {
+    "skill": "Bower",
+    "aliases": [],
+    "category": "Legacy Tech",
+    "first_seen": 2012,
+    "status": "deprecated",
+    "description": "a front-end package manager that is deprecated in favor of npm",
+    "related": [
+      "npm",
+      "Node.js"
+    ]
+  }
+]

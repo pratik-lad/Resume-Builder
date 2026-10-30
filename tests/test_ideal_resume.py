@@ -47,7 +47,7 @@ def test_missing_sections_trigger_one_complete_revision(monkeypatch):
     result = ideal_resume.generate("Required: Node.js and React", "# Candidate\nCollege")
     assert len(calls) == 2
     assert "MISSING JD SKILLS" in calls[1]["prompt"]
-    assert "exactly one new JD-aligned project" in calls[1]["prompt"]
+    assert "exactly two new projects" in calls[1]["prompt"]
     assert "Node.js" in result and "React" in result
 
 

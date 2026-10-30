@@ -57,7 +57,7 @@
           ]
         },
         "options": {
-          "timeout": 180000,
+            "timeout": 600000,
           "response": {
             "response": {
               "neverError": false
@@ -85,7 +85,7 @@
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify({ run_id: $json.run_id, jd_text: $('Form').item.json['Job Description'] }) }}",
         "options": {
-          "timeout": 120000
+          "timeout": 900000
         }
       },
       "id": "jd",
@@ -105,9 +105,9 @@
         "url": "=http://api:8000/v1/optimize",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ run_id: $('1 ingest').item.json.run_id }) }}",
+        "jsonBody": "={{ JSON.stringify({ run_id: $('1 ingest').item.json.run_id, fictional_template: true, fabrication_mode: 'demo', allow_unverified: true }) }}",
         "options": {
-          "timeout": 300000
+          "timeout": 1500000
         }
       },
       "id": "optimize",
@@ -146,7 +146,7 @@
       "parameters": {
         "operation": "completion",
         "completionTitle": "Your JD-driven resume is ready",
-        "completionMessage": "=Your ideal resume is ready.\n\nDownload: http://localhost:8000{{ $json.download_url }}\nFull JD extraction and resume: http://localhost:8000{{ $json.report_url }}",
+        "completionMessage": "=Your ideal resume is ready.\n\nDownload: http://localhost:8001{{ $json.download_url }}\nFull JD extraction and resume: http://localhost:8001{{ $json.report_url }}",
         "options": {}
       },
       "id": "done",

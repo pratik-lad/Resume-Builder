@@ -1,0 +1,76 @@
+{
+  "model": {
+    "repository": "unsloth/Qwen3-4B-Instruct-2507-GGUF",
+    "revision": "a06e946bb6b655725eafa393f4a9745d460374c9",
+    "filename": "Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+    "size": 2497281120,
+    "sha256": "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597",
+    "disable_repacking": true,
+    "license_url": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/LICENSE",
+    "sampling": {
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20,
+      "min_p": 0.0,
+      "presence_penalty": 1.0,
+      "repeat_penalty": 1.1
+    },
+    "layers": 36,
+    "chat_template": "Embedded in the checksum-pinned GGUF; enable_thinking=false"
+  },
+  "embedding": {
+    "repository": "Xenova/bge-small-en-v1.5",
+    "revision": "ea104dacec62c0de699686887e3f920caeb4f3e3",
+    "files": [
+      {
+        "name": "onnx/model_quantized.onnx",
+        "target": "model_quantized.onnx",
+        "size": 34014426,
+        "sha256": "6c9c6101a956d62dfb5e7190c538226c0c5bb9cb27b651234b6df063ee7dbfe4"
+      },
+      {
+        "name": "tokenizer.json",
+        "target": "tokenizer.json",
+        "size": 711396,
+        "sha256": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66"
+      },
+      {
+        "name": "config.json",
+        "target": "config.json",
+        "size": 683,
+        "sha256": "fa73f90bf92c8cace1fbcb709626306f2bdbc9ea3e5b5f94b440df9b6aa56350"
+      },
+      {
+        "name": "tokenizer_config.json",
+        "target": "tokenizer_config.json",
+        "size": 366,
+        "sha256": "9261e7d79b44c8195c1cada2b453e55b00aeb81e907a6664974b4d7776172ab3"
+      },
+      {
+        "name": "special_tokens_map.json",
+        "target": "special_tokens_map.json",
+        "size": 125,
+        "sha256": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3"
+      }
+    ]
+  },
+  "runtime": {
+    "version": "b11316",
+    "filename": "llama-b11316-bin-win-cpu-x64.zip",
+    "size": 19265507,
+    "sha256": "809b187007d198f22f82284a79dc02cdb6c4e149df61441702b9fcf7ef966fe3"
+  },
+  "cuda_runtime": {
+    "version": "b11316",
+    "source_build": {
+      "version": "b11316",
+      "commit": "2232bc8b5f8cd91493a2c251b077c4d45cf2e832",
+      "source_sha256": "88f63724542b87304d0e63e8e9226d9fd4bb4d418112d7f79c68ac4d11befc38",
+      "architectures": [
+        "86-real",
+        "86-virtual"
+      ],
+      "toolkit": "13.3.1"
+    }
+  }
+}

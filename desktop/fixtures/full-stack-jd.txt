@@ -1,0 +1,26 @@
+Job Title: Senior Full Stack Developer
+Location: India - Remote
+Project Duration: 6 Months Contact with a possibility for an extension
+Work Timings: 2:00 - 11:00 pm IST
+
+Experience: 8+ years in Software Development, 5+ years of Full-Stack Development using Python, React.JS & SQL/PostgreSQL
+
+Key Responsibilities:
+Develop and maintain full-stack applications using React and Python
+Build and support scalable APIs and database solutions
+Implement unit tests and ensure code quality
+Support AWS deployments and production operations
+Integrate LLM-powered capabilities and AI solutions
+Collaborate with cross-functional teams in an Agile environment
+
+Required Skills:
+Python (FastAPI preferred)
+React.js
+SQL & PostgreSQL
+Unit Testing (PyTest, Jest, or equivalent)
+AWS Operations & Cloud Services (strongly preferred)
+REST API Development & Integration
+Experience with LLMs and GenAI applications
+Familiarity with RAG concepts and AI-assisted development
+Git, CI/CD, and Agile development practices
+Exposure to AI coding tools such as GitHub Copilot, Cursor, ChatGPT, etc., and Vibe Coding practices

@@ -1,12 +1,18 @@
 .venv/
+desktop/.venv/
+launcher/.venv/
+build/
+dist/
 __pycache__/
 .pytest_cache/
 *.pyc
 .env
+models/
 data/runs/*
 !data/runs/.gitkeep
 data/cache/*
 !data/cache/.gitkeep
+data/backups/
 data/datasets/*
 !data/datasets/.gitkeep
 data/eval/*
@@ -15,3 +21,17 @@ eval/results/
 eval/datasets.local.json
 eval/cache/
 *.gguf
+tmp/
+data/n8n-smoke-*.html
+data/n8n-smoke-*.txt
+eval/current_workflow/
+
+# Desktop secrets and downloaded model assets
+.env.*
+!.env.example
+*.onnx
+*.safetensors
+desktop-assets/
+# Local evaluation examples may contain candidate information; binaries are built locally.
+eval/sample_cases.pending_review.jsonl
+downloads/*.exe

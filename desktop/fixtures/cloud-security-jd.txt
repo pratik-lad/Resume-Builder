@@ -1,0 +1,45 @@
+Position: Senior Cloud & Infrastructure Security Engineer DevSecOps
+Timezone: United States, Middle East, Europe (Can be any)
+Exp: 8 YOE
+Budget: 1.4 LPM
+
+Position Overview:
+We are seeking a senior Cloud & Infrastructure Security Engineer to take full ownership of vulnerability management and of cloud and Kubernetes security across AWS, GCP, and Azure. The role operates the vulnerability-management platform and supply-chain scanning tooling, maintains service mesh and policy-as-code enforcement, audits and secures infrastructure in newly added environments, and contributes to security architecture and design reviews, including AI agents running in production. The engineer also supports workforce and endpoint security initiatives such as VDI and browser isolation, and uses coding and agentic tools for first-pass review of infrastructure-as-code, container configuration, and cloud policy, verifying findings against source configuration. Detections and access rules are managed as code via pull requests. The engineer is expected to work independently at a senior level, define scope and priorities without detailed direction, and communicate risk clearly to engineers and leadership. Over the first six months the engineer is expected to move from onboarding to full ownership of infrastructure and cloud security as a domain and to independently deliver security-architecture design reviews.
+Key Responsibilities:
+- Own vulnerability management: operate and maintain the vulnerability-management platform
+- Ensure container images are scanned and patched on a defined cadence
+- Maintain supply-chain scanning tooling and its severity-classification configuration
+- Define and enforce remediation SLAs
+- Own cloud security across multiple providers: AWS, GCP, and Azure hardening, logging, and service-account governance
+- Own Kubernetes and service-mesh security: operate the service mesh and maintain the policy-as-code rollout so that policy is enforced automatically
+- Audit and secure infrastructure in newly added environments: review build pipelines and infrastructure in newer parts of the business as they come online, and remediate findings
+- Contribute to security architecture and design review: review new integrations and internal systems, including AI agents running in production, for security risk
+- Support workforce and endpoint security: contribute to VDI and browser-isolation initiatives as the program matures
+- Use agentic tooling in workflow: use coding agents for first-pass review of infrastructure-as-code, container configuration, and cloud policy, verifying findings against source configuration before acting on them
+- Weeks 1–2: Onboard to the cloud environment, Kubernetes architecture, and existing security tooling
+- Month 1: Establish ownership of the vulnerability-management process; ensure findings are triaged and remediated on a defined cadence
+- Month 2: Complete configuration of supply-chain scanning tooling; implement automated image scanning and patching; deploy initial policy-as-code rules
+- Month 3: Complete policy-as-code rollout in at least one environment; begin infrastructure audits in newly added environments
+- Month 4: Close outstanding cloud logging and service-account gaps; establish and enforce a documented multi-cloud hardening baseline
+- Months 5–6: Take full ownership of infrastructure and cloud security as a domain; independently deliver security-architecture design reviews
+- Manage detections and access rules as code through pull requests
+Required Skills:
+- Production experience hardening cloud infrastructure (IAM, logging, service accounts, network security) on at least one major cloud provider
+- Kubernetes and container security
+- Service mesh experience (Cilium, Istio, or similar)
+- Policy-as-code experience (Kyverno, OPA, or similar)
+- Vulnerability-management experience with SCA/SAST tooling
+- SLA-driven remediation practice
+- Fluency with coding agents: experience using agentic tools for infrastructure-as-code review or investigation work and verifying their output
+- Terraform
+- CI/CD
+- Git
+- Ability to work independently at a senior level, defining scope and priorities without detailed direction
+- Clear written and verbal communication; able to run design reviews and communicate risk to engineers and leadership
+Preferred (Bonus) Skills:
+- Multi-cloud experience (AWS, GCP, Azure)
+- Experience securing multi-tenant or multi-identity-domain environments
+- Supply-chain security tooling (SBOM, Socket, JFrog, or similar)
+- Secure-SDLC or AppSec experience
+- Terraform/IaC at scale
+- Relevant certifications (e.g., AWS/GCP/Azure security specialties, CKS)

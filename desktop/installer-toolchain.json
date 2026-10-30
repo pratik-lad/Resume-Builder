@@ -1,0 +1,10 @@
+{
+  "name": "NSISBI",
+  "version": "3.12.3",
+  "url": "https://sourceforge.net/projects/nsisbi/files/nsisbi3.12.3/nsisbi-3.12.3-amd64.zip/download",
+  "filename": "nsisbi-3.12.3-amd64.zip",
+  "size": 3507123,
+  "sha256": "5a8d38e9f25670cd5c0f3f873bc7c4decad019f6eb7b4ecdd6ad944fbd6174ef",
+  "compiler": "Bin/makensis.exe",
+  "reason": "All-in-one offline installers above standard NSIS's 2 GiB limit."
+}

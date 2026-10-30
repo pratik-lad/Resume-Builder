@@ -1,0 +1,17 @@
+Job Title: Senior Python Backend Engineer
+Experience: 8+ years of software development, including 5+ years using Python 3.
+Required Skills:
+- Python 3 - 5+ years of experience; FastAPI and asynchronous programming (async/await).
+- REST API development and microservices architecture.
+- PostgreSQL or MySQL, plus Redis caching and ORM / SQLAlchemy transactions.
+- OAuth2, JWT and API security.
+- Git including rebase, cherry-pick and merge conflict resolution.
+- Unit and integration testing using pytest.
+- AI-assisted development using GitHub Copilot or Cursor, with developer review and automated validation.
+- Logging and monitoring using Prometheus and CloudWatch.
+- CI/CD pipelines with build, test, deployment and rollback gates.
+- Docker and Kubernetes.
+- Message queues such as Kafka, RabbitMQ or equivalent.
+- Linux production diagnostics.
+Preferred Skills:
+- Vue.js user interfaces and GraphQL API integration.

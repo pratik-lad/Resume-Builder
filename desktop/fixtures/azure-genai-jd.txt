@@ -1,0 +1,8 @@
+*First Priority*
+*Gen AI Lead*
+Experience-6 to 9 years
+Remote
+Duration-3
+Budget-110K -130K
+Shift-1 - 10 PM / 2 - 11 PM
+Python, Agentic AI, Multi-Agent Orchestration, MCP Servers, LangGraph/LangChain/Semantic Kernel, Azure AI Foundry, Azure AI Agent Service, Azure OpenAI, Azure ML, RAG, Embeddings, Vector Databases, Azure Cognitive Search, API Development, Azure DevOps/GitHub Actions, LLMOps/CI/CD, AKS/Containers, Azure Functions, Key Vault, OAuth/Entra ID, AI Security & Governance, Monitoring/Observability, Cost Optimization.

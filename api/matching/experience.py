@@ -67,6 +67,26 @@ def extract_entries(section_text: str) -> list[ExperienceEntry]:
             current=match.group("end").lower() in {"present", "current", "now"},
             source_evidence=evidence,
         ))
+    # A common resume layout places ``Role | #Confidential`` on one line and a
+    # product/client description on the next. The anonymized employer is the
+    # source company; the following line is context, not the job title.
+    for index, line in enumerate(lines):
+        parts = [part.strip() for part in line.split("|") if part.strip()]
+        if len(parts) < 2 or not _ROLE_WORD.search(parts[0]):
+            continue
+        if not re.fullmatch(r"#?\s*confidential\s*", parts[-1], re.I):
+            continue
+        role_title = parts[0]
+        key = ("confidential", role_title.casefold())
+        if key in {(entry.company.casefold(), entry.role_title.casefold()) for entry in entries}:
+            continue
+        context = lines[index + 1] if index + 1 < len(lines) else ""
+        entries.append(ExperienceEntry(
+            entry_id=f"EXP-UNDATED-{len(entries) + 1:02d}",
+            company="#Confidential", role_title=role_title,
+            source_evidence=" ".join(part for part in (line, context) if part),
+        ))
+
     # Preserve clearly-labelled but undated source roles too. They cannot be
     # used for duration calculation, but they stop JD-only employers from
     # replacing a source employment heading during finalization.
@@ -75,6 +95,8 @@ def extract_entries(section_text: str) -> list[ExperienceEntry]:
         heading = _RANGE.sub("", line).strip(" |-")
         parts = [part.strip() for part in heading.split("|") if part.strip()]
         if len(parts) < 2 or not _ROLE_WORD.search(heading):
+            continue
+        if re.fullmatch(r"#?\s*confidential\s*", parts[-1], re.I):
             continue
         company, role_title = parts[0], parts[-1]
         key = (company.casefold(), role_title.casefold())

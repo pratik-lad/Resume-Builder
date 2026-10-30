@@ -1,0 +1,49 @@
+Position: Forward Deployed AI Engineer
+Timezone: United States, Middle East, Europe (Can be any)
+Exp: 6 YOE
+Budget: 1.4 LPM
+
+Position Overview:
+The Forward Deployed AI Engineer is Toloka's most senior client-facing technical role. The engineer partners directly with CTOs, VPs of Engineering and ML, research leaders, and applied AI teams to solve complex AI data challenges and translate ambitious model goals into practical, scalable solutions. The role is hands-on: designing and building the data-generation, labeling, and evaluation pipelines that power next-generation AI models. Rather than training models, the engineer helps clients identify the right data strategy and owns the solution from problem discovery through implementation and delivery. Engagements vary widely, from evaluation pipelines for frontier foundation models to domain-specific reasoning datasets and synthetic data workflows. The role sits at the intersection of consulting, engineering, and AI. Beyond client delivery, the engineer helps shape Toloka's approach to AI solution engineering by establishing best practices, raising the technical bar across engagements, and mentoring Solution Engineers and Technical Consultants.
+Key Responsibilities:
+- Act as the primary technical counterpart to CTOs, VPs, and research/engineering leadership
+- Lead executive conversations using a structured, answer-first (BLUF) approach
+- Manage escalations and expectations with composure and integrity
+- Build long-term trusted relationships by recommending evidence-based solutions
+- Ask excellent questions to uncover the client's real need (the 'question behind the question'), including understanding their model, the metrics they want to move, and how they intend to train or evaluate it
+- Draw on a solid understanding of how LLMs are trained and fine-tuned to hold credible conversations with technical leaders and understand their data strategy
+- Proactively propose the data that will solve the client's problem, with options and rationale
+- Design and build data solutions hands-on: configure data-labeling components and quality controls
+- Develop user interfaces and AI-driven solutions (e.g. agentic systems, RAG, synthetic data generation)
+- Integrate solutions into automated, multi-stage pipelines that produce data for AI training and evaluation
+- Architect and reason about complex, multi-stage solutions end to end
+- Run experiments to prove the pipeline delivers data of the required quality and speed
+- Iterate from MVP toward production
+- Provide technical leadership across multiple client engagements
+- Establish reusable engineering standards and best practices
+- Mentor Solution Engineers and Technical Consultants to raise the overall technical bar of the organization
+- Own delivery end to end, including timelines, quality, and scalability
+- Own the commercial outcome, including Gross Margin and Contribution Margin, naming the levers, trade-offs, and next checkpoints
+- Identify and drive expansion opportunities
+Required Skills:
+- Executive communication: confidently leading conversations with CTOs, VPs, and senior technical stakeholders; clear, concise, structured, persuasive, and calm under pressure
+- Professional English (C1+)
+- Strong understanding of modern LLM development: how LLMs are trained, fine-tuned, and evaluated (SFT, RLHF/RLAIF, DPO/PPO, reward modeling, LoRA/PEFT)
+- Ability to translate client goals into effective AI data solutions
+- Hands-on solution engineering: designed complex AI solutions, built multi-stage pipelines, and developed AI-driven systems (agentic workflows, RAG, synthetic data generation)
+- Python (NumPy, Pandas)
+- API integration
+- Independently prototyping LLM-powered solutions
+- Solid software engineering foundations: version control, testing, MVP thinking, iterative development
+- Exceptional discovery and problem framing, working through ambiguity and translating business or research goals into AI data and evaluation strategies
+- 8+ years delivering complex AI, ML, or data projects end to end
+- Experience influencing technical direction beyond individual projects
+- Ownership mindset: making thoughtful trade-offs between time, cost, and quality and owning both technical and commercial success
+Preferred (Bonus) Skills:
+- Experience building production software
+- Experience establishing engineering standards, mentoring engineers, or leading cross-functional technical initiatives
+- Experience in top-tier strategy consulting (McKinsey, Bain, BCG) and/or as an applied ML / LLM engineer
+- Hands-on experience training or fine-tuning LLMs and/or building agentic systems
+- Advanced degree (MSc/PhD) in AI, CS, or a related field
+- Experience in crowdsourcing and/or data-centric AI
+- Experience with fast-paced, multi-project delivery for frontier AI clients

@@ -5,24 +5,36 @@ import re
 from docx import Document
 
 from docgen import docx_builder, report_html, reference_template
+from pipeline.ideal_resume import clean_export_markdown
+from pipeline.output_coverage import evaluate
 from schemas import (Fact, GapReport, OptimizationStrategy, OptimizeResult, Rewrite, ScoreCard)
 from validation.immutable_guard import contact_values
 
 
 def build_ideal_docx(markdown: str, out_path: Path) -> Path:
     """Use the refined professional template for all new exports."""
-    return reference_template.build(markdown, out_path)
+    return reference_template.build(clean_export_markdown(markdown), out_path)
 
 
 def build_ideal_report(markdown: str, req_set) -> str:
+    markdown = clean_export_markdown(markdown)
+    coverage = evaluate(markdown, req_set.requirements)
     rows = "".join(
-        f"<tr><td>{escape(r.req_id)}</td><td>{escape(r.text)}</td>"
-        f"<td>{'Required' if r.must_have else 'Preferred'}</td></tr>"
-        for r in req_set.requirements)
+        f"<tr><td>{escape(r.req_id)}</td><td>{escape(r.requirement)}</td>"
+        f"<td>{'Required' if r.must_have else 'Preferred'}</td>"
+        f"<td>{r.status.capitalize()} ({round(r.coverage * 100)}%)</td>"
+        f"<td>{escape(r.excerpt)}"
+        f"{'<br>Missing: ' + escape(', '.join(r.missing_components)) if r.missing_components else ''}"
+        "</td></tr>"
+        for r in coverage.items)
     return ("<!doctype html><html><head><meta charset='utf-8'>"
             "<title>Tailored resume</title><style>body{max-width:900px;margin:40px auto;"
-            "font:16px/1.6 system-ui}pre{white-space:pre-wrap}td{padding:8px}</style>"
+            "font:16px/1.6 'Times New Roman',serif}pre{white-space:pre-wrap;font-family:inherit}td{padding:8px}</style>"
             "</head><body><h1>Tailored resume</h1>"
+            f"<p>Required content coverage: {coverage.required_percent}% | "
+            f"Preferred content coverage: {coverage.preferred_percent}%</p>"
+            "<p>This checks text in the generated resume only. It does not verify employment, "
+            "certifications, or candidate eligibility.</p>"
             f"<pre>{escape(markdown)}</pre><h2>Full JD extraction</h2>"
             f"<table>{rows}</table><h2>Original job description</h2>"
             f"<pre>{escape(req_set.jd_text)}</pre></body></html>")

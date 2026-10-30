@@ -34,6 +34,46 @@ _PREFIX = {
 _LEADING_BULLET = re.compile(r"^[\s•*\-]+")
 
 
+def _source_claim_lines(section_text: str) -> list[str]:
+    """Return lossless claim lines used when a model omits fact text."""
+    claims = []
+    for raw in section_text.splitlines():
+        line = raw.strip()
+        if not line or re.match(r"^#{1,6}\s+", line):
+            continue
+        if re.match(r"(?i)^(?:dates?|period|employment dates?|date of birth|dob)\s*:", line):
+            continue
+        claims.append(_LEADING_BULLET.sub("", line).strip())
+    return [line for line in claims if line]
+
+
+def _recover_fact_text(extracted: ExtractedFacts, section_text: str) -> ExtractedFacts:
+    """Repair incomplete structured output without discarding valid entities."""
+    source_lines = _source_claim_lines(section_text)
+    if not source_lines:
+        return extracted
+    if not extracted.facts:
+        return ExtractedFacts(facts=[ExtractedFact(text=line) for line in source_lines])
+    if not any(not item.text.strip() for item in extracted.facts):
+        return extracted
+    facts = []
+    source_index = 0
+    for item in extracted.facts:
+        if item.text.strip():
+            facts.append(item)
+            continue
+        replacement = source_lines[min(source_index, len(source_lines) - 1)]
+        source_index += 1
+        facts.append(item.model_copy(update={"text": replacement}))
+    existing = {re.sub(r"\W+", " ", item.text).strip().casefold() for item in facts if item.text.strip()}
+    for line in source_lines:
+        key = re.sub(r"\W+", " ", line).strip().casefold()
+        if key and key not in existing:
+            facts.append(ExtractedFact(text=line))
+            existing.add(key)
+    return ExtractedFacts(facts=facts)
+
+
 def parse_file(path: str) -> pdf_parser.ParsedDoc:
     suffix = Path(path).suffix.lower()
     if suffix == ".pdf":
@@ -49,7 +89,7 @@ def parse_file(path: str) -> pdf_parser.ParsedDoc:
     raise ValueError(f"unsupported file type: {suffix}")
 
 
-def build_ledger(doc: pdf_parser.ParsedDoc) -> tuple[FactLedger, dict[str, int]]:
+def build_ledger(doc: pdf_parser.ParsedDoc, *, allow_unverified: bool = False) -> tuple[FactLedger, dict[str, int]]:
     sections = segmenter.segment(doc)
     facts: list[Fact] = []
     entity_groups: list[list[str]] = []
@@ -83,8 +123,9 @@ def build_ledger(doc: pdf_parser.ParsedDoc) -> tuple[FactLedger, dict[str, int]]
         extracted = structured.generate(
             prompt, ExtractedFacts,
             model=settings.model_extract, temperature=settings.temp_extract,
+            retries=0, num_predict=settings.max_extract_tokens,
         )
-        return section, ftype, extracted
+        return section, ftype, _recover_fact_text(extracted, section.text)
 
     # Independent sections can be extracted concurrently. executor.map keeps
     # source order deterministic while the local Ollama server serves two calls.
@@ -110,11 +151,18 @@ def build_ledger(doc: pdf_parser.ParsedDoc) -> tuple[FactLedger, dict[str, int]]
                 source=SourceSpan(page=section.lines[0].page, char_start=start, char_end=end),
             ))
 
-    # Employment duration is a deterministic source-data field.  It is derived
+    # Employment duration is a deterministic source-data field. It is derived
     # exclusively from the Experience section; project dates never enter it.
-    experience_entries = [entry for section in sections if section.name == "experience"
-                          for entry in extract_entries(section.text)]
-    allowed = entity_guard.build_allowed(doc.raw_text, entity_groups)
+    # In unverified/fabrication mode we intentionally stop treating source
+    # résumé evidence as a hard constraint and let downstream stages decide
+    # whether to promote unsupported claims.
+    if allow_unverified:
+        experience_entries = []
+        allowed = sorted({item for group in entity_groups for item in group})
+    else:
+        experience_entries = [entry for section in sections if section.name == "experience"
+                              for entry in extract_entries(section.text)]
+        allowed = entity_guard.build_allowed(doc.raw_text, entity_groups)
     ledger = FactLedger(facts=facts, experience_entries=experience_entries,
                         allowed_entities=sorted(allowed), raw_text=doc.raw_text)
     return ledger, segmenter.summary(sections)

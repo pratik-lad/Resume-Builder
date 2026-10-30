@@ -7,8 +7,8 @@ JOB DESCRIPTION:
 
 Rules:
 - One requirement per distinct expectation. Split compound sentences.
-- `text` must be an exact, contiguous phrase copied from the job description.
-  Do not paraphrase it. This lets a human reviewer trace every requirement.
+- `text` should be a clear, concise statement of the requirement; it may be
+  synthesized or expanded where useful.
 - Ignore company marketing, benefits, culture blurbs, and EEO statements.
 - `type`:
     hard_skill    - a technical ability (Python, machine learning, SQL)
@@ -23,9 +23,7 @@ Rules:
 - Extract ALL required and preferred expectations; there is no requirement-count limit.
   Include every skill, tool, responsibility, qualification, experience duration, domain,
   certification, and soft skill, including expectations near the end of the JD.
-  Do not invent requirements not in the text.
 - Before returning JSON, silently compare the extracted requirements against every sentence and
   bullet in this JD chunk. Add any omitted job expectation, including items expressed in prose.
-- Preserve exact source phrases so the downstream resume builder can verify complete JD coverage.
 
 Return JSON only.

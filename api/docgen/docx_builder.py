@@ -1,6 +1,6 @@
 """Deterministic, single-column DOCX resume renderer.
 
-The optimiser supplies verified content only. This module owns every layout
+The optimiser supplies tailored content. This module owns every layout
 decision: section order, styles, spacing, bullets, and conditional rendering.
 It intentionally creates no tables, text boxes, headers, footers, or other
 layout objects that make resumes harder for applicant-tracking systems to read.
@@ -54,8 +54,8 @@ _SKILL_CATEGORIES: OrderedDict[str, set[str]] = OrderedDict([
 
 
 def _set_font(style: Any, size: float, bold: bool = False) -> None:
-    style.font.name = "Calibri"
-    style._element.rPr.rFonts.set(qn("w:eastAsia"), "Calibri")
+    style.font.name = "Times New Roman"
+    style._element.rPr.rFonts.set(qn("w:eastAsia"), "Times New Roman")
     style.font.size = Pt(size)
     style.font.bold = bold
 
@@ -269,7 +269,7 @@ def _render_additional(doc: Document, items: Any,
 
 def render_structured(data: Mapping[str, Any], out_path: Path,
                       section_order: Iterable[str] = DEFAULT_SECTION_ORDER) -> Path:
-    """Render structured, verified resume data into a stable DOCX layout.
+    """Render structured resume data into a stable DOCX layout.
 
     Empty sections are omitted. Callers may reorder valid sections for a job
     type, but cannot alter layout or styles through this function.
@@ -408,10 +408,10 @@ def create_master_template(out_path: Path) -> Path:
     """Create a reusable, populated placeholder DOCX master template."""
     placeholder = {
         "header": {"name": "[FULL NAME]", "location": "[City, State]", "phone": "[Phone]", "email": "[Email]", "linkedin": "[LinkedIn]", "github": "[GitHub / Portfolio]"},
-        "summary": "[Concise summary based only on verified experience, skills, and achievements.]",
+        "summary": "[Concise, tailored professional summary.]",
         "skills": {"Languages": ["[Language]"], "Frameworks & Tools": ["[Tool]"], "Databases": ["[Database]" ]},
-        "experience": [{"title": "[JOB TITLE]", "company": "[COMPANY]", "location": "[LOCATION]", "start_date": "[START DATE]", "end_date": "[END DATE / PRESENT]", "bullets": ["[Verified achievement or responsibility]"]}],
-        "projects": [{"name": "[PROJECT NAME]", "technologies": "[TECHNOLOGIES]", "bullets": ["[What was built and verified technical contribution]"]}],
+        "experience": [{"title": "[JOB TITLE]", "company": "[COMPANY]", "location": "[LOCATION]", "start_date": "[START DATE]", "end_date": "[END DATE / PRESENT]", "bullets": ["[Achievement or responsibility]"]}],
+        "projects": [{"name": "[PROJECT NAME]", "technologies": "[TECHNOLOGIES]", "bullets": ["[What was built and technical contribution]"]}],
         "education": [{"degree": "[DEGREE]", "university": "[UNIVERSITY]", "location": "[LOCATION]", "dates": "[DATES]"}],
         "certifications": [{"name": "[CERTIFICATION]", "organization": "[ORGANIZATION]", "year": "[YEAR]"}],
         "additional": ["[Optional award, coursework, language, or achievement]"],

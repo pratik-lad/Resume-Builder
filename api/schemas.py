@@ -13,7 +13,10 @@ Status = Literal["covered", "partial", "missing"]
 # ---------- LLM output schemas (kept FLAT and SMALL on purpose) ----------
 
 class ExtractedFact(BaseModel):
-    text: str
+    # Local constrained models occasionally return the entity fields first and
+    # omit ``text``.  An empty default lets ingestion recover that claim from
+    # the lossless source section while retaining the valid entity lists.
+    text: str = ""
     context: str = ""          # e.g. "Acme Corp - SDE Intern (Jun 2024 - Dec 2024)"
     tech: list[str] = Field(default_factory=list)
     orgs: list[str] = Field(default_factory=list)
@@ -42,8 +45,7 @@ class RewriteOut(BaseModel):
     # Defaults matter: structured.generate() falls back to schema() (no args) when
     # every retry fails to parse. A required field with no default would raise
     # ValidationError right there, crashing the run instead of degrading gracefully.
-    # An empty text + used_evidence=False is a clear "generation failed" signal that
-    # ladder.validate()'s L0 check (empty output) and the repair loop already handle.
+    # An empty text + used_evidence=False is a clear generation-failed signal.
     text: str = ""
     used_evidence: bool = False
 
@@ -100,7 +102,7 @@ class Requirement(BaseModel):
 
 
 class RequirementSet(BaseModel):
-    extraction_version: str = "full-jd-tailoring-v2"
+    extraction_version: str = "full-jd-tailoring-v4"
     role_title: str = ""
     requirements: list[Requirement] = Field(default_factory=list)
     jd_text: str = ""
@@ -125,6 +127,24 @@ class ScoreCard(BaseModel):
     keyword_surface: float = 0.0
     fit_decision: Literal["match", "partial", "mismatch"] = "partial"
     fit_probability: float = 0.0
+
+
+class OutputCoverageItem(BaseModel):
+    req_id: str
+    requirement: str
+    must_have: bool
+    present: bool
+    status: Status = "missing"
+    coverage: float = 0.0
+    missing_components: list[str] = Field(default_factory=list)
+    excerpt: str = ""
+
+
+class OutputCoverage(BaseModel):
+    """Text coverage in generated output, not verified candidate eligibility."""
+    required_percent: float = 0.0
+    preferred_percent: float = 0.0
+    items: list[OutputCoverageItem] = Field(default_factory=list)
 
 
 class GapItem(BaseModel):
@@ -272,6 +292,7 @@ class OptimizeResult(BaseModel):
     finalizer_version: str = ""
     generation_mode: str = "resume_builder_tailoring"
     markdown: str = ""
+    output_coverage: OutputCoverage | None = None
     rewrites: list[Rewrite] = Field(default_factory=list)
     ucr: float | None = None
     accepted: int = 0
@@ -280,12 +301,18 @@ class OptimizeResult(BaseModel):
     strategy: Optional[OptimizationStrategy] = None
     project_bridge: Optional[ProposedProject] = None
     truth_report: Optional[TruthSafetyReport] = None
+    fictional_template: bool = False
+    fabrication_mode: Literal["none", "demo", "fictional", "synthetic"] = "none"
+    allow_unverified: bool = False
 
 
 # ---------- API request/response ----------
 
 class RunRef(BaseModel):
     run_id: str
+    fictional_template: bool = True
+    fabrication_mode: Literal["none", "demo", "fictional", "synthetic"] = "demo"
+    allow_unverified: bool = True
 
 
 class JDRequest(BaseModel):
@@ -296,12 +323,18 @@ class JDRequest(BaseModel):
 class IdealResumeRequest(BaseModel):
     jd_text: str
     resume_text: str = ""
+    fictional_template: bool = True
+    fabrication_mode: Literal["none", "demo", "fictional", "synthetic"] = "demo"
+    allow_unverified: bool = True
 
 
 class IdealResumeResponse(BaseModel):
     markdown: str
+    output_coverage: OutputCoverage | None = None
     requirements: RequirementSet | None = None
     fictional_template: bool = False
+    fabrication_mode: Literal["none", "demo", "fictional", "synthetic"] = "none"
+    allow_unverified: bool = False
 
 
 class IngestResponse(BaseModel):
@@ -328,6 +361,7 @@ class StrategyResponse(BaseModel):
 class OptimizeResponse(BaseModel):
     generation_mode: str = "resume_builder_tailoring"
     markdown: str = ""
+    output_coverage: OutputCoverage | None = None
     run_id: str
     ucr: float | None = None
     accepted: int
@@ -337,6 +371,9 @@ class OptimizeResponse(BaseModel):
     strategy: Optional[OptimizationStrategy] = None
     project_bridge: Optional[ProposedProject] = None
     truth_report: Optional[TruthSafetyReport] = None
+    fictional_template: bool = False
+    fabrication_mode: Literal["none", "demo", "fictional", "synthetic"] = "none"
+    allow_unverified: bool = False
 
 
 class BuildProjectRequest(BaseModel):

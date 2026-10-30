@@ -1,7 +1,7 @@
 .PHONY: run up down logs test eval fmt pull
 
 pull:
-	ollama pull dolphin-llama3
+	ollama pull qwen3.5:4b
 
 run:
 	cd api && uvicorn main:app --reload --port 8000

@@ -1,211 +1,127 @@
-# Resume Optimizer POC
+# AI-Powered Resume Builder - Windows Desktop Application
 
-## Purpose
+This branch contains **Resume Optimizer Project Edition 1.6.3**, an offline Windows 11 x64 application using PySide6 and a local Qwen3-4B-Instruct-2507 Q4_K_M model through llama.cpp. The model and build artifacts are downloaded or built separately; see the [installation and build guide](docs/DESKTOP_INSTALLATION.md).
 
-This is a local resume-builder and JD-tailoring POC. A user uploads a resume (PDF or DOCX) and pastes a job description (JD). The system uses local Ollama model `dolphin-llama3` to create a concise, ATS-readable tailored resume, then produces a DOCX download and an HTML report containing the extracted JD requirements.
+## Start here
 
-This document is the current handoff context for a coding agent. Prefer it over old assumptions about a source-claim-only optimizer or a UCR safety-gated workflow.
+- [Installation and build steps](docs/DESKTOP_INSTALLATION.md)
+- [System and developer requirements](docs/DESKTOP_REQUIREMENTS.md)
+- [How it works: methods, technologies, tools and models](docs/DESKTOP_TECHNICAL_OVERVIEW.md)
+- [Local verification results and remaining limitations](desktop/PROJECT_TEST_RESULTS.md)
 
-## Status and scope
+Choose a text PDF/DOCX, paste a job description, generate, edit, and save DOCX or an HTML report. Full fictional professional generation remains enabled; detected identity/contact and education qualifications are preserved. New documents have a six-bullet professional summary, bold skill categories and three project blocks under **Relevant Project Experience**, each headed **Company Name: #Confidential** and labelled **Role**. Calendar dates are omitted, including education dates; numeric experience such as **5+ years** remains. Existing drafts retain their versioned date behavior.
 
-**Status: working local POC / internal beta; not production-ready.**
+The installed application includes its Python/Qt runtime, CPU and CUDA inference servers, model assets and document renderer. Target users do not need Docker, n8n, Python, a cloud account, or a paid LLM API. Developer preparation downloads pinned assets once before packaging for offline installation.
 
-The active product goal is strong JD tailoring: summary, skills, project descriptions, and responsibilities should reflect the complete JD. The system deliberately does not use the older match/score/strategy safety gates in the active n8n path.
+**Source code is published here.** The installer and downloaded model weights are not stored in Git. Build `dist/ResumeOptimizerProjectsSetup.exe` using the installation guide; do not expect the old web-launcher EXE to install this edition.
 
-The generated resume uses the uploaded candidate's name, education, employment identities, and employment dates. It rewrites the summary, skills, responsibilities, and projects for the JD while keeping independent source jobs and projects separate.
+The historical **1.1.0** benchmark completed full generation in **392.31 seconds**, using **22 model submissions** and **2.15 GiB peak application/worker/model RSS** on a 16 GB Windows host; these are historical measurements. See [full-stack verification](desktop/FULL_STACK_RESULTS.md) for current results and [Phase 1 verification](desktop/PHASE1_RESULTS.md) for earlier iterations. The 8 GB reference-laptop and clean physically disconnected Windows tests remain release gates. Reports show mandatory/preferred keyword presence separately from implementation evidence; they do not establish an external ATS score or verify fictional claims.
 
-Do not reintroduce the retired per-bullet validation, UCR blocking, low-fit branching, or n8n safety gates unless explicitly requested.
+## General quality update
 
-## Active architecture
+A shared JD brief drives distinct project ownership, complete six-bullet summaries,
+bold skill categories and offline certification selection across roles. The report
+separates mandatory/preferred evidence from keywords and identifies structured
+summary fallback, missing credentials and technical review items. Existing drafts
+and the previous installer are preserved. See [general quality verification](desktop/GENERAL_QUALITY_RESULTS.md).
 
-```text
-Browser
-  -> n8n form
-  -> POST /v1/ingest
-  -> POST /v1/jd/extract
-  -> POST /v1/optimize
-  -> POST /v1/render
-  -> DOCX download + HTML report
+The removed 2.3 GB startup gate remains removed; the 4 GiB runtime cap remains.
+Mac hosting and GPU acceleration start only after output quality approval. The
+planned host is an 8 GB Apple Silicon Mac, browser clients and a free tunnel;
+see [Phase 2 decisions](desktop/MAC_HOSTING_PHASE2.md).
 
-FastAPI -> local Ollama at host.docker.internal:11434
-          model: dolphin-llama3
-```
+## Repository layout
 
-Active form: `http://localhost:5678/form/resume-optimize-v2`  
-API health: `http://localhost:8000/health`
+| Path | Purpose |
+| --- | --- |
+| `desktop/` | Desktop UI, worker, model runtime, generation, packaging and tests |
+| `api/` | Reused parsers, schemas, matching helpers and document rendering |
+| `docs/DESKTOP_*.md` | Desktop installation, requirements and architecture |
+| `desktop/fixtures/` | JD regression fixtures |
+| `build/`, `dist/`, `models/` | Local generated assets, installers and weights; ignored by Git |
 
-The active workflow export is `n8n/workflows/resume-optimize.json`. Its sequence must remain:
+The other Docker/n8n/launcher files are retained from the base project. The desktop entrypoint is `desktop/project_main.py`; it directly reuses Python modules and does not start the web services.
 
-`Form -> ingest -> jd/extract -> optimize -> render -> Done`
+The `final-version` branch contains the desktop implementation. Saved desktop data lives in `%LOCALAPPDATA%\ResumeOptimizerProjectEdition`, separately from the legacy desktop edition.
 
-The API also exposes older matching, strategy, review, project-bridge, and dataset endpoints. These are optional legacy utilities and are **not called by the active n8n workflow**. Do not delete them casually: they are imported by `api/main.py` and covered by tests.
+---
 
-## Main code map
+## Historical web application notes
 
-| File | Responsibility |
-|---|---|
-| `api/main.py` | FastAPI endpoints, run storage, caching, active stage orchestration |
-| `api/pipeline/ingest.py` | Parse resume, extract facts, determine source employment entries/dates |
-| `api/pipeline/jd.py` | Extract complete JD requirements and canonical skills |
-| `api/pipeline/optimize.py` | Build compact generation input and call the resume builder/finalizer |
-| `api/pipeline/ideal_resume.py` | Dolphin prompt, structural repair decision, output finalizer, experience formatting |
-| `api/pipeline/render.py` | DOCX and report assembly |
-| `api/docgen/reference_template.py` | Active DOCX template renderer |
-| `api/llm/client.py` | Non-streaming Ollama `/api/chat` client |
-| `api/config.py` / `.env` | Runtime configuration |
-| `n8n/workflows/resume-optimize.json` | Active form workflow |
+The following notes describe the base web/launcher workflow, not the desktop entrypoint above.
 
-## Current generation contract
+A local application that turns a PDF or DOCX resume and a job description into a role-focused DOCX resume. FastAPI runs the processing pipeline, n8n provides the browser form, and a native `llama.cpp` server runs a GGUF language model.
 
-### Inputs
+The older web launcher workflow is described in [the historical setup guide](docs/SETUP_OTHER_PC.md); its prebuilt executable is not part of this source snapshot.
 
-- Resume: `.pdf` or `.docx`
-- Full JD text
-- Model: `dolphin-llama3`
-- Rewrite temperature: `0.15`
-
-### Resume output requirements
-
-The generator/finalizer should produce Markdown with a clear structure similar to:
+## Architecture
 
 ```text
-# Candidate Name
-Target Role
-Contact details
-
-## Professional Summary
-## Technical Skills
-## Professional Experience
-Total Professional Experience: X Years Y Months
-### Job Title | Company
-Start Date - End Date/Present
-## Selected Projects
-### Project Name
-## Education
+Browser form (n8n)                          API clients
+        |                                       |
+        +------------------+--------------------+
+                           |
+                      FastAPI :8001
+                           |
+          +----------------+----------------+
+          |                |                |
+     Resume parser    JD extraction    Resume generation
+     PDF / DOCX       requirements     Qwen3.5 4B GGUF
+          |                |                |
+          +----------------+----------------+
+                           |
+                   Markdown + DOCX render
+                           |
+                 data/runs/<run_id>/
 ```
 
-Expected behavior:
+Docker Compose starts the API and n8n containers on host ports 8001 and 5679. The launcher starts the GGUF server on the Windows host at port 18081, and the API reaches it at `host.docker.internal:18081`. n8n calls the API inside the Compose network at `http://api:8000`. Run artifacts are kept in `data/runs/`; n8n state and the Hugging Face embedding cache use Docker volumes.
 
-- Extract and reflect all important JD skills, tools, responsibilities, qualifications, and preferences.
-- Preserve distinct jobs and projects as distinct subheadings; never collapse them into one bullet list.
-- Build a targeted professional summary and technical-skills block.
-- Include exactly one substantial JD-aligned project in `Selected Projects` when required by the current prompt.
-- Keep source employment headings, companies, titles, and dates sourced from the uploaded resume.
-- Use relevant project experience when the uploaded resume has no employment entry.
-- Never list the target company as an employer unless it exists in the source resume.
+## Workflow
 
-### Output cleanup and repair behavior
+The [n8n workflow](n8n/workflows/resume-optimize.json) accepts a resume file and job description, then calls these API stages:
 
-`ideal_resume.finalize()` is the final protection before DOCX rendering. It:
+1. `POST /v1/ingest` parses the resume and creates a run ID and fact ledger.
+2. `POST /v1/jd/extract` extracts requirements from the full job description.
+3. `POST /v1/optimize` generates and finalizes tailored Markdown, then records output coverage.
+4. `POST /v1/render` creates the DOCX and HTML report. The completion page links to both.
 
-- Normalizes heading aliases (`Profile Summary` -> `Professional Summary`, `Projects` -> `Selected Projects`).
-- Merges duplicate top-level sections and deduplicates repeated lines.
-- Adds the extracted JD technology surface to `Technical Skills`.
-- Removes artifacts such as `<think>...</think>`, Markdown fences, prompt echoes, repair narration, `Missing Sections`, and `New Project Misplaced or Missing`.
-- Rebuilds professional-experience identity and duration from `ExperienceEntry` data when source entries are available.
+The browser form is `http://localhost:5679/form/resume-optimize-v2`. On a fresh n8n installation, import and activate the workflow before using that URL. API documentation is at `http://localhost:8001/docs`; health status is at `http://localhost:8001/health`.
 
-The model may receive one repair request only for real structural failures: required sections missing or the required new project missing/misplaced. Missing skill keywords alone must **not** cause another LLM call because the finalizer supplies them deterministically.
+The active workflow uses **demo generation** (`fictional_template=true`, `fabrication_mode=demo`, `allow_unverified=true`). It can add plausible experience, projects, skills, and certifications. Generated claims are not verified against the source resume and must be reviewed before real use. The report's requirement coverage checks generated text; it does not verify candidate history.
 
-## Performance decisions
+## Technologies
 
-Current values are in `.env` and `api/config.py`:
+| Component | Technology and role |
+| --- | --- |
+| API and schemas | Python 3.11, FastAPI, Pydantic, Uvicorn |
+| Workflow and form | n8n, using the workflow JSON in this repository |
+| Language model | Native `llama.cpp`; Qwen3.5 4B Q4_K_M GGUF for JD extraction and resume generation |
+| Parsing and output | PyMuPDF for PDFs; `python-docx` for DOCX input and output |
+| Matching | RapidFuzz, a local technology catalog, and optional `sentence-transformers` embeddings (`BAAI/bge-small-en-v1.5`) |
+| Runtime and storage | Docker Compose, bind-mounted run data, and Docker volumes for n8n and model caches |
+| Tests | pytest |
 
-| Variable | Value | Reason |
-|---|---:|---|
-| `MODEL_EXTRACT` | `dolphin-llama3` | JD extraction |
-| `MODEL_REWRITE` | `dolphin-llama3` | Final resume generation |
-| `NUM_CTX` | `6144` | Local latency/context trade-off |
-| `MAX_RESUME_TOKENS` | `1800` | Concise approximately two-page output |
-| `TEMP_EXTRACT` | `0.0` | Stable JD extraction |
-| `TEMP_REWRITE` | `0.15` | Stable resume generation |
-| `LLM_TIMEOUT` | `280` seconds | Allows a single local generation to complete |
+The embedding model loads on demand. If it is unavailable, matching falls back to lexical methods. Configuration is loaded from `.env`; start from [.env.example](.env.example). Downloaded GGUF models and generated files are separate from the Git repository.
 
-Prompt efficiency rules:
+## Project layout
 
-- The complete JD is sent once.
-- Extracted requirements already appearing verbatim in the JD are not appended again.
-- Only missing normalized requirements are appended under `ADDITIONAL EXTRACTED REQUIREMENTS`.
-- Do not restore the old dynamic oversized context calculation; use the configured `NUM_CTX`.
+```text
+api/                FastAPI endpoints, parsers, matching, generation, rendering
+api/resources/      Skill aliases and technology catalog
+n8n/workflows/      Importable browser workflow
+data/runs/          Local run artifacts and downloads
+docs/               Setup and catalog documentation
+eval/               Evaluation utilities
+tests/              Automated tests
+```
 
-Typical end-to-end local time:
-
-- 1–2 page resume: 60–150 seconds.
-- Dense 5-page resume: 2–4 minutes.
-- Cold model loading, CPU inference, and very long JDs may take longer.
-
-## Run and verify
-
-Prerequisites: Docker Desktop, native Ollama on the host, and the required model.
+To build a launcher EXE on a Windows development machine with Python installed:
 
 ```powershell
-ollama pull dolphin-llama3
-docker compose up -d --build
-Invoke-WebRequest -UseBasicParsing http://localhost:8000/health
+.\launcher\build.ps1
 ```
 
-After API or `.env` changes:
+Double-click `dist\ResumeOptimizerLauncher.exe` to install and run the application. The same built EXE is checked into `downloads/` for GitHub downloads. The [setup guide](docs/SETUP_OTHER_PC.md) covers another PC; the [local guide](docs/RUN_LOCALLY.md) covers checks and troubleshooting.
 
-```powershell
-docker compose up -d --build api
-```
-
-Run regression tests:
-
-```powershell
-pytest -q
-```
-
-For a focused check of resume generation/finalization:
-
-```powershell
-pytest tests/test_ideal_resume.py tests/test_tailoring_finalizer.py -q
-```
-
-## Important regression scenarios
-
-Do not break these behaviors:
-
-1. `Projects` and `Selected Projects` are equivalent for repair detection.
-2. `New JD-Aligned Project` counts as the required new project.
-3. Repair diagnostics and conversational text never appear in the DOCX.
-4. Existing projects remain separate.
-5. A fake target-company employer must not survive when source dated employment is available.
-6. Total experience is calculated from non-overlapping source date intervals, not the JD's years requirement.
-7. The full JD requirement surface remains visible in the final technical-skills block.
-8. A JD-only keyword gap does not trigger a second expensive model generation.
-
-## Storage and cache behavior
-
-- Each submission receives a `run_id`.
-- Files and generated artifacts are written to `data/runs/<run_id>/`.
-- Resume and JD extraction results are cached under `data/cache/`.
-- Optimization caches by source resume text, extracted JD requirements, model name, and prompt version.
-- Bump `PROMPT_VERSION` after changing prompt/generation behavior.
-- Bump `FINALIZER_VERSION` after changing finalization behavior so cached Markdown is re-finalized.
-- Do not delete `data/runs/` or `data/cache/` during normal cleanup: they contain user artifacts and useful cache data.
-
-## Known limitations
-
-- This is generative tailoring. It cannot independently verify that every newly written responsibility occurred in the candidate's real work.
-- Source-experience parsing needs explicit recognizable date ranges. Complex or unusual date layouts may need parser improvements.
-- A very dense resume plus a long JD can exceed the practical 6,144-token budget; older/repetitive material can be compressed.
-- The current browser request is synchronous. Large jobs can still approach the n8n 300-second optimize timeout.
-- There is no authentication, tenant isolation, malware scanning, retention policy, encrypted artifact store, observability stack, or production-grade retry queue.
-- The project is not ready for a public internet deployment or paid use.
-
-## Recommended next work
-
-Priority order:
-
-1. Build a labelled evaluation set of 30–50 diverse resume/JD pairs.
-2. Record quality review results and p50/p95 latency by stage and resume size.
-3. Move generation to an asynchronous job queue with progress, retries, and completion notification.
-4. Add authentication, upload validation/scanning, artifact retention/deletion, encryption, rate limits, logs, metrics, and alerts.
-5. Test parser and DOCX output against a broad set of real resume layouts and ATS-style round trips.
-6. Fine-tune only after evaluation demonstrates a repeatable deficiency that prompt/finalizer changes cannot solve.
-
-Use `eval/README.md` and `eval/tailoring_cases.template.jsonl` for the current review format.
-
-## Cleanup policy
-
-The current repository intentionally retains optional legacy modules and tests because they are still importable API functionality. The old safety-architecture, evaluation, fine-tuning READMEs, and unused n8n workflow snapshots have already been removed. Do not delete Python modules merely because the active n8n path does not call them without first removing their API routes/imports and validating the full test suite.
+Keep `.env`, source resumes, job descriptions, models, and generated run artifacts out of version control.

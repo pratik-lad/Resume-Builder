@@ -1,0 +1,18 @@
+Job Title: Salesforce B2B Solution Architect
+Experience: 8-12 years
+Location: India - Remote
+Responsibilities
+Design Salesforce B2B Commerce storefronts, catalogs, pricing, quoting, cart, checkout and order management.
+Own CPQ and Revenue Cloud Quote-to-Cash workflows and solution architecture.
+Develop Apex and Lightning Web Components (LWC) with REST/SOAP integration patterns.
+Integrate Salesforce with SAP, Oracle ERP and CRM using mapped contracts, incremental updates and retries.
+Define security, scalable data architecture, migration and performance validation.
+Lead technical design documents, architecture reviews, mentoring and stakeholder decisions.
+Mandatory Skills
+8+ years in Salesforce and 3+ years as Technical Architect or Lead Architect.
+Salesforce DevOps and CI/CD with repeatable deployment and rollback.
+Required Certifications
+Salesforce Certified Application Architect and/or Salesforce Certified System Architect.
+Preferred Certifications
+Salesforce Certified Technical Architect (CTA).
+Salesforce Revenue Cloud Consultant.

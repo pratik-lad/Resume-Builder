@@ -9,6 +9,7 @@ from functools import lru_cache
 import yaml
 
 from config import settings
+from matching import technology_catalog
 
 _ALIASES: dict[str, list[str]] = yaml.safe_load(
     (settings.resources / "skill_aliases.yaml").read_text(encoding="utf-8")
@@ -19,6 +20,27 @@ for canon, variants in _ALIASES.items():
     _MAP[canon.lower()] = canon.lower()
     for v in variants or []:
         _MAP[str(v).lower()] = canon.lower()
+_LEGACY_MAP = dict(_MAP)
+_CATALOG_FORMS: dict[str, set[str]] = {}
+for entry in technology_catalog.snapshot()["entries"] if settings.catalog_enabled else ():
+    canon = entry["name"].casefold()
+    forms = {form.casefold() for form in technology_catalog.surfaces(entry)}
+    if entry.get("baseline"):
+        forms = {form for form in forms if len(form) >= 3}
+        if len(canon) < 3:
+            continue
+    # A pre-existing alias wins. Skip the whole catalog entry if its own name
+    # would split into two canonicals (PySpark -> spark is one example).
+    if any(_LEGACY_MAP.get(form, canon) != canon for form in forms):
+        continue
+    for form in forms:
+        _MAP.setdefault(form, canon)
+    _CATALOG_FORMS.setdefault(canon, set()).update(forms)
+
+
+def existing_alias(term: str) -> str | None:
+    """Canonical mapping before catalog enrichment, for conflict audits."""
+    return _LEGACY_MAP.get(term.casefold().strip())
 
 _TECH_CUE = re.compile(r"\b(?:with|using|including|technologies?|tech stack|proficiency in|experience with|skills? required)\s+([^\n.;:]{1,180})", re.I)
 _TECH_SHAPE = re.compile(r"(?:[.#/+]|\d|[a-z][A-Z]|^[A-Z]{2,}$)")
@@ -45,6 +67,7 @@ def expand(canon: str) -> set[str]:
     out = {c}
     for v in _ALIASES.get(c, []) or []:
         out.add(str(v).lower())
+    out.update(_CATALOG_FORMS.get(c, ()))
     return out
 
 
@@ -59,12 +82,20 @@ def all_surface_forms(canon_terms: set[str]) -> set[str]:
     return out
 
 
+@lru_cache(maxsize=4096)
+def _surface_pattern(surface: str):
+    # The catalogue exceeds re's small global cache. Retain identical compiled
+    # patterns rather than evict/recompile them on every passage; aliases and
+    # token boundaries are unchanged for both legacy and desktop callers.
+    return re.compile(rf"(?<![\w+#]){re.escape(surface)}(?![\w+#])")
+
+
 def canonical_skills_in_text(text: str) -> set[str]:
     """Find configured skills in free text while respecting token boundaries."""
     lowered = text.lower()
     found: set[str] = set()
     for surface, canon in _MAP.items():
-        if re.search(rf"(?<![\w+#]){re.escape(surface)}(?![\w+#])", lowered):
+        if _surface_pattern(surface).search(lowered):
             found.add(canon)
     return found
 
