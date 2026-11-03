@@ -1,6 +1,8 @@
 # AI-Powered Resume Builder - Windows Desktop Application
 
-This branch contains **Resume Optimizer Project Edition 1.6.3**, an offline Windows 11 x64 application using PySide6 and a local Qwen3-4B-Instruct-2507 Q4_K_M model through llama.cpp. The model and build artifacts are downloaded or built separately; see the [installation and build guide](docs/DESKTOP_INSTALLATION.md).
+This branch contains **Resume Optimizer Project Edition 1.6.5**, an offline Windows 11 x64 application using PySide6 and a local Qwen3-4B-Instruct-2507 Q4_K_M model through llama.cpp. The model and build artifacts are downloaded or built separately; see the [installation and build guide](docs/DESKTOP_INSTALLATION.md).
+
+JD experience now takes priority over the source resume; source/default values are used only for durations missing from the JD. Saved drafts are not rewritten. See [the 1.6.5 correction and checks](desktop/JD_EXPERIENCE_RESULTS.md).
 
 ## Start here
 
@@ -9,7 +11,7 @@ This branch contains **Resume Optimizer Project Edition 1.6.3**, an offline Wind
 - [How it works: methods, technologies, tools and models](docs/DESKTOP_TECHNICAL_OVERVIEW.md)
 - [Local verification results and remaining limitations](desktop/PROJECT_TEST_RESULTS.md)
 
-Choose a text PDF/DOCX, paste a job description, generate, edit, and save DOCX or an HTML report. Full fictional professional generation remains enabled; detected identity/contact and education qualifications are preserved. New documents have a six-bullet professional summary, bold skill categories and three project blocks under **Relevant Project Experience**, each headed **Company Name: #Confidential** and labelled **Role**. Calendar dates are omitted, including education dates; numeric experience such as **5+ years** remains. Existing drafts retain their versioned date behavior.
+Choose a text PDF/DOCX, paste a job description, generate, edit, and save DOCX or an HTML report. Full fictional professional generation remains enabled; detected identity/contact and education qualifications are preserved. New documents have a six-bullet professional summary, bold skill categories and three, five or six project blocks under **Relevant Project Experience**, each headed **Company Name: #Confidential** and labelled **Role**. The JD's overall experience selects the count: below eight or missing means three, eight to below twelve means five, and twelve or more means six. Specialty durations and the source resume do not choose this tier. Calendar dates are omitted, including education dates; numeric experience such as **5+ years** remains. Existing drafts retain their versioned date behavior.
 
 The installed application includes its Python/Qt runtime, CPU and CUDA inference servers, model assets and document renderer. Target users do not need Docker, n8n, Python, a cloud account, or a paid LLM API. Developer preparation downloads pinned assets once before packaging for offline installation.
 
@@ -42,7 +44,7 @@ see [Phase 2 decisions](desktop/MAC_HOSTING_PHASE2.md).
 
 The other Docker/n8n/launcher files are retained from the base project. The desktop entrypoint is `desktop/project_main.py`; it directly reuses Python modules and does not start the web services.
 
-The `final-version` branch contains the desktop implementation. Saved desktop data lives in `%LOCALAPPDATA%\ResumeOptimizerProjectEdition`, separately from the legacy desktop edition.
+The `FinalVersion2.0` branch contains the desktop implementation. Saved desktop data lives in `%LOCALAPPDATA%\ResumeOptimizerProjectEdition`, separately from the legacy desktop edition.
 
 ---
 

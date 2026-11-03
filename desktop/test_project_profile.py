@@ -12,7 +12,7 @@ from desktop.project_profile import experience_years, certification_candidates, 
 
 @pytest.mark.parametrize('source,jd,expected',[
     ('Architect with 5+ years of experience designing applications.','Experience: 10 years',10),
-    ('Total experience: 8 years','7+ years of experience',8),
+    ('Total experience: 8 years','7+ years of experience',7),
     ('BSc | 2021','Experience: 10 years',10),
     ('','6 to 9 years of experience',6),  # Lower bound; no calendar arithmetic.
     ('','6-9 years of experience',6),
@@ -66,13 +66,14 @@ def test_profiles_are_bullets_scoped_and_written_last(input_resume,fixture):
     assert bullets[0].startswith(f"{headline} with {result['experience_years']}+ years of experience")
     assert '**' in sections['skills'] and 'Asynchronous Programming' in sections['skills']
     assert 'Role: '+headline in sections['projects']
-    assert sections['projects'].count('Contribution: ')==3
+    count=result['project_count_policy']['project_count']
+    assert sections['projects'].count('Contribution: ')==count
     assert '2021' not in sections['education'] and 'Example University' in sections['education']
     summary_index=next(i for i,t in enumerate(runtime.prompts) if 'professional-summary bullets' in t)
     assert all(i<summary_index for i,t in enumerate(runtime.prompts) if 'improved implementation bullets' in t)
     assert result['model_calls']<=26 and result['quality_repair_calls']<=2
     assert result['mode']=='demo' and result['generation']=='complete-ai'
-    assert len(result['roles'])==3
+    assert len(result['roles'])==count
     for prompt in runtime.prompts:
         if 'professional-summary bullets' in prompt:
             assert '"project":' not in prompt
@@ -89,7 +90,7 @@ def test_fresh_generation_seed_and_cache_identity(input_resume,fixture):
     a=generate({'resume':str(input_resume),'jd':jd},ProjectRuntime(),lambda *a:None)
     b=generate({'resume':str(input_resume),'jd':jd},ProjectRuntime(),lambda *a:None)
     assert a['generation_id']!=b['generation_id'] and a['generation_seed']!=b['generation_seed']
-    assert all(len({p['name'] for p in d['projects']})==3 for d in (a,b))
+    assert all(len({p['name'] for p in d['projects']})==d['project_count_policy']['project_count'] for d in (a,b))
 
 
 def test_retries_keep_generation_identity():
@@ -274,7 +275,7 @@ def test_html_report_escapes_edited_text():
 @pytest.mark.parametrize('source,jd,total,specialty', [
     ('5+ years Experience in architecting cloud systems', '8+ years in Software Development, 5+ years of Full-Stack Development using Python, React.JS & SQL/PostgreSQL',8,5),
     ('5+ years of experience','5+ years of Full-Stack Development, 8+ years in Software Development',8,5),
-    ('Overall experience: 12 years','8+ years in software development, 5+ years in full stack development',12,5),
+    ('Overall experience: 12 years','8+ years in software development, 5+ years in full stack development',8,5),
     ('','8-12 years in Software Development; 5 to 7 years of Full-Stack Development',8,5),
     ('','5+ years of full-stack development',9,5),
     ('','',9,None),
@@ -347,7 +348,7 @@ def test_full_stack_guidance_does_not_leak_to_other_domains():
 def test_domain_total_and_platform_specialty_are_separate():
     from desktop.project_experience import experience_profile,career_opening
     p=experience_profile('6+ years of experience','5\u20138 years of data engineering experience, including at least 2 years hands-on with Databricks')
-    assert p['overall_years']==6
+    assert p['overall_years']==5
     assert p['specialties'][0]['label']=='Databricks' and p['specialties'][0]['years']==2
     other=experience_profile('','8+ years in software development, 5+ years in full-stack development using Java and Angular')
     assert 'Python' not in career_opening('Full Stack Developer',8,other)

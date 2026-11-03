@@ -9,7 +9,7 @@
 !endif
 !define GUI_EXE "ResumeOptimizerProjects.exe"
 !define WORKER_EXE "ResumeOptimizerProjectsWorker.exe"
-!define DISPLAY_VERSION "1.6.3"
+!define DISPLAY_VERSION "1.6.5"
 !ifndef SETUP_OUT
   !define SETUP_OUT "..\dist\ResumeOptimizerProjectsSetup.exe"
 !endif

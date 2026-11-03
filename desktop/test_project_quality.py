@@ -39,7 +39,7 @@ class ProjectRuntime(LegacyRuntime):
         if '"certifications"' in task:
             titles=json_output['properties']['certifications']['items']['enum']
             return json.dumps({'certifications':titles[:2]})
-        if "Plan exactly 3 fictional roles" in task:
+        if re.match(r'Plan exactly [23] fictional roles', task):
             jd=json.loads(messages[1]['content'].split('\nPrevious response')[0])['job_description_data']
             roles=[{"title":"Platform Engineer","employer":e,"project_name":n,"problem":p,"contribution":c,"stack":"Python, Docker, FastAPI","capabilities":"deployment and authenticated services"} for e,n,p,c in [("North Labs","Order Routing","Late order processing","Order workflow automation"),("West Labs","Inventory Ledger","Inconsistent stock balances","Inventory reconciliation"),("South Labs","Delivery Console","Unclear dispatch tracking","Shipment visibility")]]
             if 'Collibra' in jd and 'Genie' in jd:
@@ -48,7 +48,15 @@ class ProjectRuntime(LegacyRuntime):
             if 'React' in jd and 'Python' in jd:
                 for role,(contribution,stack) in zip(roles,[('React application implementation and Python application and database implementation','React, Python, FastAPI, PostgreSQL, pytest, Jest'),('GenAI application integration and AI-assisted development workflow','React, Python, LLM, GitHub Copilot'),('AWS production application ownership and application delivery and collaboration','Python, AWS, GitHub Actions')]):
                     role.update(contribution=contribution,capabilities=contribution,stack=stack)
-            return json.dumps({'headline':'Platform Engineer','roles':roles})
+            count=json_output['properties']['roles']['minItems']
+            if 'not replacements. Earlier projects:' in task:
+                for i,role in enumerate(roles):
+                    role.update(employer='Additional Organization '+str(i+1),stack='Python, Docker, FastAPI',
+                                project_name=['Release Recovery','Access Review','Capacity Forecast'][i],
+                                problem=['Failed release recovery','Unreviewed privileged access','Uncertain capacity planning'][i],
+                                capabilities=['Release recovery validation','Access governance automation','Capacity forecast engineering'][i],
+                                contribution=['Release recovery validation','Access governance automation','Capacity forecast engineering'][i])
+            return json.dumps({'headline':'Platform Engineer','roles':roles[:count]})
         if "Return platform, tools" in task:
             return json.dumps({"platform":"Linux","tools":"Python, Docker, FastAPI","team_size":"6"})
         if '"description":string' in task:
@@ -150,7 +158,7 @@ def test_repository_jd_fixtures(input_resume,fixture):
     jd=(Path(__file__).parent/'fixtures'/fixture).read_text(encoding='utf-8')
     result=generate({'resume':str(input_resume),'jd':jd},ProjectRuntime(),lambda *a:None)
     assert result['model_calls']<=26
-    assert len({p['name'] for p in result['projects']})==3
+    assert len({p['name'] for p in result['projects']})==result['project_count_policy']['project_count']
     assert 'Additional Capabilities' not in result['sections'][2]['text']
     assert result['quality']['capabilities']
 

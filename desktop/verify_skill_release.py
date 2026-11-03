@@ -62,12 +62,14 @@ def main():
             assert doc['skill_coverage_version']=='explicit-skills-1'
             assert doc['model_calls']<=27 and doc['quality_repair_calls']<=2
             assert len([s for s in sections['summary'].splitlines() if s.startswith('- ')])==6
-            assert len(doc['projects'])==3 and all(len(p['bullets'])==7 for p in doc['projects'])
-            assert len({p['name'].casefold() for p in doc['projects']})==3
+            from desktop.project_policy import expected_count
+            count=expected_count(doc)
+            assert len(doc['projects'])==count and all(len(p['bullets'])==7 for p in doc['projects'])
+            assert len({p['name'].casefold() for p in doc['projects']})==count
             assert all(is_role_title(p['role']) and is_role_title(p['target_role']) for p in doc['projects'])
-            assert sections['projects'].count('### Company Name: #Confidential')==3
+            assert sections['projects'].count('### Company Name: #Confidential')==count
             assert '\nCompany Name: #Confidential' not in sections['projects']
-            assert sections['projects'].count('Role: ')==3 and 'Target Role:' not in sections['projects']
+            assert sections['projects'].count('Role: ')==count and 'Target Role:' not in sections['projects']
             assert all(p['employer'].casefold() not in (sections['projects']+'\n'+sections['summary']).casefold() for p in doc['projects'])
             # Standalone four-digit workloads are not calendar dates.
             content='\n'.join(sections.values())
@@ -106,14 +108,14 @@ def main():
                     assert ('Company Name:','#Confidential') not in metadata,(key,kind,metadata)
                     resume_text=' '.join(p.text for p in exported.paragraphs)+' '.join(c.text for table in exported.tables for row in table.rows for c in row.cells)
                     assert all(p['employer'].casefold() not in resume_text.casefold() for p in doc['projects'])
-                    assert sum(label=='Role' for label,_ in metadata)==3,(key,kind,metadata)
+                    assert sum(label=='Role' for label,_ in metadata)==count,(key,kind,metadata)
                 else:rendered[kind]=target.read_text(encoding='utf-8')
             for kind,text in rendered.items():
                 if kind!='docx':
                     assert '<td><strong>Company Name:</strong></td><td>#Confidential</td>' not in text,(key,kind)
                     projects=re.search(r'<h2>Relevant Project Experience</h2>(.*?)</section>',text,re.S)
                     assert projects and all(p['employer'].casefold() not in projects[1].casefold() for p in doc['projects'])
-                    assert text.count('<td><strong>Role</strong></td><td>')==3,(key,kind)
+                    assert text.count('<td><strong>Role</strong></td><td>')==count,(key,kind)
                     match=re.search(r'<h2>Technical Skills</h2>(.*?)</section>',text,re.S)
                     assert match,(key,kind,'missing skills section')
                     text=unescape(re.sub(r'<[^>]+>',' ',match[1]))

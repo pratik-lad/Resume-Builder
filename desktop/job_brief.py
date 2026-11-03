@@ -4,7 +4,7 @@ from __future__ import annotations
 import copy
 import re
 
-VERSION = "job-brief-5"
+VERSION = "job-brief-6"
 STOP = set("a an the and or of in to for with using on as by from experience skills required preferred strong good knowledge ability hands years development engineering implementation".split())
 
 

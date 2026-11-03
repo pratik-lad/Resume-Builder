@@ -8,7 +8,7 @@ from desktop.evidence_quality import text_similarity
 from desktop.generation import normalize_skills, responsibilities, fields
 from desktop.quality import without_dates
 
-PROFILE_VERSION = "project-profile-9"
+PROFILE_VERSION = "project-profile-10"
 
 _ROLE_ENDING = re.compile(
     r"(?i)\b(?:engineer|developer|architect|manager|analyst|specialist|consultant|"
@@ -312,6 +312,7 @@ def make_summary(writer, projects, headline, years, experience=None, job_brief=N
     fallback = structured_summary(projects, headline, years, experience, job_brief)
     try:
         for half, keys in enumerate((['career_scope','implementation','data_integration'], ['security_reliability','delivery_quality','ownership_collaboration'])):
+            writer.reserve_calls = 3-half
             # Summaries need implementation evidence, not project title labels.
             # Keeping titles out of this input prevents copy/leak retries while
             # the existing field-leak and evidence validation remain intact.
@@ -331,6 +332,17 @@ def make_summary(writer, projects, headline, years, experience=None, job_brief=N
                     'Describe career-level strengths using the completed fictional projects, not a list of past project tasks. '
                     'Do not copy project overview sentences or project-specific job titles. No numeric claims except supplied experience durations; no metrics, percentages, project names, I/we, calendar dates, unrelated technologies or invented mechanisms absent from these projects. '
                     'Avoid repeated points and awkward phrases such as Expertise in designed. Completed projects: '+context)
+            messages=[{'role':'system','content':writer.system},{'role':'user','content':json.dumps({'job_description_data':writer.jd,'task':task},ensure_ascii=False)}]
+            if writer.runtime.token_count(messages)+768+100>4096:
+                # Keep every project represented. Select a complete relevant
+                # passage per project instead of slicing away later projects.
+                candidates=range(3) if half==0 else range(3,7)
+                focus=' '.join(topics[:2] if half==0 else topics[2:]).casefold()
+                def selected(p):
+                    return max((p['bullets'][i] for i in candidates if i<len(p['bullets'])),
+                               key=lambda b:len(set(b.casefold().split()) & set(focus.split())))
+                compact=json.dumps([{'contribution':p.get('contribution',p['role']),'tools':p['tools'],'evidence':[selected(p)]} for p in projects],ensure_ascii=False)
+                task=task.replace(context,compact)
             def check(value):
                 result = [consistent_years(without_dates(v), years, experience) for v in fields(value, keys).values()]
                 if half == 0 and opening.endswith(';'):
@@ -365,6 +377,7 @@ def make_summary(writer, projects, headline, years, experience=None, job_brief=N
     career_text=' '.join(b for p in projects for b in p['bullets'])
     warnings = notices + summary_issues(bullets, projects, headline, years,career_text=career_text)
     writer.profile_metadata = {'version':PROFILE_VERSION, 'summary_methods':methods, 'themes':topics,
+                               'summary_project_ids':[p.get('role_id',p.get('name','')) for p in projects],
                                'fallback_used':'structured-fallback' in methods}
     return bullets, list(dict.fromkeys(warnings))
 
@@ -398,6 +411,7 @@ def make_skills(writer, jd, projects, complete, job_brief=None):
     writer.jd = 'Relevant technologies and practices: ' + ', '.join((job_brief or {}).get('technologies', []))
     try:
         for half, group in enumerate((names[::2], names[1::2])):
+            writer.reserve_calls = 1-half
             schema = {"type":"object", "properties":{"categories":{"type":"array", "minItems":1,
                       "maxItems":len(group), "items":{"type":"object", "properties":{
                           "name":{"type":"string","enum":group},

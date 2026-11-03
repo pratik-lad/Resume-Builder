@@ -88,12 +88,14 @@ def test_general_pipeline_contract(input_resume,fixture):
     assert doc['model_calls'] <= 27 and doc['quality_repair_calls'] <= 2
     from desktop.job_brief import VERSION
     assert doc['job_brief']['version'] == VERSION
-    assert len({p['name'] for p in doc['projects']}) == 3
+    from desktop.project_policy import select
+    count=select(jd)['project_count']
+    assert len({p['name'] for p in doc['projects']}) == count
     assert all(len(p['bullets'])==7 for p in doc['projects'])
     sections = {s['key']:s['text'] for s in doc['sections']}
     assert len([l for l in sections['summary'].splitlines() if l.startswith('- ')]) == 6
     assert '**' in sections['skills'] and 'Role:' in sections['projects']
-    assert sections['projects'].count('### Company Name: #Confidential') == 3
+    assert sections['projects'].count('### Company Name: #Confidential') == count
     assert '\nCompany Name: #Confidential' not in sections['projects']
     assert '2021' not in sections['education']
     assert len(doc['certification_selection']['selected']) >= 1
@@ -153,7 +155,7 @@ def test_overview_context_excludes_detailed_responsibility_instructions(input_re
             return super().chat(messages, **kwargs)
     runtime = CaptureRuntime()
     generate({'resume': str(input_resume), 'jd': (FIXTURES/'full-stack-jd.txt').read_text()}, runtime, lambda *a: None)
-    assert len(runtime.overviews) == 3
+    assert len(runtime.overviews) == 5
     for payload in runtime.overviews:
         assert '40-65 word business overview' in payload['task']
         assert 'WHOLE response under 220 words' in payload['task']

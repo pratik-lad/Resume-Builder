@@ -1,4 +1,4 @@
-# Project Edition 1.6.3
+# Project Edition 1.6.5
 
 The repository contains source code and build instructions. Installers and downloaded assets are local build outputs and must be built or obtained separately.
 
@@ -11,7 +11,9 @@ See [skill coverage verification](../desktop/SKILL_COMPLETENESS_RESULTS.md) for 
 
 # Install or build the Windows desktop application
 
-This guide is for **Resume Optimizer Project Edition 1.6.3** on branch `final-version`.
+This guide is for **Resume Optimizer Project Edition 1.6.5** on branch `FinalVersion2.0`.
+
+New resumes contain three, five or six projects selected from the JD's overall experience. An existing draft is not expanded automatically. When updating an installation under `C:\Games\ResumeOptimizerProjectEdition`, close the app and choose that same folder in the installer. Back up saved data first and keep the previous installer for rollback.
 
 ## 1. Install a complete build on another laptop
 
@@ -36,7 +38,7 @@ Install Git and Python 3.11 x64 on Windows. To build the bundled GPU runtime, al
 Clone the desktop branch into a new directory:
 
 ```powershell
-git clone --branch final-version --single-branch https://github.com/pratik-lad/Resume-Builder.git
+git clone --branch FinalVersion2.0 --single-branch https://github.com/pratik-lad/Resume-Builder.git
 Set-Location Resume-Builder
 py -3.11 -m venv desktop\.venv
 .\desktop\.venv\Scripts\python.exe -m pip install -r desktop\requirements.txt

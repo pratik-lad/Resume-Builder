@@ -20,7 +20,7 @@ function Invoke-CheckedNative {
     if ($nativeExitCode -ne 0) { throw "$Failure (exit $nativeExitCode)" }
 }
 Invoke-CheckedNative -Executable $python -Arguments @("desktop/prepare_assets.py") -Failure "Asset preparation failed."
-Invoke-CheckedNative -Executable $python -Arguments @("-m", "pytest", "desktop/test_generation.py", "desktop/test_desktop.py", "desktop/test_project_edition.py", "desktop/test_project_quality.py", "desktop/test_project_profile.py", "desktop/test_general_quality.py", "desktop/test_reference_release.py", "desktop/test_evidence_quality.py", "desktop/test_skill_coverage.py", "-q") -Failure "Regression checks failed."
+Invoke-CheckedNative -Executable $python -Arguments @("-m", "pytest", "desktop/test_generation.py", "desktop/test_desktop.py", "desktop/test_project_edition.py", "desktop/test_project_quality.py", "desktop/test_project_profile.py", "desktop/test_general_quality.py", "desktop/test_reference_release.py", "desktop/test_evidence_quality.py", "desktop/test_skill_coverage.py", "desktop/test_project_counts.py", "-q") -Failure "Regression checks failed."
 $dist = Join-Path $projectRoot ("dist\projects-" + [guid]::NewGuid().ToString("N"))
 Invoke-CheckedNative -Executable $python -Arguments @("-m", "PyInstaller", "--noconfirm", "--distpath", $dist, "--workpath", "build/project-pyinstaller", "desktop/project.spec") -Failure "Project Edition packaging failed."
 if (-not $NSISCompiler) { $NSISCompiler = (Get-Command makensis -ErrorAction Stop).Source }

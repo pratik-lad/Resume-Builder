@@ -316,6 +316,7 @@ class Writer:
         self.repairs_left = 3
         self.quality_submissions = 0
         self.current_stage = None
+        self.reserve_calls = 0
         if project_edition and hasattr(runtime, "before_submission"):
             runtime.before_submission = self.record_submission
             runtime.request_metrics = []
@@ -370,8 +371,8 @@ class Writer:
         return result or ['']
 
     def record_submission(self):
-        if self.project_edition and self.calls >= 27:
-            raise ValueError("Generation submission budget reached; review the available sections.")
+        if self.project_edition and self.calls >= 27 - self.reserve_calls:
+            raise ValueError("Generation submission budget reserved for remaining required sections; completed work is recoverable.")
         if self.project_edition and self.current_stage=='quality_repair':
             if self.quality_submissions>=2:
                 raise ValueError('Targeted quality-repair submission budget reached.')

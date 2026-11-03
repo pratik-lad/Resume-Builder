@@ -6,8 +6,8 @@ from __future__ import annotations
 
 import re
 
-VERSION = "experience-3"
-YEARS = re.compile(r"(?i)\b(\d{1,2})(?:\s*\+|\s*(?:[-–—]|to)\s*\d{1,2})?\s*(?:years?|yrs?|YOE)\b")
+VERSION = "experience-5"
+YEARS = re.compile(r"(?i)(?<![\w.])(\d{1,2}(?:\.\d+)?)(?:\s*\+|\s*(?:[-–—]|to)\s*\d{1,2}(?:\.\d+)?)?\s*(?:years?|yrs?|YOE)\b")
 SPECIALTIES = [
     ("full-stack development", r"full[\s-]*stack"),
     ("frontend development", r"front[\s-]*end"),
@@ -32,7 +32,8 @@ def durations(text):
     matches = list(YEARS.finditer(text))
     result = []
     for index, match in enumerate(matches):
-        years = int(match[1])
+        value = float(match[1])
+        years = int(value) if value.is_integer() else value
         if not 0 < years < 60:
             continue
         stop = matches[index + 1].start() if index + 1 < len(matches) else len(text)
@@ -61,11 +62,39 @@ def durations(text):
     return result
 
 
+def jd_durations(text):
+    """Qualified JD durations; recruiter schedules never select a career tier."""
+    result = []
+    for original in text.splitlines():
+        line = original.strip(' \t-*•')
+        if re.match(r'(?i)^(?:project duration|contract(?: duration)?|engagement|notice|retention|salary|budget|timezone|work timings?|weeks?\s*\d|months?\s*\d)\b', line):
+            continue
+        line = re.sub(r'(?i)\b(years?|yrs?)\s+(overall|total)\b', r'\1 of \2 experience', line)
+        bare = re.match(r'(?i)^((?:(?:overall|total|professional)\s+)?(?:experience|exp\.?)\s*[:=-]\s*)(\d{1,2}(?:\.\d+)?(?:\s*(?:[-–—]|to)\s*\d{1,2}(?:\.\d+)?)?\s*\+?)(?![\d.])(.*)$', line)
+        if bare and not re.match(r'(?i)^\s*(?:years?|yrs?|YOE)\b', bare[3]):
+            line = bare[1] + bare[2] + ' years ' + bare[3]
+        if re.fullmatch(r'(?i)\d{1,2}(?:\.\d+)?\+?\s*(?:years?|yrs?|YOE)', line):
+            line = 'Experience: ' + line
+        for row in durations(line):
+            head = line[max(0, row['start']-60):row['start']]
+            if re.search(r'(?i)(?:up to|less than|under|maximum)\s*$', head):
+                continue
+            # "Python experience: 12 years" is a specialty, not the total.
+            prefix = re.split(r'[,;]', head)[-1]
+            if not row['specialty'] and not re.search(r'(?i)\boverall|\btotal|software (?:development|engineering)', prefix):
+                for label, pattern in SPECIALTIES:
+                    if re.search(r'(?i)(?:' + pattern + r')\s+(?:development\s+)?(?:experience|exp\.?)\s*[:=-]?\s*$', prefix):
+                        row['specialty'] = label
+                        break
+            result.append({**row, 'passage': original.strip()})
+    return result
+
+
 def experience_profile(source, jd):
-    source_rows, required_rows = durations(source), durations(jd)
+    source_rows, required_rows = durations(source), jd_durations(jd)
     source_total = max((r['years'] for r in source_rows if not r['specialty']), default=None)
     required_total = max((r['years'] for r in required_rows if not r['specialty']), default=None)
-    overall = max([n for n in (source_total, required_total) if n is not None] or [9])
+    overall = required_total if required_total is not None else source_total if source_total is not None else 9
     specialties = []
     warnings = []
     required_totals = sorted({r['years'] for r in required_rows if not r['specialty']})
@@ -77,13 +106,17 @@ def experience_profile(source, jd):
         required = max((r['years'] for r in required_rows if r['specialty']==name), default=None)
         if source_years is None and required is None:
             continue
-        value = max(n for n in (source_years, required) if n is not None)
+        value = required if required is not None else source_years
+        if required is None and required_total is not None and value > overall:
+            warnings.append(f"Source-only {name} duration exceeds the JD overall total; limited to {overall}+ years for consistency.")
+            value = overall
         if value > overall:
             warnings.append(f"Specialty duration {value}+ years of {name} exceeds the supplied overall total; fictional overall total raised to match.")
             overall = value
         specialties.append({'label':name,'years':value,'required_years':required,'source_years':source_years})
     tools = [label for pattern,label in [(r'\bPython\b','Python'),(r'\bReact(?:\.js)?\b','React'),(r'\bSQL\b|\bPostgreSQL\b','SQL/PostgreSQL')] if re.search(pattern,jd,re.I)]
-    return {'version':VERSION,'policy':'higher-explicit-overall-and-specialty',
+    return {'version':VERSION,'policy':'jd-first-overall-and-specialty',
+            'overall_origin':'jd' if required_total is not None else 'source' if source_total is not None else 'default',
             'overall_years':overall,'source_overall_years':source_total,
             'required_overall_years':required_total,'specialties':specialties,'full_stack_tools':tools,'warnings':warnings}
 

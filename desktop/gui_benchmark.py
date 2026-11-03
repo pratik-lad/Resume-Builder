@@ -19,6 +19,7 @@ def main():
     parser.add_argument('--resume',required=True,help='Path to a local PDF or DOCX test resume')
     parser.add_argument('--output',required=True)
     parser.add_argument('--fixtures',default='full-stack,salesforce,java,databricks,aws,azure-genai,qa')
+    parser.add_argument('--fixture-directory',default=str(ROOT/'desktop/fixtures'))
     parser.add_argument('--modes', default='cold,warm')
     parser.add_argument('--repetitions', type=int, default=1)
     args=parser.parse_args()
@@ -82,7 +83,7 @@ def main():
         if mode=='cold':window.controller.cancel()
         key=fixture+'-'+mode+(f'-run-{repeat}' if args.repetitions>1 else '')
         active={'key':key,'fixture':fixture,'mode':mode,'repeat':repeat,'scope':'source GUI and real frozen worker; Generate to preview and autosave'}
-        window.jd.setPlainText((ROOT/'desktop/fixtures'/f'{fixture}-jd.txt').read_text(encoding='utf-8'))
+        window.jd.setPlainText((Path(args.fixture_directory)/f'{fixture}-jd.txt').read_text(encoding='utf-8'))
         window.controller.peak_rss=0
         max_gap=0;last_tick=time.perf_counter();started=last_tick
         print('START',active['key'],flush=True)

@@ -1,4 +1,10 @@
-# Project Edition 1.6.1 candidate - clearer skills and project evidence
+# Project Edition 1.6.5 - JD experience priority
+
+JD overall and specialty durations take priority over source-resume durations. A missing JD total uses the source total, then 9+ if neither supplies one. Source-only specialties cannot raise an explicit JD overall total. Project tiers remain JD-only. New generation metadata/cache versions isolate this correction; saved drafts and edits are not rewritten. See [verification](JD_EXPERIENCE_RESULTS.md). Earlier version notes follow.
+
+# Project Edition 1.6.4 - experience-based project counts
+
+The JD's explicit overall experience chooses three projects below eight years or when missing, five at eight to below twelve, and six at twelve or more. Ranges use their lower bound and conflicting totals use the highest explicit requirement with a warning. Source totals, default career totals and specialty experience do not change project count. Projects retain the current confidential heading, metadata, overview and seven responsibilities. Existing drafts remain readable. The following notes describe earlier releases; see `PROJECT_COUNTS_RESULTS.md` for this update's verification.
 
 The user approved the current working version and requested removal of obsolete local releases on 29 October 2026. Only the current bundle/installer is retained; historical release paths are reference records. See [workspace maintenance](../docs/WORKSPACE_MAINTENANCE.md) for current paths and rebuild commands.
 

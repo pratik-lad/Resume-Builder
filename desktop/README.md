@@ -1,4 +1,8 @@
-# Project Edition 1.6.3
+# Project Edition 1.6.5
+
+JD overall and specialty experience now take priority over higher or lower source-resume totals. Only missing JD durations fall back to source experience, then 9+ overall if neither states a total. Existing saved drafts and edits are preserved. See [JD experience correction](JD_EXPERIENCE_RESULTS.md).
+
+New generations select three projects for JDs below eight overall years or without a stated overall total, five for eight to below twelve, and six for twelve or more. Each retains five technical and two functional responsibilities. Planning is batched, summaries cover all completed projects, and the HTML report compares edited project count with the saved generation target. Interrupted work is stored separately under the application's `drafts/incomplete-<generation-id>.json`, without replacing the last saved resume. Five minutes is a measured target, not a release guarantee. See [project count verification](PROJECT_COUNTS_RESULTS.md).
 
 Workspace cleanup: obsolete local builds and rollback installers were removed at the user's request on 29 October 2026. The current app, installer, selected model, source and update tools remain. See [workspace maintenance](../docs/WORKSPACE_MAINTENANCE.md); historical rollback paths below no longer apply.
 
@@ -17,7 +21,7 @@ The following sections also document the original desktop edition and historical
 
 # Resume Optimizer Desktop (Windows x64)
 
-For the current **Project Edition 1.6.3**, follow
+For the current **Project Edition 1.6.5**, follow
 [installation](../docs/DESKTOP_INSTALLATION.md) and
 [requirements](../docs/DESKTOP_REQUIREMENTS.md). Its entrypoint is
 `desktop/project_main.py` and installer is `ResumeOptimizerProjectsSetup.exe`.

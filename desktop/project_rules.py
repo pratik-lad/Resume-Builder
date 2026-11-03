@@ -7,7 +7,7 @@ from functools import lru_cache
 from html import escape
 from matching import normalizer, technology_catalog
 
-VERSION = "projects-quality-13"
+VERSION = "projects-quality-15"
 SOURCES = [{"rule": "Unity Catalog cluster runtime", "reviewed": "2026-10-16",
             "url": "https://docs.databricks.com/aws/en/data-governance/unity-catalog/requirements"},
            {"rule":"Neptune vector indexing requires an explicit engine/index design","reviewed":"2026-10-16",
@@ -443,7 +443,10 @@ def report(document):
                                next((s['text'].splitlines()[1] for s in sections if s['key']=='header' and len(s['text'].splitlines())>1),''),
                                document.get('experience_years',9), career_text=text)
     names=[line[5:] for line in text.splitlines() if line.startswith('#### ')]
-    checks={'distinct_project_titles':len(names)==3 and len(set(n.casefold() for n in names))==3,
+    from desktop.project_policy import expected_count
+    expected=expected_count(document)
+    checks={'expected_project_count':len(names)==expected,
+            'distinct_project_titles':len(names)==expected and len(set(n.casefold() for n in names))==expected,
             'expected_bullets_per_project':bool(names) and all(sum(p==name for p,_ in passages)==(7 if document.get('template_version') else 6) for name in names),
             'no_additional_capabilities':'additional capabilities' not in all_text.casefold()}
     assessed={c['label'] for c in items}
@@ -453,7 +456,11 @@ def report(document):
     for row in named_rows(coverage_brief):
         missing_in_skills.extend(t for t in row['terms'] if not present(skills_text,t))
     review_text='\n'.join(s['text'] for s in sections if s['key'] in {'skills','projects'})
-    return {"version": VERSION, "capabilities": items, "warnings": findings(review_text, jd),
+    count_warnings=list(document.get('project_count_policy',{}).get('warnings',[]))
+    if len(names)!=expected:
+        count_warnings.append(f'Project count differs from the saved generation target: expected {expected}, found {len(names)} in edited text.')
+    return {"version": VERSION, "capabilities": items, "warnings": findings(review_text, jd)+count_warnings,
+            'project_count':{'expected':expected,'actual':len(names),'policy':document.get('project_count_policy')},
             'skills_review':list(dict.fromkeys(missing_in_skills)),
             'skill_coverage_version':'explicit-skills-1',
             'experience':review_experience(document),
@@ -507,7 +514,14 @@ def report_html(result):
     metadata = result.get('profile_generation',{})
     credential_html += '<p>Summary generation: '+escape(', '.join(metadata.get('summary_methods',[])) or 'Legacy / edited document')+'.</p>'
     missing_skills=''.join('<li>'+escape(value)+'</li>' for value in result.get('skills_review',[]))
-    return (credential_html+experience_html+'<h2>Mandatory and preferred coverage</h2><p>Keyword presence and project implementation evidence are separate. '
+    project_count=result.get('project_count',{})
+    count_html=''
+    if project_count:
+        policy=project_count.get('policy') or {}
+        reason=('JD overall experience: '+str(policy['jd_overall_years'])+'+ years.' if policy.get('jd_overall_years') is not None else
+                'No overall JD experience total was stated; standard tier.' if policy else 'Existing saved project count.')
+        count_html='<h2>Project count review</h2><p>'+escape(str(project_count['actual'])+' projects in edited text; '+str(project_count['expected'])+' planned. '+reason)+'</p>'
+    return (credential_html+experience_html+count_html+'<h2>Mandatory and preferred coverage</h2><p>Keyword presence and project implementation evidence are separate. '
             'Counts are local heuristics, not an external ATS score. A 95% target is not a measured guarantee.</p>'
             '<table><tr><th>Priority</th><th>Keyword presence</th><th>Technical Skills presence</th><th>Capability evidence</th><th>Missing keywords</th></tr>'+''.join(coverage)+'</table>'
             '<h2>Named JD terms missing from Technical Skills</h2><p>Includes mandatory, preferred and named example tools; implementation alternatives are evaluated separately.</p><ul>'+missing_skills+'</ul><h2>Capability implementation review</h2><p>' + escape(result["scope"]) + '</p><table><tr><th>Priority</th><th>Capability</th><th>Status</th><th>Evidence passages</th><th>Remaining facets</th></tr>' + ''.join(rows) + '</table><h2>Requirements needing manual review</h2><p>These qualifications, logistics or unmapped requirements are not counted as automatically satisfied.</p><ul>'+unassessed+'</ul><h2>Technical review</h2><ul>' + ''.join('<li>'+escape(w)+'</li>' for w in result["warnings"]) + '</ul><h2>Profile and presentation review</h2><ul>'+checks+''.join('<li>'+escape(w)+'</li>' for w in result.get('profile_warnings',[]))+'</ul><h3>Offline rule references</h3><ul>'+sources+'</ul>')

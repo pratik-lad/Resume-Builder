@@ -3,10 +3,12 @@ from __future__ import annotations
 import json
 import re
 import time
+import copy
 from difflib import SequenceMatcher
 from desktop.generation import Writer, read_source, fields, prose, responsibilities
 from desktop.quality import without_dates
 from desktop.project_experience import experience_profile
+from desktop.project_policy import select as project_policy
 from desktop import project_rules as rules
 from desktop import job_brief as briefs
 from desktop.certifications import select as select_certifications
@@ -29,6 +31,16 @@ def object_schema(keys):
             "required":list(keys), "additionalProperties":False}
 
 def generate(payload, runtime, progress):
+    checkpoint = {}
+    try:
+        return _generate(payload, runtime, progress, checkpoint)
+    except Exception as error:
+        if checkpoint.get('path'):
+            raise ValueError(str(error) + ' Incomplete generation saved separately at ' + checkpoint['path']) from error
+        raise
+
+
+def _generate(payload, runtime, progress, checkpoint):
     started = time.perf_counter()
     jd = payload.get("jd", "").strip()
     if not jd or len(jd)>100000:
@@ -38,6 +50,9 @@ def generate(payload, runtime, progress):
     job_brief = briefs.build(jd, source.raw_text, target_role(jd, 'Professional'))
     experience = job_brief['experience']
     years = experience['overall_years']
+    policy = project_policy(jd)
+    project_count = policy['project_count']
+    generation_warnings = list(policy['warnings'])
     runtime.start(False,progress)
     writer = Writer(runtime,jd,progress,project_edition=True)
     writer.system = SYSTEM + "\nGeneration revision: " + rules.VERSION + f"\nCareer experience: {years}+ years overall. Specialty durations are separate and must not be replaced with the overall total. Experience profile: " + json.dumps(experience)
@@ -55,8 +70,8 @@ def generate(payload, runtime, progress):
         role_schema['required'].append('requirement_ids')
     def plan_check(v):
         result = fields(v,["headline"])
-        if not isinstance(v.get("roles"),list) or len(v["roles"])!=3:
-            raise ValueError("Provide three distinct roles and project outlines.")
+        if not isinstance(v.get("roles"),list) or len(v["roles"])!=batch_size:
+            raise ValueError(f"Provide exactly {batch_size} distinct roles and project outlines for this batch.")
         result["roles"] = [fields(r,plan_keys) for r in v["roles"]]
         for role, raw in zip(result['roles'], v['roles']):
             role['requirement_ids'] = raw.get('requirement_ids', [])
@@ -66,12 +81,6 @@ def generate(payload, runtime, progress):
                 candidate=role['capabilities'].strip(' .;')
                 value=candidate if len(candidate.split())<=16 and not re.search(r'\d',candidate) else role['project_name']+' delivery'
             role['contribution']=value
-        used=set()
-        for i,role in enumerate(result["roles"]):
-            if "confident" in role["employer"].lower() or role["employer"].lower() in used:
-                role["employer"]=next(n for n in ["Meridian Cloud Systems","Cedarbridge Technologies","Westhaven Digital"] if n.lower() not in used)
-            used.add(role["employer"].lower())
-            role["role_id"]=f"role_{i+1}"
         return result
     focus = ' Use only the JD platform and concepts; do not force a web, data-pipeline or AI architecture into unrelated roles. Assign requirement_ids from the shared JD brief to the project that implements them. Cover mandatory requirements first. Give each employer a distinct business problem, operating constraint, architecture choice and personally owned delivery. Explain a cross-cloud boundary when multiple providers are used. Do not copy recruiter pay, shift or onboarding milestones as career history.'
     if rules.is_full_stack(jd):
@@ -80,20 +89,41 @@ def generate(payload, runtime, progress):
         focus += ' Divide ownership by function: role 1 client discovery and evaluation design (decision metrics, labeled fixtures, executive acceptance and commercial trade-offs); role 2 labeling operations (annotation interface, sampling, quality controls and adjudication); role 3 synthetic data or AI solution prototype, integration, deployment and reusable handover. Give each a different domain and avoid three training pipelines. Knowledge of fine-tuning methods supports data strategy; hands-on model training appears only when assigned as a suitable preferred project requirement.'
     elif re.search(r'(?i)vulnerability.management',jd) and re.search(r'(?i)service.mesh|policy.as.code',jd):
         focus += ' Divide ownership by function: role 1 vulnerability management and supply-chain remediation with SLAs; role 2 multi-cloud identity, logging, infrastructure reviews and access governance; role 3 Kubernetes service mesh and admission policy with owned security design reviews. Keep cloud account configuration checks separate from cluster admission controls and code analysis separate from image scanning.'
-    plan_task = "Plan exactly 3 fictional roles newest first. Return headline and roles with fields " + ', '.join(plan_keys) + " plus requirement_ids. Keep every field in its lane: headline is the concise target job title; title is a concise employment job title; project_name is only the project title; problem states business problem and constraint; contribution is a 4-12 word noun phrase; capabilities name the owned architecture decision. Never place project prose in a title field. Distinct employers and business problems. Each role under 65 words. Contribution MUST be a noun phrase, never a past-tense achievement. No metrics or numbers except experience. Use compatible stacks. " + focus
-    planning_batches = writer.batches(briefs.planning_text(job_brief).splitlines(), plan_task)
-    writer.jd = planning_batches[0]
-    plan = writer.ask(plan_task, plan_check, 'planning', response_schema=schema)
-    for number, batch in enumerate(planning_batches[1:], 2):
-        writer.jd = batch
-        plan = writer.ask(plan_task + ' Incorporate this next requirement batch while preserving these three distinct business scopes: ' + json.dumps(plan),
-                          plan_check, f'planning_batch_{number}', response_schema=schema)
+    plan = {'headline': job_brief['target_role'], 'roles': []}
+    group_sizes = [3] if project_count == 3 else [3, project_count - 3]
+    for group_index, batch_size in enumerate(group_sizes):
+        writer.reserve_calls = len(group_sizes)-group_index-1 + 2*project_count + 4
+        batch_schema = copy.deepcopy(schema)
+        batch_schema['properties']['roles'].update(minItems=batch_size, maxItems=batch_size)
+        plan_task = f"Plan exactly {batch_size} fictional roles newest first. Return headline and roles with fields " + ', '.join(plan_keys) + " plus requirement_ids. Keep every field in its lane: headline is the concise target job title; title is a concise employment job title; project_name is only the project title; problem states business problem and constraint; contribution is a 4-12 word noun phrase; capabilities name the owned architecture decision. Never place project prose in a title field. Distinct employers and business problems. Each role under 65 words. Contribution MUST be a noun phrase, never a past-tense achievement. No metrics or numbers except experience. Use compatible stacks. " + focus
+        if plan['roles']:
+            prior = [{k:r[k] for k in ('project_name','problem','contribution','stack')} for r in plan['roles']]
+            plan_task += f' This is the remaining {batch_size} projects of {project_count}, not replacements. Earlier projects: '+json.dumps(prior)+'. Choose different JD-relevant business problems and ownership slices; do not repeat roles 1-3 from the domain examples.'
+        planning_batches = writer.batches(briefs.planning_text(job_brief).splitlines(), plan_task)
+        writer.jd = planning_batches[0]
+        stage = 'planning' if not group_index else 'planning_extension'
+        part = writer.ask(plan_task, plan_check, stage, response_schema=batch_schema)
+        for number, batch in enumerate(planning_batches[1:], 2):
+            if writer.calls + 1 + writer.reserve_calls >= 27:
+                generation_warnings.append('Additional planner context retained in the requirement ledger and assigned to project writing; planner expansion reached the request reserve.')
+                break
+            writer.jd = batch
+            part = writer.ask(plan_task + ' Incorporate this next requirement batch while preserving these business scopes: '+json.dumps(part),
+                              plan_check, f'{stage}_batch_{number}', response_schema=batch_schema)
+        plan['roles'].extend(part['roles'])
+        if not group_index:
+            plan['headline'] = part['headline']
+    used_employers = set()
+    for i, role in enumerate(plan['roles']):
+        if 'confident' in role['employer'].casefold() or role['employer'].casefold() in used_employers:
+            role['employer'] = f'Internal Career Organization {i+1}'
+        used_employers.add(role['employer'].casefold())
+        role['role_id'] = f'role_{i+1}'
     plan['headline']=target_role(jd,plan['headline'])
     if plan['headline'] == 'Professional':
         plan['headline'] = next((role['title'] for role in plan['roles'] if is_role_title(role['title'])), plan['headline'])
     job_brief['target_role'] = plan['headline']
     plan['roles']=briefs.assign(job_brief,plan['roles'])
-    generation_warnings=[]
     if (re.search(r'(?i)data.label(?:l)?ing',jd) and re.search(r'(?i)evaluation',jd)
             and all(re.search(r'(?i)label|annotat',r['project_name']) for r in plan['roles'][:2])
             and re.search(r'(?i)evaluat|benchmark|metric',plan['roles'][0]['capabilities'])):
@@ -120,9 +150,34 @@ def generate(payload, runtime, progress):
         if title.casefold() in used:
             title=" ".join(role["problem"].strip(" .").split()[:7]).title()
         if title.casefold() in used:
-            title+=" - "+["Architecture","Integration","Engineering"][i]
+            base=title
+            suffixes=['Architecture','Integration','Engineering','Operations','Modernization','Delivery']
+            title += ' - ' + suffixes[i % len(suffixes)]
+            number=2
+            while title.casefold() in used:
+                title=base+' - '+suffixes[i % len(suffixes)]+' '+str(number);number+=1
         role["project_name"]=title;used.add(title.casefold())
     projects=[]
+    from desktop.storage import atomic_json
+    from desktop.bootstrap import DATA
+    def save_progress():
+        if getattr(runtime, 'client', None) is None:
+            return  # In-memory test runtimes do not write to the user's profile.
+        from desktop.project_document import assemble
+        partial = {'sections': [
+            {'key':'header','title':'Contact','text':'\n'.join([name,plan['headline'],*contacts])},
+            {'key':'summary','title':'Professional Summary','text':''},
+            {'key':'skills','title':'Technical Skills','text':''},
+            {'key':'education','title':'Education','text':without_dates(education)}],
+            'roles':plan['roles'][:len(projects)], 'projects':copy.deepcopy(projects), 'jd':jd,
+            'source':source.raw_text, 'mode':'demo', 'edition':'projects', 'template_version':'reference-2',
+            'client_label_version':'company-confidential-2', 'date_policy':'all-calendars',
+            'project_count_policy':policy, 'generation_status':'incomplete', 'generation_id':writer.generation_id,
+            'experience_years':years, 'experience_profile':experience, 'job_brief':job_brief}
+        path = DATA/'drafts'/('incomplete-'+writer.generation_id+'.json')
+        atomic_json(path, {'document':assemble(partial), 'completed_projects':len(projects), 'expected_projects':project_count})
+        checkpoint['path']=str(path)
+    save_progress()
     def project_system(role):
         system=base_system
         labels={c['label'] for c in role['assigned_capabilities']}
@@ -150,6 +205,8 @@ def generate(payload, runtime, progress):
                           for c in role['assigned_capabilities'] if not c.get('requirement_id'))
         return briefs.scope_text(job_brief, role, slots) + '\nImplementation details:\n' + scope
     for i, role in enumerate(plan['roles']):
+        writer.reserve_calls = 2*(project_count-i-1)+5
+        progress('project', f'Project {i+1} of {project_count}: writing overview and implementation')
         writer.system = project_system(role)
         context = json.dumps({k:role[k] for k in ('project_name','problem','contribution','capabilities','stack')})
         first_keys = ['platform','team_size','description','data_flow','implementation','integration']
@@ -182,10 +239,15 @@ def generate(payload, runtime, progress):
             'Use assigned JD mechanisms, no unrelated optional tools, recruiter salary, shift or onboarding schedule. Under 205 words total. Contract: ' + context + '. Completed work: ' + json.dumps(first['initial']))
         second_batches = writer.batches(scoped_jd(role, {3,4,5,6}).splitlines(), second_task, reserve=180)
         writer.jd = second_batches[0]
+        writer.reserve_calls = 2*(project_count-i-1)+4
+        progress('project', f'Project {i+1} of {project_count}: writing security, evaluation and ownership')
         second = writer.ask(second_task, lambda v: responsibilities({'bullets':list(fields(v,second_keys).values())},4),
                             f'project_{i+1}_delivery', response_schema=object_schema(second_keys))
         bullets = first['initial'] + second
         for batch_number, batch in enumerate(dict.fromkeys(batches[1:] + second_batches[1:]), 1):
+            if writer.calls+1+writer.reserve_calls>=27:
+                generation_warnings.append(meta['name']+': additional requirements remain in the ledger; available project-evidence gaps are reported.')
+                break
             writer.jd = batch
             try:
                 bullets = writer.ask('Integrate these additional owned requirements into the current project. Return exactly 7 bullets: five technical, then two functional. '
@@ -200,6 +262,7 @@ def generate(payload, runtime, progress):
         for key,value in list(meta.items()):
             if isinstance(value,str): meta[key]=rules.normalize(without_dates(value),jd)
         projects.append(meta)
+        save_progress()
     writer.jd=original_model_jd
     writer.system=base_system
     certification_selection = select_certifications(jd,writer.seed,job_brief['requirements'])
@@ -217,11 +280,16 @@ def generate(payload, runtime, progress):
               "mode":"demo","generation":"complete-ai","warnings":list(source.warnings)+generation_warnings,
               "template_version":"reference-2", "ledger_version":"requirements-3", "skill_coverage_version":"explicit-skills-1", "client_label_version":"company-confidential-2", "date_policy":"all-calendars", "profile_version":PROFILE_VERSION, "experience_years":years, "experience_profile":experience,
               "generation_id":writer.generation_id, "generation_seed":writer.seed,
+              "project_count_policy":policy, "generation_status":"complete",
               "job_brief":job_brief, "certification_selection":certification_selection,
               "planning":{"version":rules.VERSION,"roles":plan["roles"],"requirements":job_brief['requirements']},"quality_version":rules.VERSION}
     quality_calls=0
     attempted_roles=set()
     for _ in range(2):
+        writer.reserve_calls = 4
+        if writer.calls+1+writer.reserve_calls>=27:
+            document['warnings'].append('Quality repair skipped to reserve required summary and skills calls.')
+            break
         document=assemble(document)
         review=rules.report(document)
         candidates=[]
@@ -287,5 +355,8 @@ def generate(payload, runtime, progress):
     document["quality"]=rules.report(document)
     from desktop.requirement_ledger import report as ledger_report
     document["requirement_evidence"] = ledger_report(document)
+    if checkpoint.get('path'):
+        from pathlib import Path
+        atomic_json(Path(checkpoint['path']), {'document':document, 'completed_projects':len(projects), 'expected_projects':project_count})
     progress("ready","Resume complete; remaining review items are in the HTML report")
     return document

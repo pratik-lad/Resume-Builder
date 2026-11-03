@@ -83,7 +83,7 @@ See `desktop/GENERAL_QUALITY_RESULTS.md` for measured results and release gates.
 
 # Version 1.3.0 full-stack quality update
 
-Project Edition keeps overall and specialty experience separate, taking the higher explicit source/JD total. Full-stack planning assigns frontend/backend, requested GenAI, and production delivery ownership. HTML reports re-evaluate edited duration claims and implementation passages. The 2.3 GB startup gate was removed in 1.2.1; the 4 GiB runtime cap remains. Model/runtime and fully fictional generation are unchanged. See `desktop/FULL_STACK_RESULTS.md` for current results; older sections below describe historical releases.
+Project Edition keeps overall and specialty experience separate, prioritizing explicit JD durations over the source resume (source/default fallback only when the JD duration is missing). Full-stack planning assigns frontend/backend, requested GenAI, and production delivery ownership. HTML reports re-evaluate edited duration claims and implementation passages. The 2.3 GB startup gate was removed in 1.2.1; the 4 GiB runtime cap remains. Model/runtime and fully fictional generation are unchanged. See `desktop/FULL_STACK_RESULTS.md` for current results; older sections below describe historical releases.
 
 # Offline Windows Resume Builder
 ## How Project Edition works
