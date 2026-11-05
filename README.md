@@ -1,8 +1,8 @@
 # AI-Powered Resume Builder - Windows Desktop Application
 
-This branch contains **Resume Optimizer Project Edition 1.6.5**, an offline Windows 11 x64 application using PySide6 and a local Qwen3-4B-Instruct-2507 Q4_K_M model through llama.cpp. The model and build artifacts are downloaded or built separately; see the [installation and build guide](docs/DESKTOP_INSTALLATION.md).
+This branch contains **Resume Optimizer Project Edition 1.6.6**, an offline Windows 11 x64 application using PySide6 and a local Qwen3-4B-Instruct-2507 Q4_K_M model through llama.cpp. The model and build artifacts are downloaded or built separately; see the [installation and build guide](docs/DESKTOP_INSTALLATION.md).
 
-JD experience now takes priority over the source resume; source/default values are used only for durations missing from the JD. Saved drafts are not rewritten. See [the 1.6.5 correction and checks](desktop/JD_EXPERIENCE_RESULTS.md).
+JD experience now takes priority over the source resume; source/default values are used only for durations missing from the JD. Saved drafts are not rewritten. See [the 1.6.6 correction and checks](desktop/PROJECT_COUNT_CONSISTENCY_RESULTS.md).
 
 ## Start here
 

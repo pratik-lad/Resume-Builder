@@ -1,0 +1,6 @@
+Job Title: Senior Data Engineer
+**Experience required:**
+12+ Years
+Required: SQL Server, SSIS, Azure Data Factory, Azure Databricks and Power BI.
+Design reliable ingestion, incremental transformations and governed analytics datasets.
+Implement schema validation, orchestration recovery, scoped access and query performance checks.

@@ -36,6 +36,7 @@ class Window(QMainWindow):
         self.setWindowTitle(APP_LABEL)
         self.resize(1180, 790)
         self.document = None
+        self.document_resume = ''
         self.revision = 0
         self.loading = False
         self.draft_id = uuid.uuid4().hex
@@ -160,15 +161,21 @@ class Window(QMainWindow):
         saved = load_draft(DATA / "last-draft.json")
         if saved:
             self.draft_id = saved.get("draft_id", self.draft_id)
-            self.resume.setText(saved.get("resume", ""))
-            self.jd.setPlainText(saved["document"].get("jd", ""))
+            self.document_resume = saved.get('resume', '')
+            inputs = saved.get('form_inputs', {})
+            self.resume.setText(inputs.get('resume', saved.get("resume", "")))
+            self.jd.setPlainText(inputs.get('jd', saved['document'].get('comparison_jd', saved["document"].get("jd", ""))))
             self.set_document(saved["document"])
-            self.status.setText("Restored your saved draft. Exports include your current edits.")
+            from desktop.jd_binding import comparison_note
+            note = comparison_note(self.document) if self.document.get('edition')=='projects' else ''
+            self.status.setText("Restored your saved draft. "+(note or 'Exports include your current edits.'))
 
     def choose_resume(self):
         path, _ = QFileDialog.getOpenFileName(self, "Choose resume", "", "Resumes (*.pdf *.docx)")
         if path:
             self.resume.setText(path)
+            if self.document:
+                self.save_timer.start(500)
 
     def generate_draft(self):
         if not self.resume.text() or not self.jd.toPlainText().strip():
@@ -204,6 +211,9 @@ class Window(QMainWindow):
         document.update(cleaned)
         self.loading = True
         self.document = document
+        if document.get('edition')=='projects':
+            self.document_resume = document.get('generation_context',{}).get('resume_path', self.document_resume or self.resume.text())
+            self.update_comparison()
         self.section_documents = {}
         self.sections.clear()
         for section in document["sections"]:
@@ -241,10 +251,23 @@ class Window(QMainWindow):
 
     def input_changed(self):
         if self.document and not self.loading:
-            self.document["jd"] = self.jd.toPlainText()
+            if self.document.get('edition')=='projects':
+                self.update_comparison()
+                from desktop.jd_binding import comparison_note
+                note = comparison_note(self.document)
+                if note:self.status.setText(note)
+            else:
+                self.document["jd"] = self.jd.toPlainText()
             self.revision += 1
             self.save_timer.start(500)
             self.preview_timer.start(100)
+
+    def update_comparison(self):
+        current = self.jd.toPlainText().strip()
+        if current and current != self.document.get('jd','').strip():
+            self.document['comparison_jd'] = current
+        else:
+            self.document.pop('comparison_jd', None)
 
     def refresh_preview(self):
         if not self.document:
@@ -265,7 +288,8 @@ class Window(QMainWindow):
 
     def autosave(self):
         if self.document:
-            snapshot = {"draft_id": self.draft_id, "resume": self.resume.text(), "document": self.document}
+            snapshot = {"draft_id": self.draft_id, "resume": self.document_resume or self.resume.text(), "document": self.document,
+                        'form_inputs':{'resume':self.resume.text(), 'jd':self.jd.toPlainText()}}
             try:
                 atomic_json(DATA / "drafts" / (self.draft_id + ".json"), snapshot)
                 atomic_json(DATA / "last-draft.json", snapshot)
@@ -288,9 +312,16 @@ class Window(QMainWindow):
             self.progress.setValue(1)
             result = event["result"]
             if event["kind"] == "draft":
+                context = result.get('generation_context',{})
+                if context and event.get('job_id') and context.get('job_id')!=event['job_id']:
+                    self.status.setText('Ignored a result belonging to another generation job. Your saved draft is preserved.')
+                    return
+                self.autosave()
                 self.draft_id = uuid.uuid4().hex
                 self.set_document(result)
-                self.status.setText(f"Resume ready in {event['seconds']:.1f}s. Review, edit or save your resume.")
+                from desktop.jd_binding import comparison_note
+                note = comparison_note(self.document) if self.document.get('edition')=='projects' else ''
+                self.status.setText(f"Resume ready in {event['seconds']:.1f}s. "+(note or 'Review, edit or save your resume.'))
             elif event["kind"] == "export":
                 try:
                     path = Path(result["destination"])

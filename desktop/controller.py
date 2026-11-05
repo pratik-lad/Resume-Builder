@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import copy
 import os
 import subprocess
 import threading
@@ -33,7 +34,7 @@ class JobController(QObject):
         self.sampling = False
 
     def submit(self, kind, payload, revision=0):
-        job = {"job_id": uuid.uuid4().hex, "kind": kind, "payload": payload, "revision": revision}
+        job = {"job_id": uuid.uuid4().hex, "kind": kind, "payload": copy.deepcopy(payload), "revision": revision}
         if self.active:
             if self.waiting:
                 self.event.emit({"status": "error", "message": "One job is running and one is waiting. Wait or cancel first."})

@@ -70,7 +70,11 @@ def html(document, include_jd=False):
                     body.append('<'+tag+'>'+rich(value)+'</'+tag+'>')
         body.append('</section>')
     if include_jd:
-        body.append('<h2>Original job description</h2><pre>'+escape(document.get('jd',''))+'</pre>')
+        if document.get('_jd_binding',{}).get('comparison'):
+            body.append('<h2>Submitted generation job description</h2><pre>'+escape(document.get('_generation_jd',''))+'</pre>')
+            body.append('<h2>Comparison job description</h2><pre>'+escape(document.get('jd',''))+'</pre>')
+        else:
+            body.append('<h2>Original job description</h2><pre>'+escape(document.get('jd',''))+'</pre>')
     css = ('body{max-width:850px;margin:24px auto;padding:0 18px;font:15px/1.25 "Times New Roman",serif;color:#172b3a}'
            'h1{text-align:center;color:#315c91;font-size:24px}h2{background:#c6d9ee;padding:7px;font-size:18px;page-break-after:avoid}'
            'h3,h4,h5{margin:12px 0 5px;page-break-after:avoid}h5{font-size:15px}p{margin:5px 0}'

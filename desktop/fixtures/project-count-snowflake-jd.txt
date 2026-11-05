@@ -1,0 +1,6 @@
+Job Title: Senior Snowflake / dbt Data Engineer
+**Experience:** 8+ Years
+Required: Snowflake, dbt, SQL, Python and Fivetran.
+Build incremental ELT pipelines with schema contracts, dbt tests and controlled production releases.
+Apply role-based access, lineage, query profiling and operational monitoring.
+At least 6 years of hands-on experience with Snowflake.

@@ -1,4 +1,6 @@
-# Project Edition 1.6.5
+# Project Edition 1.6.6
+
+Formatted experience headers and minimum/required wording now use the same JD decision as planning and the summary. Submitted JDs and project targets remain attached to their jobs; later pasted JDs are separate comparisons. Pending inputs survive restart without relabelling saved resumes. See [verification](PROJECT_COUNT_CONSISTENCY_RESULTS.md).
 
 JD overall and specialty experience now take priority over higher or lower source-resume totals. Only missing JD durations fall back to source experience, then 9+ overall if neither states a total. Existing saved drafts and edits are preserved. See [JD experience correction](JD_EXPERIENCE_RESULTS.md).
 
@@ -21,7 +23,7 @@ The following sections also document the original desktop edition and historical
 
 # Resume Optimizer Desktop (Windows x64)
 
-For the current **Project Edition 1.6.5**, follow
+For the current **Project Edition 1.6.6**, follow
 [installation](../docs/DESKTOP_INSTALLATION.md) and
 [requirements](../docs/DESKTOP_REQUIREMENTS.md). Its entrypoint is
 `desktop/project_main.py` and installer is `ResumeOptimizerProjectsSetup.exe`.

@@ -5,8 +5,9 @@ Reported durations are claims in the edited resume, never verified employment.
 from __future__ import annotations
 
 import re
+import unicodedata
 
-VERSION = "experience-5"
+VERSION = "experience-6"
 YEARS = re.compile(r"(?i)(?<![\w.])(\d{1,2}(?:\.\d+)?)(?:\s*\+|\s*(?:[-–—]|to)\s*\d{1,2}(?:\.\d+)?)?\s*(?:years?|yrs?|YOE)\b")
 SPECIALTIES = [
     ("full-stack development", r"full[\s-]*stack"),
@@ -62,41 +63,86 @@ def durations(text):
     return result
 
 
-def jd_durations(text):
-    """Qualified JD durations; recruiter schedules never select a career tier."""
-    result = []
-    for original in text.splitlines():
-        line = original.strip(' \t-*•')
+def jd_analysis(text):
+    """Parse a normalized view only; retain raw JD passages and scope."""
+    def clean(value):
+        value = unicodedata.normalize('NFKC', value)
+        value = re.sub(r'[\u2010-\u2015\u2212]', '-', value)
+        value = re.sub(r'\*\*|__|`', '', value)
+        return re.sub(r'\s+', ' ', value).strip(' \t-*#\u2022\u25cf')
+    label = re.compile(r'(?i)^(?:(?:minimum|required|total|overall|professional|relevant)\s+)*(?:experience|exp\.?|YOE)(?:\s+(?:required|minimum|total|overall))?\s*[:=-]?\s*(?:(?:at least|a minimum of|minimum of|minimum|min\.?|required)\s+)*')
+    modifier = r'(?:(?:hands[ -]on|relevant|professional|overall|total|industry|working|work|practical|demonstrable|IT)\s+)'
+    originals = text.splitlines()
+    rows, warnings = [], []
+    index = 0
+    while index < len(originals):
+        original = originals[index]; line = clean(original); index += 1
         if re.match(r'(?i)^(?:project duration|contract(?: duration)?|engagement|notice|retention|salary|budget|timezone|work timings?|weeks?\s*\d|months?\s*\d)\b', line):
             continue
-        line = re.sub(r'(?i)\b(years?|yrs?)\s+(overall|total)\b', r'\1 of \2 experience', line)
-        bare = re.match(r'(?i)^((?:(?:overall|total|professional)\s+)?(?:experience|exp\.?)\s*[:=-]\s*)(\d{1,2}(?:\.\d+)?(?:\s*(?:[-–—]|to)\s*\d{1,2}(?:\.\d+)?)?\s*\+?)(?![\d.])(.*)$', line)
-        if bare and not re.match(r'(?i)^\s*(?:years?|yrs?|YOE)\b', bare[3]):
-            line = bare[1] + bare[2] + ' years ' + bare[3]
-        if re.fullmatch(r'(?i)\d{1,2}(?:\.\d+)?\+?\s*(?:years?|yrs?|YOE)', line):
-            line = 'Experience: ' + line
-        for row in durations(line):
-            head = line[max(0, row['start']-60):row['start']]
-            if re.search(r'(?i)(?:up to|less than|under|maximum)\s*$', head):
-                continue
-            # "Python experience: 12 years" is a specialty, not the total.
-            prefix = re.split(r'[,;]', head)[-1]
-            if not row['specialty'] and not re.search(r'(?i)\boverall|\btotal|software (?:development|engineering)', prefix):
-                for label, pattern in SPECIALTIES:
-                    if re.search(r'(?i)(?:' + pattern + r')\s+(?:development\s+)?(?:experience|exp\.?)\s*[:=-]?\s*$', prefix):
-                        row['specialty'] = label
-                        break
-            result.append({**row, 'passage': original.strip()})
-    return result
+        heading = label.match(line)
+        if heading and not line[heading.end():].strip() and index < len(originals):
+            next_line = clean(originals[index])
+            if re.match(r'\d', next_line):
+                original += '\n' + originals[index]; line += ' ' + next_line; index += 1
+                heading = label.match(line)
+        if heading:
+            rest = line[heading.end():]
+            bare = re.fullmatch(r'(\d{1,2}(?:\.\d+)?(?:\s*(?:-|to)\s*\d{1,2}(?:\.\d+)?)?\s*\+?)', rest)
+            if bare:
+                line += ' years'
+        matches = list(YEARS.finditer(line))
+        found = False
+        for n, match in enumerate(matches):
+            value = float(match[1]); years = int(value) if value.is_integer() else value
+            if not 0 < years < 60: continue
+            before = line[:match.start()]
+            if re.search(r'(?i)(?:up to|less than|under|maximum|max)\s*$', before):
+                found = True; continue
+            end = matches[n+1].start() if n+1 < len(matches) else len(line)
+            tail = re.split(r'[;]|\.(?:\s|$)', line[match.end():end], maxsplit=1)[0].strip(' ,')
+            prefix = re.split(r'(?i)[,;]|\b(?:including|and)\b', before)[-1].strip()
+            qualified = tail
+            for _ in range(3):
+                qualified = re.sub(r'(?i)^(?:of|in|with|as|using)\s+', '', qualified)
+                qualified = re.sub(r'(?i)^experience\s*(?:(?:in|with|using|as|of)\s+)?', '', qualified)
+                qualified = re.sub(r'(?i)^'+modifier+'+', '', qualified)
+            overall = bool(re.search(r'(?i)\b(?:overall|total)\b', prefix+' '+tail))
+            specialty = None
+            if not overall:
+                for name, pattern in SPECIALTIES:
+                    if re.match(r'(?i)(?:'+pattern+r')', qualified) or re.search(r'(?i)(?:'+pattern+r')\s+(?:development\s+)?(?:experience|exp\.?)\s*[:=-]?\s*$', prefix):
+                        specialty = name; break
+                scope = re.fullmatch(r'(?i)([\w+#./ -]+?)\s+(?:experience|exp\.?)\s*[:=-]\s*', prefix)
+                if not specialty and scope and not label.match(prefix):
+                    specialty = scope[1].strip()
+                if (not specialty and re.search(r'(?i)experience\s+(?:with|using)\b', tail)
+                        and re.fullmatch(r'[A-Z][\w+#.-]*', qualified)):
+                    specialty = qualified
+            labelled = bool(heading and not before[heading.end():].strip())
+            generic = bool(re.match(r'(?i)^(?:experience\b|(?:software|data|cloud|platform|infrastructure)\s+(?:development|engineering)|(?:delivering|building|leading|designing|developing|managing)\b)', qualified))
+            generic = generic or bool(re.search(r'(?i)\bexperience\b', tail)) or bool(re.search(r'(?i)YOE',match[0]))
+            standalone = not tail and bool(re.fullmatch(r'(?i)(?:(?:minimum|at least|a minimum of|required)\s+)?', prefix))
+            if overall or specialty or labelled or generic or standalone:
+                found = True
+                rows.append({'years':years, 'specialty':specialty, 'passage':original.strip(), 'start':match.start(), 'end':match.end()})
+        numeric_header = heading and re.match(r'\d', line[heading.end():])
+        if not found and (matches or numeric_header) and re.search(r'(?i)\b(?:experience|exp|YOE)\b',line) and re.search(r'\d',line):
+            warnings.append('Unrecognized JD experience wording; review: '+original.strip())
+    return {'rows': rows, 'warnings':list(dict.fromkeys(warnings))}
+
+
+def jd_durations(text):
+    return jd_analysis(text)['rows']
 
 
 def experience_profile(source, jd):
-    source_rows, required_rows = durations(source), jd_durations(jd)
+    analysis = jd_analysis(jd)
+    source_rows, required_rows = durations(source), analysis['rows']
     source_total = max((r['years'] for r in source_rows if not r['specialty']), default=None)
     required_total = max((r['years'] for r in required_rows if not r['specialty']), default=None)
     overall = required_total if required_total is not None else source_total if source_total is not None else 9
     specialties = []
-    warnings = []
+    warnings = list(analysis['warnings'])
     required_totals = sorted({r['years'] for r in required_rows if not r['specialty']})
     if len(required_totals) > 1:
         warnings.append('The JD supplies conflicting overall durations (' + ', '.join(map(str, required_totals)) +
@@ -117,6 +163,7 @@ def experience_profile(source, jd):
     tools = [label for pattern,label in [(r'\bPython\b','Python'),(r'\bReact(?:\.js)?\b','React'),(r'\bSQL\b|\bPostgreSQL\b','SQL/PostgreSQL')] if re.search(pattern,jd,re.I)]
     return {'version':VERSION,'policy':'jd-first-overall-and-specialty',
             'overall_origin':'jd' if required_total is not None else 'source' if source_total is not None else 'default',
+            'jd_requirements':required_rows, 'jd_parse_warnings':analysis['warnings'],
             'overall_years':overall,'source_overall_years':source_total,
             'required_overall_years':required_total,'specialties':specialties,'full_stack_tools':tools,'warnings':warnings}
 

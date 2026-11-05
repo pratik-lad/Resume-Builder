@@ -60,6 +60,8 @@ def run():
                 started = time.perf_counter()
                 kind, payload = request["kind"], request["payload"]
                 if kind == "draft":
+                    if PROJECT_EDITION:
+                        payload = {**payload, '_job_id':request['job_id']}
                     result = generate(payload, runtime, progress)
                 elif kind == "export":
                     result = export(payload, progress)

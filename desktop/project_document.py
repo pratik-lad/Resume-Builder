@@ -13,6 +13,8 @@ COMPANY_LABEL_VERSIONS = {"company-confidential-1", COMPANY_LABEL_VERSION}
 
 
 def report_shell(document):
+    from desktop.jd_binding import assessment_view
+    document = assessment_view(document)
     if document.get("template_version") == "reference-2":
         from desktop.reference_layout import html
         return html(document, include_jd=True)

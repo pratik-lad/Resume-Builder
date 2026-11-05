@@ -1,6 +1,6 @@
 # Desktop application requirements
 
-Applies to Project Edition 1.6.5 on branch `FinalVersion2.0`.
+Applies to Project Edition 1.6.6 on branch `FinalVersion2.0`.
 Mac hosting and Metal acceleration are planned for Phase 2 after quality approval;
 they are not required or included in this Windows quality release.
 

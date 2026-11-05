@@ -1,4 +1,4 @@
-# Project Edition 1.6.5
+# Project Edition 1.6.6
 
 The repository contains source code and build instructions. Installers and downloaded assets are local build outputs and must be built or obtained separately.
 
@@ -7,13 +7,13 @@ regressions and backs up the previous installer before replacing the latest one.
 New versioned metadata does not regenerate existing drafts or overwrite saved edits.
 Full fictional generation remains enabled. Mac hosting is a separate, deferred phase.
 This release bundles Qwen3-4B-Instruct-2507 Q4_K_M in one offline installer.
-See [skill coverage verification](../desktop/SKILL_COMPLETENESS_RESULTS.md) for measured results and remaining quality items. The earlier strict no-slowdown gate failed; generation timing and output quality vary.
+See [1.6.6 verification](../desktop/PROJECT_COUNT_CONSISTENCY_RESULTS.md) for current measured results and remaining quality items. The earlier strict no-slowdown gate failed; generation timing and output quality vary.
 
 # Install or build the Windows desktop application
 
-This guide is for **Resume Optimizer Project Edition 1.6.5** on branch `FinalVersion2.0`.
+This guide is for **Resume Optimizer Project Edition 1.6.6** on branch `FinalVersion2.0`.
 
-New resumes contain three, five or six projects selected from the JD's overall experience. An existing draft is not expanded automatically. When updating an installation under `C:\Games\ResumeOptimizerProjectEdition`, close the app and choose that same folder in the installer. Back up saved data first and keep the previous installer for rollback.
+New resumes contain three, five or six projects selected from the JD's overall experience. An existing draft is not expanded automatically. Close the app and keep its existing installation folder. The current installation is `%LOCALAPPDATA%\Programs\ResumeOptimizerProjectEdition`; its installer is delivered separately under `C:\Games\Resume Builder Application`. Back up saved data first and keep the previous installer for rollback.
 
 ## 1. Install a complete build on another laptop
 

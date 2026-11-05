@@ -1,0 +1,6 @@
+Job Title: Senior Full-Stack Software Engineer
+**Experience:** 10+ Years
+Minimum 10+ years of relevant professional software development experience.
+Required: AWS, .NET Core, C#, React, TypeScript, SQL and Git.
+Build enterprise applications with transactional APIs, authorization and frontend validation.
+Deliver unit and integration tests, deployment gates and monitored rollback.

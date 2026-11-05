@@ -171,6 +171,9 @@ def export(payload, progress):
     from desktop.quality import date_free_document, evidence_report, evidence_html
     from desktop.project_document import sanitize
     document = sanitize(payload["document"])
+    if payload['kind']=='html' and document.get('edition')=='projects':
+        from desktop.jd_binding import assessment_view
+        document = assessment_view(document)
     content = markdown(document["sections"])
     req_set = requirements(document["jd"]) if "jd" in document else RequirementSet(**document["requirements"])
     kind = payload["kind"]
@@ -209,7 +212,8 @@ def export(payload, progress):
                               'Keep quantified project ', 'Summarize the career strength ')
             warnings=[w for w in warnings if not str(w).startswith(profile_prefixes)]
         if warnings:
-            notes = "<h2>Review notes</h2><ul>" + "".join("<li>" + escape(str(note)) + "</li>" for note in warnings) + "</ul>"
+            heading = 'Original generation review notes' if document.get('_jd_binding',{}).get('comparison') else 'Review notes'
+            notes = '<h2>'+heading+'</h2><ul>' + "".join("<li>" + escape(str(note)) + "</li>" for note in warnings) + "</ul>"
             html = html.replace("</body>", notes + "</body>")
         label = "Fictional/demo: may contain invented experience and claims." if document["mode"] == "demo" else "Source-based draft; review any manual edits."
         staging.write_text(html.replace("<body>", f"<body><p><strong>{escape(label)}</strong></p>", 1), encoding="utf-8")

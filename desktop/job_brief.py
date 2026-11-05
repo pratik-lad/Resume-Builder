@@ -4,7 +4,7 @@ from __future__ import annotations
 import copy
 import re
 
-VERSION = "job-brief-6"
+VERSION = "job-brief-7"
 STOP = set("a an the and or of in to for with using on as by from experience skills required preferred strong good knowledge ability hands years development engineering implementation".split())
 
 
@@ -133,8 +133,11 @@ def build(jd, source, headline):
     if overview:
         sentences = re.split(r'(?<=[.!?])\s+',overview[1])
         scope = next((s.strip() for s in sentences if re.search(r'(?i)\b(?:rather than|primary technical|core mission|role is|role sits|focuses on)\b',s)), '')
-    return {'version': VERSION, 'target_role': headline,
-            'experience': experience_profile(source, jd), 'requirements': requirements,
+    from desktop.project_policy import select
+    experience = experience_profile(source, jd)
+    from desktop.jd_binding import fingerprint
+    return {'version': VERSION, 'target_role': headline, 'jd_sha256':fingerprint(jd),
+            'experience': experience, 'project_count_policy':select(jd, experience), 'requirements': requirements,
             'role_context': scope,
             'mandatory_ids': [r['id'] for r in requirements if r['required']],
             'preferred_ids': [r['id'] for r in requirements if not r['required']],

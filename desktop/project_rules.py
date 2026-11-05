@@ -7,7 +7,7 @@ from functools import lru_cache
 from html import escape
 from matching import normalizer, technology_catalog
 
-VERSION = "projects-quality-15"
+VERSION = "projects-quality-16"
 SOURCES = [{"rule": "Unity Catalog cluster runtime", "reviewed": "2026-10-16",
             "url": "https://docs.databricks.com/aws/en/data-governance/unity-catalog/requirements"},
            {"rule":"Neptune vector indexing requires an explicit engine/index design","reviewed":"2026-10-16",
@@ -382,6 +382,8 @@ def facet_display(pattern):
 
 
 def report(document):
+    from desktop.jd_binding import assessment_view
+    document = assessment_view(document)
     sections = document.get("sections", [])
     text = "\n".join(s["text"] for s in sections if s["key"] == "projects")
     passages = []
@@ -456,11 +458,14 @@ def report(document):
     for row in named_rows(coverage_brief):
         missing_in_skills.extend(t for t in row['terms'] if not present(skills_text,t))
     review_text='\n'.join(s['text'] for s in sections if s['key'] in {'skills','projects'})
-    count_warnings=list(document.get('project_count_policy',{}).get('warnings',[]))
+    binding=document.get('_jd_binding',{})
+    count_warnings=list(document.get('project_count_policy',{}).get('warnings',[]))+binding.get('warnings',[])
     if len(names)!=expected:
         count_warnings.append(f'Project count differs from the saved generation target: expected {expected}, found {len(names)} in edited text.')
     return {"version": VERSION, "capabilities": items, "warnings": findings(review_text, jd)+count_warnings,
-            'project_count':{'expected':expected,'actual':len(names),'policy':document.get('project_count_policy')},
+            'project_count':{'expected':expected,'actual':len(names),'policy':document.get('project_count_policy'),
+                             'comparison_policy':binding.get('assessment_project_policy') if binding.get('comparison') else None},
+            'jd_context':binding,
             'skills_review':list(dict.fromkeys(missing_in_skills)),
             'skill_coverage_version':'explicit-skills-1',
             'experience':review_experience(document),
@@ -521,6 +526,10 @@ def report_html(result):
         reason=('JD overall experience: '+str(policy['jd_overall_years'])+'+ years.' if policy.get('jd_overall_years') is not None else
                 'No overall JD experience total was stated; standard tier.' if policy else 'Existing saved project count.')
         count_html='<h2>Project count review</h2><p>'+escape(str(project_count['actual'])+' projects in edited text; '+str(project_count['expected'])+' planned. '+reason)+'</p>'
+    binding=result.get('jd_context',{})
+    if binding.get('comparison'):
+        comparison=project_count.get('comparison_policy') or {}
+        count_html += '<p>Comparison uses a different JD. Generate again to apply its '+escape(str(comparison.get('project_count','unknown')))+'-project target; the saved generation target and edited content are preserved.</p>'
     return (credential_html+experience_html+count_html+'<h2>Mandatory and preferred coverage</h2><p>Keyword presence and project implementation evidence are separate. '
             'Counts are local heuristics, not an external ATS score. A 95% target is not a measured guarantee.</p>'
             '<table><tr><th>Priority</th><th>Keyword presence</th><th>Technical Skills presence</th><th>Capability evidence</th><th>Missing keywords</th></tr>'+''.join(coverage)+'</table>'

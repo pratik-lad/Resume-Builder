@@ -1,0 +1,5 @@
+Job Title: Frontend React Lead
+**Experience:** 8–10 Years
+8–10 years of hands-on frontend engineering experience.
+Required: React, TypeScript, Redux Toolkit, REST API integration and Jest.
+Build accessible enterprise interfaces with component tests, state management and controlled releases.

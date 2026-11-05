@@ -59,6 +59,8 @@ def term_present(text, term):
 
 
 def report(document):
+    from desktop.jd_binding import assessment_view
+    document = assessment_view(document)
     from desktop.job_brief import build, words
     from desktop.quality import contains_skill
     brief = document.get('job_brief') or build(document.get('jd',''), '', '')

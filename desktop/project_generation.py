@@ -50,11 +50,15 @@ def _generate(payload, runtime, progress, checkpoint):
     job_brief = briefs.build(jd, source.raw_text, target_role(jd, 'Professional'))
     experience = job_brief['experience']
     years = experience['overall_years']
-    policy = project_policy(jd)
+    policy = job_brief['project_count_policy']
     project_count = policy['project_count']
     generation_warnings = list(policy['warnings'])
+    label = str(policy['jd_overall_years'])+'+ years' if policy['jd_overall_years'] is not None else 'no overall total stated'
+    progress('project_policy', f'JD experience: {label}; generating {project_count} projects')
     runtime.start(False,progress)
     writer = Writer(runtime,jd,progress,project_edition=True)
+    from desktop.jd_binding import snapshot, validate_completed
+    generation_context = snapshot(payload, jd, policy, writer.generation_id)
     writer.system = SYSTEM + "\nGeneration revision: " + rules.VERSION + f"\nCareer experience: {years}+ years overall. Specialty durations are separate and must not be replaced with the overall total. Experience profile: " + json.dumps(experience)
     base_system=writer.system
     original_model_jd=jd
@@ -172,7 +176,7 @@ def _generate(payload, runtime, progress, checkpoint):
             'roles':plan['roles'][:len(projects)], 'projects':copy.deepcopy(projects), 'jd':jd,
             'source':source.raw_text, 'mode':'demo', 'edition':'projects', 'template_version':'reference-2',
             'client_label_version':'company-confidential-2', 'date_policy':'all-calendars',
-            'project_count_policy':policy, 'generation_status':'incomplete', 'generation_id':writer.generation_id,
+            'project_count_policy':policy, 'generation_context':generation_context, 'generation_status':'incomplete', 'generation_id':writer.generation_id,
             'experience_years':years, 'experience_profile':experience, 'job_brief':job_brief}
         path = DATA/'drafts'/('incomplete-'+writer.generation_id+'.json')
         atomic_json(path, {'document':assemble(partial), 'completed_projects':len(projects), 'expected_projects':project_count})
@@ -280,7 +284,7 @@ def _generate(payload, runtime, progress, checkpoint):
               "mode":"demo","generation":"complete-ai","warnings":list(source.warnings)+generation_warnings,
               "template_version":"reference-2", "ledger_version":"requirements-3", "skill_coverage_version":"explicit-skills-1", "client_label_version":"company-confidential-2", "date_policy":"all-calendars", "profile_version":PROFILE_VERSION, "experience_years":years, "experience_profile":experience,
               "generation_id":writer.generation_id, "generation_seed":writer.seed,
-              "project_count_policy":policy, "generation_status":"complete",
+              "project_count_policy":policy, "generation_context":generation_context, "generation_status":"incomplete",
               "job_brief":job_brief, "certification_selection":certification_selection,
               "planning":{"version":rules.VERSION,"roles":plan["roles"],"requirements":job_brief['requirements']},"quality_version":rules.VERSION}
     quality_calls=0
@@ -355,6 +359,8 @@ def _generate(payload, runtime, progress, checkpoint):
     document["quality"]=rules.report(document)
     from desktop.requirement_ledger import report as ledger_report
     document["requirement_evidence"] = ledger_report(document)
+    validate_completed(document)
+    document['generation_status'] = 'complete'
     if checkpoint.get('path'):
         from pathlib import Path
         atomic_json(Path(checkpoint['path']), {'document':document, 'completed_projects':len(projects), 'expected_projects':project_count})
